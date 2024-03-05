@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     colors: {
       green: "#093B3B",
+      lightGreen:"rgb(25 185 185)"
     },
     fontFamily: {
       sans: ["Poppins", "sans-serif"],
