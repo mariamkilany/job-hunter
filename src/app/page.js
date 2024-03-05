@@ -1,3 +1,4 @@
+
 import Categories from "@/components/landingPage/categories";
 import Hero from "@/components/landingPage/hero";
 import Posting from "@/components/landingPage/posting";
@@ -8,4 +9,5 @@ export default function Home() {
    <Categories></Categories>
    <Posting></Posting>
     </main>;
+
 }
