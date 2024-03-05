@@ -1,0 +1,5 @@
+.heroSection{
+    background: linear-gradient(90deg, rgba(9,59,59,1) 0%, rgba(238,238,238,1) 64%) , url('./../../../public/Images/back.jpg') ;
+    background-blend-mode: multiply;
+    background-size: cover;
+}
