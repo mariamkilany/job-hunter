@@ -1,0 +1,32 @@
+.rectangle-with-cut {
+    position: relative;
+    height: 500px;
+
+    background-color: rgb(25 185 185);
+    overflow: hidden;
+}
+
+.rectangle-with-cut::before,
+.rectangle-with-cut::after {
+    content: '';
+    position: absolute;
+    width: 150px; /* Adjust this value to change the cut size */
+    height: 150px; /* Adjust this value to change the cut size */
+    background-color: white;
+}
+
+.rectangle-with-cut::before {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    -moz-transform: translate(-50%, -50%) rotate(45deg);
+    -ms-transform: translate(-50%, -50%) rotate(45deg);
+    -o-transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.rectangle-with-cut::after {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%) rotate(45deg);
+}

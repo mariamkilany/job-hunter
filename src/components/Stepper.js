@@ -1,3 +1,4 @@
+
 export default function Stepper() {
   return (
     <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base">

@@ -7,6 +7,9 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["Poppins", "sans-serif"],
+    },
     extend: {
       colors: {
         primary: {
@@ -21,22 +24,3 @@ module.exports = {
   variants: {},
   plugins: [],
 };
-// className="bg-primary-light"
-// module.exports = {
-//   theme: {
-//     // colors: {
-//     //   green: "#093B3B",
-//     // },
-//     fontFamily: {
-//       sans: ["Poppins", "sans-serif"],
-//     },
-//     extend: {
-//       backgroundImage: {
-//         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-//         "gradient-conic":
-//           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-//       },
-//     },
-//   },
-//   plugins: [],
-// };
