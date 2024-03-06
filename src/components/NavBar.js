@@ -1,3 +1,3 @@
-export default function NavBar() {
+export function NavBar() {
   return <div>NavBar</div>;
 }
