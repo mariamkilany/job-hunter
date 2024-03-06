@@ -9,10 +9,10 @@ export default function MultiSelect(props) {
     <div>
       <div className="flex flex-wrap gap-2 ">
         {skills.map((skill) => (
-          <div className="bg-primary-500 w-fit flex gap-2 p-2 rounded-md mb-1">
+          <div className="bg-primary-light min-w-16 flex items-center justify-between gap-2 p-2 px-3 rounded-full text-sm mb-1">
             <span className="text-white"> {skill}</span>
             <button
-              className="text-white w-5 h-5 flex justify-center items-center bg-slate-200 rounded"
+              className="text-white w-4 h-4 flex justify-center items-center bg-slate-200 rounded-full"
               onClick={() => {
                 setSkills(skills.filter((e) => e !== skill));
               }}
