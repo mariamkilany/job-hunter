@@ -1,3 +1,4 @@
+import Button from "../Button"
 import "./hero.css"
 export default function Example() {
 
@@ -10,7 +11,7 @@ export default function Example() {
        
           <div className="text-center  ">
             <h1 className="text-4xl font-bold tracking-tight  sm:text-6xl" style={{color:"white"}}>
-            Discover Over <span className="text-lightGreen">
+            Discover Over <span className="text-primary">
             5000+ Resume
             </span>
             </h1>
@@ -20,14 +21,7 @@ export default function Example() {
 
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md  px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                style={{backgroundColor:"rgb(25 185 185)" , color:"white"}}
-               >
-
-                Get started
-              </a>
+              <Button> Get started</Button>
               <a href="#" className="text-sm font-semibold leading-6 " 
                 style={{color:"white"}}
               >
