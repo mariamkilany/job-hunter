@@ -1,8 +1,10 @@
 "use client";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Footer, NavBar } from "@/components/";
+
 import { usePathname } from "next/navigation";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
