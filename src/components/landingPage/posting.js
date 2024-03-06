@@ -17,14 +17,14 @@ const Posting = () => {
                         <a
                 href="#"
                 className="rounded-md  px-3.5 py-2.5  text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                style={{backgroundColor:"white" , color:"#093B3B"}}
+                style={{backgroundColor:"white" , color:"#4640DE"}}
                >
 
                        Sign up now
               </a>
                     </div>
                     <div>
-                        <img src='/Images/posts.png'>
+                        <img src='/Images/posts.png' alt='dashboard Image'>
                         </img>
                     </div>
 
