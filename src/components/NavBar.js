@@ -16,8 +16,7 @@ export default function NavBar() {
       <nav className="bg-white border-gray-200 dark:bg-gray-900 shadow-lg ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
-          
-            className="flex items-center  rtl:space-x-reverse"
+            className="flex items-center rtl:space-x-reverse"
           >
             <img src="/Images/logo.png" alt="Logo" width="100px"  />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -68,6 +67,7 @@ export default function NavBar() {
                 <Link
                   href="/about"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent hover:underline"
+                  aria-current="page"
                 >
                   About Us
                 </Link>

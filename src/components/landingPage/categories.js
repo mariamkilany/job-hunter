@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
 // import intelLogo from "../../../public/Images/logo/intel.png";
 // import facebookLogo from "Images/logo/facebookLogo.png";
 
 const Categories = () => {
+
     return (
         <div className='container py-8 mx-auto' >
             <h2 className='text-3xl font-bold  '>
@@ -41,8 +42,11 @@ const Categories = () => {
                 </div>
             </div>
             
+
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default Categories;
