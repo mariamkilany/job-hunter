@@ -1,8 +1,15 @@
+"use client";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
+import { useRouter } from "next/navigation";
 
 export default function PersonalDetails() {
+  const router = useRouter();
+  const handleNavigate = (e) => {
+    e.preventDefault();
+    router.push("/account_details");
+  };
   return (
     <form className="p-8 my-12">
       <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -74,7 +81,7 @@ export default function PersonalDetails() {
 
       <div className="flex justify-end">
         {" "}
-        <Button type="submit"> Next Step: Account Info</Button>
+        <Button onClick={handleNavigate}>Next Step: Account Info</Button>
       </div>
     </form>
   );
