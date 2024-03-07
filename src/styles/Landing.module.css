@@ -1,4 +1,16 @@
-.rectangle-with-cut {
+.hero_section {
+    background-image: url('/Images/back.png');
+    background-position: center;
+    background-size: cover;
+}
+
+@media (max-width: 1000px) {
+    .hero_section {
+        background-image: none;
+    }
+}
+
+.rectangle_with_cut {
     position: relative;
     height: 500px;
 
@@ -6,16 +18,18 @@
     overflow: hidden;
 }
 
-.rectangle-with-cut::before,
-.rectangle-with-cut::after {
+.rectangle_with_cut::before,
+.rectangle_with_cut::after {
     content: '';
     position: absolute;
-    width: 150px; /* Adjust this value to change the cut size */
-    height: 150px; /* Adjust this value to change the cut size */
+    width: 150px;
+    /* Adjust this value to change the cut size */
+    height: 150px;
+    /* Adjust this value to change the cut size */
     background-color: white;
 }
 
-.rectangle-with-cut::before {
+.rectangle_with_cut::before {
     top: 0;
     left: 0;
     transform: translate(-50%, -50%) rotate(45deg);
@@ -25,7 +39,7 @@
     -o-transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.rectangle-with-cut::after {
+.rectangle_with_cut::after {
     bottom: 0;
     right: 0;
     transform: translate(50%, 50%) rotate(45deg);
