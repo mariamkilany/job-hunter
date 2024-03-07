@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+import Chart from "./Chart";
 
 const Profile = () => {
   return (
@@ -35,7 +37,9 @@ const Profile = () => {
                   </svg>
                 </div>
               </div>
-              <div id="main-chart" />
+              <div id="main-chart">
+                <Chart></Chart>
+              </div>
             </div>
             <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
               <div className="flex items-center justify-between mb-4">
