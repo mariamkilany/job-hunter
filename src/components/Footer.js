@@ -1,24 +1,21 @@
-
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-white rounded-lg shadow dark:bg-gray-900 m-4 shadow-lg">
+    <footer className="bg-white dark:bg-gray-900">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <a
-            href="https://flowbite.com/"
-            className="flex items-center mb-4 sm:mb-0  rtl:space-x-reverse"
-          >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-5">
             <img
               src="/Images/logo.png"
-             width={"100px"}
+              className="w-10 h-10"
               alt="Flowbite Logo"
             />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className=" text-xl font-semibold whitespace-nowrap text-white">
               Job Hunters
             </span>
-          </a>
+          </div>
+
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
               <a href="#" className="hover:underline me-4 md:me-6">
@@ -30,7 +27,7 @@ export default function Footer() {
                 Companies
               </a>
             </li>
-            
+
             <li>
               <Link href="/ContactUs" className="hover:underline me-4 md:me-6">
                 Contact Us

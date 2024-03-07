@@ -23,11 +23,13 @@ export default function RootLayout({ children }) {
     "/experience_details",
     "/dashboard",
     "/dashboard/profile",
+    "/companydashboard",
+    "/userdashboard",
   ];
   const hideNavigation = routesWithoutNavigation.includes(pathname);
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={`${poppins.className} relative`}>
         {!hideNavigation && <NavBar />}
         {children}
         {!hideNavigation && <Footer />}
