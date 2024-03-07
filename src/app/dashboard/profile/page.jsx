@@ -7,8 +7,10 @@ const Page = () => {
   return (
     <>
       <DashboardNav></DashboardNav>
-      <DashboardASide></DashboardASide>
-      <Profile></Profile>
+      <div className="flex pt-16 overflow-hidden bg-white">
+        <DashboardASide></DashboardASide>
+        {/* <Profile></Profile> */}
+      </div>
     </>
   );
 };
