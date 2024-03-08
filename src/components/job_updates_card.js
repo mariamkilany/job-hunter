@@ -4,9 +4,7 @@ const JobUpdatesCard = () => {
   return (
     <>
       <div className="mt-5">
-        <div>
-          <h4 className="text-3xl">Job Updates</h4>
-        </div>
+       
         <div className="w-80 shadow-lg p-10 mt-2">
           <div className="grid sm:grid-cols-2 gap-2 justify-center">
             <img src="/Images/Company Logo.png " width={50} />
