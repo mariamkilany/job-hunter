@@ -10,7 +10,7 @@ const Page = () => {
       <div className="flex pt-16 overflow-hidden bg-white">
         <DashboardASide></DashboardASide>
         <div
-          class="fixed inset-0 z-10 hidden bg-gray-900 opacity-50"
+          className="fixed inset-0 z-10 hidden bg-gray-900 opacity-50"
           id="sidebarBackdrop"
         ></div>
         <Profile></Profile>
