@@ -19,6 +19,7 @@ const HeaderCompany = () => {
               Founded
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
+
               <MapPinIcon className="w-5" />
               Location
             </div>
@@ -28,6 +29,7 @@ const HeaderCompany = () => {
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <BuildingOffice2Icon className="w-5" />
+
               Industries
             </div>
           </div>

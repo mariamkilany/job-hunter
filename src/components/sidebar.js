@@ -60,6 +60,7 @@ const Sidebar = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                     >
+
                     <path stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m-7 7V5">
 </path>
 
@@ -93,8 +94,9 @@ const Sidebar = () => {
                 href="/company_dashboard/company_profile"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-               <BuildingOffice2Icon className="w-5"/>
 
+               <BuildingOffice2Icon className="w-5"/>
+    
                 <span className="flex-1 ms-3 whitespace-nowrap">Companies</span>
               </Link>
             </li>
@@ -115,7 +117,9 @@ const Sidebar = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
+
                 <ClipboardDocumentListIcon className="w-5"/>
+
 
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   Job Listing
@@ -127,7 +131,9 @@ const Sidebar = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
+
                 <ArrowLeftStartOnRectangleIcon className="w-5"/>
+
                 <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
               </a>
             </li>

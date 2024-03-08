@@ -40,6 +40,7 @@ const Sections = () => {
           </figcaption>
         </figure>
       </div>
+
     <hr className="h-px my-8 bg-gray-900 border-0.5" style={{ bordercolor: "lightgrey" }} />
 
     <div classname="text-center w-50 bg-light">
@@ -61,6 +62,7 @@ const Sections = () => {
     </button>
   </div>
 </div>
+
 
     </>
   );
