@@ -22,9 +22,9 @@ const Notification = () => {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             viewBox="0 0 20 20"
-            class="text-2xl text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white "
+            className="text-2xl text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white "
             height="1em"
             width="1em"
             xmlns="http://www.w3.org/2000/svg"

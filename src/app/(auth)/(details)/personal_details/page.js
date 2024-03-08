@@ -12,7 +12,7 @@ export default function PersonalDetails() {
   };
   return (
     <form className="p-8 my-12">
-      <div class="grid gap-4 mb-4 sm:grid-cols-2">
+      <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
           <Label for="username">Username</Label>
           <Input

@@ -31,7 +31,7 @@ const Price = () => {
                         </div> */}
                     </div>
 
-                    <div className='grid grid-cols-4  gap-14 text-left mt-10'>
+                    <div className='grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2  gap-16  text-left mt-10'>
                             <div className='p-8 pb-14 pt-10 border-2 rounded-2xl border-stone-300  group  hover:border-primary  shadow ' style={{cursor:"pointer"}} >
                                 <h2 className='font-bold text-2xl'>
                                     Free Trial
@@ -145,45 +145,7 @@ const Price = () => {
 
                                     Up to 3000 post
                                 </span>
-                            </div>
-                            <div className='p-8 pb-14  pt-10 border-2 rounded-2xl border-stone-300  group  hover:border-primary  shadow ' style={{cursor:"pointer"}} >
-                                <h2 className='font-bold text-2xl'>
-                                    Startup
-
-                                </h2>
-                                <p className='text-gray-400 py-5 text-1xl'>
-                                A plan that scales with your rapidly growing business.
-                                </p>
-
-                                <span className='font-bold text-4xl'>
-                                    $60 
-                                </span>
-                                <span>
-                                        /month
-                                </span>
-                                <button className='my-6 text-primary border border-primary  group-hover:text-white  group-hover:bg-primary hover:bg-primary-500 p-3 hover:shadow-xl hover:translate-y-0.5 transition rounded w-full'  >
-                                    Buy Plan
-                                </button>
-
-                                <span className='text-gray-500 mb-4' style={{display:"inline-block"}}>
-                                    <CheckIcon  className='me-4' style={{width:"25px", display:"inline-block"}}>
-                                    </CheckIcon>
-
-                                    Up to 3000 post
-                                </span>
-                                <span className='text-gray-500 mb-4' style={{display:"inline-block"}}>
-                                    <CheckIcon  className='me-4' style={{width:"25px", display:"inline-block"}}>
-                                    </CheckIcon>
-
-                                    Up to 3000 post
-                                </span>
-                                <span className='text-gray-500 mb-4' style={{display:"inline-block"}}>
-                                    <CheckIcon  className='me-4' style={{width:"25px", display:"inline-block"}}>
-                                    </CheckIcon>
-
-                                    Up to 3000 post
-                                </span>
-                            </div>
+                            </div> 
                     </div>
             </div>
         </div>

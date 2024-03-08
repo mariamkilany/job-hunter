@@ -29,7 +29,7 @@ export default function Register() {
           />
         </div>
         <div className=" mb-6 flex gap-2">
-          <div class="flex items-center p-3 w-1/2 border rounded border-gray-300">
+          <div className="flex items-center p-3 w-1/2 border rounded border-gray-300">
             <Input
               id="company"
               type="radio"
@@ -44,7 +44,7 @@ export default function Register() {
               Company
             </Label>
           </div>
-          <div class="flex items-center p-3 w-1/2 border rounded border-gray-300">
+          <div className="flex items-center p-3 w-1/2 border rounded border-gray-300">
             <Input
               id="job_seeker"
               type="radio"
