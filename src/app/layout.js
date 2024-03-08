@@ -23,11 +23,14 @@ export default function RootLayout({ children }) {
     "/experience_details",
     "/dashboard",
     "/dashboard/profile",
-    "/companydashboard",
+    "/company_dashboard",
     "/userdashboard",
+    "/company_dashboard/company_applicants",
+    "/company_dashboard/company_profile",
     "/admindashboard",
     "/admindashboard/jobs",
     "/admindashboard/prices"
+
   ];
   const hideNavigation = routesWithoutNavigation.includes(pathname);
   return (
