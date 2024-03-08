@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Chart from "./Chart";
+import Chart2 from "./Chart2";
 
 const Main = () => {
   return (
@@ -38,7 +39,7 @@ const Main = () => {
                 </div>
               </div>
               <div id="main-chart">
-                <Chart></Chart>
+                <Chart2></Chart2>
               </div>
             </div>
             <div className="p-4 bg-white rounded-lg shadow sm:p-6 xl:p-8 ">
