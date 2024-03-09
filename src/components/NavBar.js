@@ -23,7 +23,8 @@ export default function NavBar() {
             <img src="/Images/logo.png" alt="Logo" className="w-8 h-8 mr-2" />
             <span
               className={`self-center text-2xl font-semibold whitespace-nowrap ${
-                pathname === "/" && "text-white"
+                (pathname === "/" || pathname.includes("/companies")) &&
+                "text-white"
               }`}
             >
               Job Hunters
@@ -97,11 +98,23 @@ export default function NavBar() {
                 </Link>
               </li>
               <li className="md:!ml-44">
-                <Button>Sign Up</Button>
+                <Button
+                  className={` ${
+                    pathname.includes("/companies") &&
+                    "bg-white !text-primary hover:bg-primary-light hover:!text-white"
+                  }`}
+                >
+                  Sign Up
+                </Button>
               </li>
               <li>
                 {" "}
-                <Button className="bg-transparent !text-primary hover:!text-white ">
+                <Button
+                  className={`bg-transparent !text-primary hover:!text-white  ${
+                    pathname.includes("/companies") &&
+                    "bg-white !text-primary hover:bg-primary-light hover:!text-white"
+                  }`}
+                >
                   Login
                 </Button>
               </li>
