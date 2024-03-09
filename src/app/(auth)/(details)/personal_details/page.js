@@ -62,7 +62,7 @@ export default function PersonalDetails() {
               type="radio"
               value="male"
               name="gender"
-              className="w-4 h-4"
+              className="w-4 h-4 text-primary"
             />
             <Label for="male">Male</Label>
           </div>
@@ -72,7 +72,7 @@ export default function PersonalDetails() {
               type="radio"
               value="male"
               name="gender"
-              className="w-4 h-4"
+              className="w-4 h-4 text-primary"
             />
             <Label for="female">Female</Label>
           </div>

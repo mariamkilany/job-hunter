@@ -5,7 +5,7 @@ import Select from "@/components/Select";
 
 export default function ExperienceDetails() {
   return (
-    <form className="p-8 my-12">
+    <section className="p-8 my-12">
       <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
           <Label>Minimun salary</Label>
@@ -32,6 +32,6 @@ export default function ExperienceDetails() {
           </Select>
         </div>
       </div>
-    </form>
+    </section>
   );
 }

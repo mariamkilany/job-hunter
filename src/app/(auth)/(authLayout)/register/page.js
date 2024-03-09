@@ -35,8 +35,9 @@ export default function Register() {
               type="radio"
               value=""
               name="bordered-radio"
-              className="w-4 h-4"
+              className="text-primary w-4 h-4"
             />
+
             <Label
               for="company"
               className="ml-3 text-sm font-medium text-gray-900"
@@ -50,8 +51,9 @@ export default function Register() {
               type="radio"
               value=""
               name="bordered-radio"
-              className="w-4 h-4"
+              className="text-primary w-4 h-4"
             />
+
             <Label
               for="job_seeker"
               className="ml-3 text-sm font-medium text-gray-900"
