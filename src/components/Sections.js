@@ -40,36 +40,30 @@ const Sections = () => {
           </figcaption>
         </figure>
       </div>
-      <hr
-        class="h-px my-8 bg-gray-900 border-0.5"
-        style={{ borderColor: "lightgrey" }}
-      ></hr>
-      <div className="text-center w-50 bg-light">
-        <div className="mx-auto text-center">
-          <h2 class="text-center text-4xl font-extrabold dark:text-white">
-            Post Your Jobs
-            <span
-              class=" text-center text-blue-800 text-xl font-semibold me-2 px-2.5 py-0.2 rounded dark:bg-blue-200 dark:text-blue-800 ms-2 "
-              style={{ backgroundColor: "#4ab47652" }}
-            >
-              PRO
-            </span>
-          </h2>
-        </div>
-        <p className="text-xl my-2">
-          You can Add your Jobs here By providing your Suitable Payment Methods
-        </p>
-        <div className="my-3">
-          {" "}
-          <button
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            style={{ backgroundColor: "#093B3B", color: "white" }}
-          >
-            Go PayNow
-          </button>
-        </div>
-      </div>
+
+    <hr className="h-px my-8 bg-gray-900 border-0.5" style={{ bordercolor: "lightgrey" }} />
+
+    <div classname="text-center w-50 bg-light">
+  <div classname="mx-auto text-center">
+    <h2 className="text-center text-4xl font-extrabold dark:text-white">
+      Post Your Jobs
+      <span className=" text-center text-blue-800 text-xl font-semibold me-2 px-2.5 py-0.2 rounded dark:bg-blue-200 dark:text-blue-800 ms-2 " style={{ backgroundcolor: "#4ab47652" }}>
+        PRO
+      </span>
+    </h2>
+  </div>
+  <p classname="text-xl my-2">
+    You can Add your Jobs here By providing your Suitable Payment Methods
+  </p>
+  <div classname="my-3">
+    
+    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" style={{ backgroundcolor: "#093b3b", color: "white" }}>
+      Go PayNow
+    </button>
+  </div>
+</div>
+
+
     </>
   );
 };
