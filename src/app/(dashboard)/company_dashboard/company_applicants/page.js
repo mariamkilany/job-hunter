@@ -1,11 +1,11 @@
 import ApplicantsTable from "@/components/applicants_table";
 import React from "react";
 
-const Page = () => {
+const Matchers = () => {
   return (
     <>
       <div>
-        <h3 className="text-xl">All Applicants:19</h3>
+        <h3 className="text-xl">All Matchers:19</h3>
       </div>
       <div>
         <ApplicantsTable/>
@@ -14,4 +14,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Matchers;

@@ -4,7 +4,7 @@ const DashboardHeader = () => {
   return (
     <div>
       <header>
-        <h2 className="text-2xl">Good Morning , Maria</h2>
+        <h2 className="text-4xl mb-3 ">Good Morning , Maria</h2>
       </header>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 mb-6">
         <div className=" p-8 border border-1 rounded shadow-xl bg-primary  ">
