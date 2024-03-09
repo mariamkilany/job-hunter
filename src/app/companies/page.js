@@ -131,8 +131,8 @@ const Compaines = () => {
         <div className=" p-5 flex flex-col gap-4">
           <div className="border p-4 flex flex-col gap-2">
             <Label className="text-lg text-gray-600">Company title </Label>
-            <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <div className="relative">
+              <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <MagnifyingGlassIcon className="w-5 h-5" />
               </div>
               <Input className="ps-8" />

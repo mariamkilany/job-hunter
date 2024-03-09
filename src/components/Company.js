@@ -15,10 +15,10 @@ export default function Company() {
         businesses. Millions of businesses rely on Stripe’s software tools...
       </p>
       <div className=" flex  justify-start items-center flex-wrap gap-2">
-        <span class=" text-green-400 border-2 border-green-400 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+        <span className=" text-green-400 border-2 border-green-400 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
           Bussniss
         </span>
-        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
+        <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">
           Payment getway
         </span>
       </div>

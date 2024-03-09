@@ -95,7 +95,7 @@ export default function CompanyDetails() {
           <h2 className="text-3xl  font-semibold">Tech stack</h2>
           <div className="flex flex-wrap p-4 gap-2">
             {technologies.map((tech) => (
-              <span class="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+              <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
                 {tech}
               </span>
             ))}
