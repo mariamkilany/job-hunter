@@ -93,7 +93,6 @@ const BarChart = () => {
         }
       useEffect(() => {
         let chart;
-
         if (document.getElementById("labels-chart") && typeof ApexCharts !== "undefined") {
             chart = new ApexCharts(document.getElementById("labels-chart"), options);
             chart.render();
@@ -118,9 +117,6 @@ const BarChart = () => {
     <div id="labels-chart" className="px-2.5" />
     <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5 p-4 md:p-6 pt-0 md:pt-0">
       <div className="flex justify-between items-center pt-5">
-    
-   
-  
       </div>
     </div>
   </div>
