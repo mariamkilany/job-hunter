@@ -4,7 +4,7 @@ const DashboardASide = () => {
   return (
     <aside
       id="sidebar"
-      className="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 w-64 h-full pt-16 duration-75 lg:flex transition-width"
+      className="fixed top-0 left-0 z-20 flex-col flex-shrink-0 hidden w-64 h-full pt-16 duration-75 lg:flex transition-width"
       aria-label="Sidebar"
     >
       <div className="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200">
@@ -281,7 +281,7 @@ const DashboardASide = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/dashboard/profile"
                   className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 group "
                 >
                   <svg
