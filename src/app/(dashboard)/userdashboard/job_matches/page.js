@@ -83,45 +83,7 @@ export default function JobMatch() {
                 </Button>
                 <Button
                   onClick={handleClick}
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
-                >
-                  <span> Enter Process</span>
-                  <ArrowRightStartOnRectangleIcon className="size-6" />
-                </Button>
-              </div>
-            </td>
-          </tr>
-          <tr className="odd:bg-white even:bg-gray-50 ">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-            >
-              Front End Developer
-            </th>
-            <td className="px-6 py-4  w-fit">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
-              necessitatibus aliquam delectus assumenda magni adipisci
-            </td>
-            <td className="px-6 py-4">Full Time</td>
-            <td className="px-6 py-4">$2999</td>
-            <td className="px-6 py-4">5</td>
-            <td className="px-6 py-4  w-40">
-              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
-                Hr Interview
-              </span>
-            </td>
-            <td className="px-6 py-4  min-w-60">
-              <div className="flex flex-col gap-2">
-                <Button
-                  className="flex gap-3 justify-center items-center"
-                  onClick={handleModal}
-                >
-                  <span>Job Detales</span>
-                  <NewspaperIcon className="size-6" />
-                </Button>
-                <Button
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
-                  onClick={handleClick}
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
                   <span> Enter Process</span>
                   <ArrowRightStartOnRectangleIcon className="size-6" />
@@ -159,7 +121,7 @@ export default function JobMatch() {
                 </Button>
                 <Button
                   onClick={handleClick}
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
                   <span> Enter Process</span>
                   <ArrowRightStartOnRectangleIcon className="size-6" />
@@ -197,7 +159,7 @@ export default function JobMatch() {
                 </Button>
                 <Button
                   onClick={handleClick}
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
                   <span> Enter Process</span>
                   <ArrowRightStartOnRectangleIcon className="size-6" />
@@ -235,7 +197,45 @@ export default function JobMatch() {
                 </Button>
                 <Button
                   onClick={handleClick}
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
+                >
+                  <span> Enter Process</span>
+                  <ArrowRightStartOnRectangleIcon className="size-6" />
+                </Button>
+              </div>
+            </td>
+          </tr>
+          <tr className="odd:bg-white even:bg-gray-50 ">
+            <th
+              scope="row"
+              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+            >
+              Front End Developer
+            </th>
+            <td className="px-6 py-4  w-fit">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
+              necessitatibus aliquam delectus assumenda magni adipisci
+            </td>
+            <td className="px-6 py-4">Full Time</td>
+            <td className="px-6 py-4">$2999</td>
+            <td className="px-6 py-4">5</td>
+            <td className="px-6 py-4  w-40">
+              <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+                Hr Interview
+              </span>
+            </td>
+            <td className="px-6 py-4  min-w-60">
+              <div className="flex flex-col gap-2">
+                <Button
+                  className="flex gap-3 justify-center items-center"
+                  onClick={handleModal}
+                >
+                  <span>Job Detales</span>
+                  <NewspaperIcon className="size-6" />
+                </Button>
+                <Button
+                  onClick={handleClick}
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
                   <span> Enter Process</span>
                   <ArrowRightStartOnRectangleIcon className="size-6" />
@@ -270,7 +270,7 @@ export default function JobMatch() {
                 </Button>
                 <Button
                   onClick={handleClick}
-                  className=" bg-green-700 hover:bg-green-400 flex gap-3 justify-center items-center"
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
                   <span> Enter Process</span>
                   <ArrowRightStartOnRectangleIcon className="size-6" />

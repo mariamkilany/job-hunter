@@ -13,6 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UserUlList from "./UserUlList";
 import CompanyUlList from "./CompanyUlList";
+import AdminUlList from "./AdminUlList";
 const Sidebar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -73,7 +74,7 @@ const Sidebar = () => {
           ) : pathname.includes("company_dashboard") ? (
             <CompanyUlList />
           ) : (
-            ""
+            <AdminUlList />
           )}
         </div>
       </aside>
