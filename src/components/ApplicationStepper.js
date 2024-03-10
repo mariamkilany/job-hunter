@@ -18,17 +18,19 @@ export default function Stepper() {
   const active = "text-primary after:border-primary-500 ";
 
   const condition1 =
-    pathname === "/step1" ||
-    pathname === "/step2" ||
-    pathname === "/step3" ||
-    pathname === "/step4"
+    pathname.includes("/step1") ||
+    pathname.includes("/step2") ||
+    pathname.includes("/step3") ||
+    pathname.includes("/step4");
 
   const condition2 =
-    pathname === "/step2" || pathname === "/step3" || pathname === "/step4";
-  
-    const condition3 = pathname === "/step3" || pathname === "/step4";
-  
-    const condition4 = pathname === "/step4";
+    pathname.includes("/step2") ||
+    pathname.includes("/step3") ||
+    pathname.includes("/step4");
+
+  const condition3 = pathname.includes("/step3") || pathname.includes("/step4");
+
+  const condition4 = pathname.includes("/step4");
 
   return (
     <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base">
@@ -39,7 +41,7 @@ export default function Stepper() {
       >
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 ">
           {condition1 ? done : <span className="me-2">1</span>}
-          HR<span className="hidden sm:inline-flex sm:ms-2">Interview</span>
+          HR<span className="hidden md:inline-flex sm:ms-2">Interview</span>
         </span>
       </li>
       <li
@@ -49,7 +51,8 @@ export default function Stepper() {
       >
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 ">
           {condition2 ? done : <span className="me-2">2</span>}
-         Technical  <span className="hidden sm:inline-flex sm:ms-2">Interview</span>
+          Technical{" "}
+          <span className="hidden md:inline-flex sm:ms-2">Interview</span>
         </span>
       </li>
 
@@ -60,7 +63,7 @@ export default function Stepper() {
       >
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 ">
           {condition3 ? done : <span className="me-2">3</span>}
-         Task  <span className="hidden sm:inline-flex sm:ms-2"></span>
+          Task <span className="hidden md:inline-flex sm:ms-2"></span>
         </span>
       </li>
 

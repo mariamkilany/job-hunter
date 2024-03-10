@@ -13,37 +13,40 @@ const poppins = Poppins({
 });
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const routesWithoutNavigation = [
-    "/login",
-    "/register",
-    "/register_details",
-    "/personal_details",
-    "/account_details",
-    "/experience_details",
-    "/dashboard",
-    "/dashboard/profile",
-    "/companydashboard",
-    "/companydashboard/new_job",
-    "/userdashboard",
-    "/company_dashboard",
-    "/company_dashboard/company_applicants",
-    "/company_dashboard/company_profile",
-    "/admindashboard",
-    "/admindashboard/jobs",
-    "/admindashboard/prices",
-    "/company_dashboard/joblisting",
-    "/company_dashboard/joblisting/1",
-    "/companydashboard/1"
-
-  ];
-  const hideNavigation = routesWithoutNavigation.includes(pathname);
+  // const pathname = usePathname();
+  // const routesWithoutNavigation = [
+  //   "/login",
+  //   "/register",
+  //   "/register_details",
+  //   "/personal_details",
+  //   "/account_details",
+  //   "/experience_details",
+  //   "/dashboard",
+  //   "/dashboard/profile",
+  //   "/companydashboard",
+  //   "/companydashboard/new_job",
+  //   "/userdashboard",
+  //   "/company_dashboard",
+  //   "/company_dashboard/company_applicants",
+  //   "/company_dashboard/company_profile",
+  //   "/admindashboard",
+  //   "/admindashboard/jobs",
+  //   "/admindashboard/prices",
+  //   "/company_dashboard/joblisting",
+  //   "/company_dashboard/joblisting/1",
+  //   "/companydashboard/1",
+  // ];
+  // const hideNavigation = routesWithoutNavigation.includes(pathname);
   return (
     <html lang="en">
       <body className={`${poppins.className} relative`}>
-        {!hideNavigation && <NavBar />}
+        {
+          // !hideNavigation && <NavBar />
+        }
         {children}
-        {!hideNavigation && <Footer />}
+        {
+          // !hideNavigation && <Footer />
+        }
       </body>
     </html>
   );

@@ -1,22 +1,29 @@
-'use client'
-import React, { useState } from 'react';
-import { CalendarDaysIcon , ClockIcon , PaperClipIcon, NewspaperIcon , RectangleStackIcon } from '@heroicons/react/24/solid';
+"use client";
+import React, { useState } from "react";
+import {
+  CalendarDaysIcon,
+  ClockIcon,
+  PaperClipIcon,
+  NewspaperIcon,
+  RectangleStackIcon,
+} from "@heroicons/react/24/solid";
 
 const HR = () => {
+  return (
+    <div className="p-10 pt-20">
+      <div>
+        <h2 className="text-3xl text-primary text-center font-bold">
+          Waiting for task to be assigned
+        </h2>
+        <div className="m-auto mt-6" style={{ width: "300px" }}>
+          <img
+            src="https://www.yippeecode.com/wp-content/uploads/2021/10/task_managerment_512.png"
+            alt="waiting response"
+          ></img>
+        </div>
+      </div>
 
-   return (
-       <div>            
-            <div>
-                <h2 className='text-3xl text-primary text-center font-bold'>
-                    Waiting for  task to be assigned 
-                </h2>
-                <div className='m-auto mt-6' style={{width:"300px"}}>
-                <img src='https://www.yippeecode.com/wp-content/uploads/2021/10/task_managerment_512.png' alt='waiting response'>
-                </img>
-                </div>
-            </div>   
-
-            {/* <div>
+      {/* <div>
                 <div className=' grid md:grid-cols-2 sm:grid-cols-1 gap-6'>
                     <div className='m-auto'>
                 <img src='https://t4.ftcdn.net/jpg/05/15/17/75/360_F_515177527_E6MsyK5ta0uZlxTpWhol7ZqF5vDTtO4d.jpg' alt='waiting response'>
@@ -49,8 +56,8 @@ const HR = () => {
                 </div>
 
             </div>  */}
-       </div>
-    );
-}
+    </div>
+  );
+};
 
 export default HR;

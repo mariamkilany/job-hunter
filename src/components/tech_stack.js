@@ -10,35 +10,29 @@ const TechStack = () => {
           <PlusIcon className="w-5 " color="#4640DE" />
         </div>
       </div>
-      
-      <div className=" grid md:grid-cols-4 sm:grid-cols-1 text-center gap-y-8 mt-5">
-        <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium px-5 py-4 rounded-full  text-center ">
-            Html
-          </span>
-        </div>
 
-        <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium  px-5 py-4 rounded-full  text-center ">
-            CSS 3
-          </span>
-        </div>
-
-        <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium  px-5 py-4 rounded-full  text-center ">
-            Js
-          </span>
-        </div>
-        <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium  px-5 py-4 rounded-full  text-center ">
-            Ruby
-          </span>
-        </div>
-        <div>
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium  px-5 py-4 rounded-full  text-center  ">
-            Mix panel
-          </span>
-        </div>
+      <div className="flex flex-wrap gap-3 p-4">
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          Html
+        </span>{" "}
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          css
+        </span>{" "}
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          JS
+        </span>{" "}
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          MUI
+        </span>
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          MUI
+        </span>
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          MUI
+        </span>
+        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
+          MUI
+        </span>
       </div>
     </div>
   );

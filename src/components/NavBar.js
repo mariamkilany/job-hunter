@@ -17,15 +17,12 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="bg-transparent border-gray-200 absolute top-0  w-full">
+      <nav className="bg-transparent border-gray-200 absolute top-0  w-full z-10">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a className="flex items-center rtl:space-x-reverse">
             <img src="/Images/logo.png" alt="Logo" className="w-8 h-8 mr-2" />
             <span
-              className={`self-center text-2xl font-semibold whitespace-nowrap ${
-                (pathname === "/" || pathname.includes("/companies")) &&
-                "text-white"
-              }`}
+              className={`self-center text-2xl font-semibold whitespace-nowrap text-white`}
             >
               Job Hunters
             </span>
@@ -48,9 +45,9 @@ export default function NavBar() {
             <ul className="font-medium flex md:items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent ">
               <li>
                 <Link
-                  href="/"
+                  href="/landing"
                   className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/" && active
+                    pathname === "/landing" && active
                   }`}
                 >
                   Home
@@ -58,20 +55,9 @@ export default function NavBar() {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/landing/companies"
                   className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/about" && active
-                  }`}
-                  aria-current="page"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/companies"
-                  className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/companies" && active
+                    pathname.includes("/landing/companies") && active
                   }`}
                 >
                   Companies
@@ -79,9 +65,9 @@ export default function NavBar() {
               </li>
               <li>
                 <Link
-                  href="/pricing"
+                  href="/landing/pricing"
                   className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/pricing" && active
+                    pathname.includes("/landing/pricing") && active
                   }`}
                 >
                   Pricing
@@ -89,9 +75,9 @@ export default function NavBar() {
               </li>
               <li>
                 <Link
-                  href="/contactus"
+                  href="/landing/contactus"
                   className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/contactus" && active
+                    pathname.includes("/landing/contactus") && active
                   }`}
                 >
                   Contact Us
@@ -100,7 +86,9 @@ export default function NavBar() {
               <li className="md:!ml-44">
                 <Button
                   className={` ${
-                    pathname.includes("/companies") &&
+                    (pathname.includes("/landing/companies") ||
+                      pathname.includes("/landing/pricing") ||
+                      pathname.includes("/landing/contactus")) &&
                     "bg-white !text-primary hover:bg-primary-light hover:!text-white"
                   }`}
                 >
@@ -111,7 +99,9 @@ export default function NavBar() {
                 {" "}
                 <Button
                   className={`bg-transparent !text-primary hover:!text-white  ${
-                    pathname.includes("/companies") &&
+                    (pathname.includes("/landing/companies") ||
+                      pathname.includes("/landing/pricing") ||
+                      pathname.includes("/landing/contactus")) &&
                     "bg-white !text-primary hover:bg-primary-light hover:!text-white"
                   }`}
                 >

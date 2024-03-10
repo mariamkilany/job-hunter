@@ -2,7 +2,7 @@ import React from "react";
 
 const TotalJobs = () => {
   return (
-    <div className="w-60  p-8 rounded shadow-xl">
+    <div className="w-60  p-8 rounded shadow-md">
       <div>
         <h1 className="text-xl font-bold ">Total Jobs</h1>
       </div>
