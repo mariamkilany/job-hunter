@@ -16,7 +16,7 @@ export default function Profile() {
       className="relative w-full h-full p-5 overflow-y-auto  "
     >
       <div className="grid grid-cols-12 gap-3">
-        <div className="col-span-12 xl:col-span-8">
+        <div className="col-span-12 lg:col-span-8">
           <div>
             <img
               className="object-cover w-full h-32 lg:h-48"
@@ -403,7 +403,7 @@ export default function Profile() {
           {/* End Of Profile */}
         </div>
         {/* Cards */}
-        <div className="col-span-12 xl:col-span-4">
+        <div className="col-span-12 lg:col-span-4">
           {/* Card 1 */}
           <div className="relative p-5 mb-4 overflow-hidden bg-white border border-gray-200 group rounded-xl dark:border-gray-800 dark:bg-gray-900">
             <div
