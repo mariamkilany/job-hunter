@@ -18,6 +18,7 @@ export default function CompanyDetails() {
   const { companyId } = useParams();
   const [company, setCompany] = useState(false);
   const [reviews, setReviews] = useState(false);
+  const [reviewsToShow, setReviewsToShow] = useState(false);
 
   const getCompany = async function (id) {
     try {
@@ -51,6 +52,7 @@ export default function CompanyDetails() {
         };
       }
       setReviews(revs);
+      setReviewsToShow(revs.slice(0, 1)); // Show first 2 reviews initially
     } catch (error) {
       // Handle errors appropriately for both company and review fetching
       console.error("Error fetching data:", error);
@@ -73,6 +75,10 @@ export default function CompanyDetails() {
   useEffect(() => {
     getCompany(companyId);
   }, [companyId]);
+
+  const handleShowMore = () => {
+    setReviewsToShow(reviews); // Show all remaining reviews
+  };
 
   return (
     <>
@@ -224,12 +230,12 @@ export default function CompanyDetails() {
             <h2 className=" text-3xl font-semibold">Reviews & Comments</h2>
             <div className="flex flex-col gap-5 md:flex-row">
               <div className=" md:w-2/3 p-2">
-                {reviews.map((review) => (
+                {reviewsToShow.map((review) => (
                   <Review key={review._id} {...review} />
                 ))}
-                {reviews.length > 1 ? (
+                {reviewsToShow.length <= 1 ? (
                   <div className="flex justify-center p-3">
-                    <Button>Show more</Button>
+                    <Button onClick={handleShowMore}>Show more</Button>
                   </div>
                 ) : (
                   ""
