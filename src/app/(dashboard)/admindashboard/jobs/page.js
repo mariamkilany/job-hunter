@@ -1,6 +1,17 @@
-import React from 'react';
+'use client'
+import { getAllJobs } from '@/lib/features/jobs/jobsActions';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Jobs = () => {
+
+    const allJobs =  useSelector((state)=>console.log(state.jobs.jobs))
+     const dispatch = useDispatch();
+     useEffect(()=>{
+        dispatch(getAllJobs());
+     },[])
+     
     return (
         <div>
               <div>
@@ -23,36 +34,6 @@ const Jobs = () => {
                 </button>
             </div>
             <hr></hr>
-                {/* <table className="block overflow-x-auto">
-                    <thead className='my-6 block'>
-                        <tr className='block'  >
-                        <th className='text-left w-20' >#</th>
-                        <th className='text-left w-52'>Company Name</th>
-                        <th className='text-left w-52'>Post</th>
-                        <th className='text-left w-48 pe-5'>Date Publish</th>
-                        <th className='text-left w-48 '>Status</th>
-                        {/* <th className='text-left w-20'></th> 
-
-                        </tr>
-                    </thead>
-                   
-                    <tbody className='mt-6  block'>
-                        <tr>
-                        <td className='text-left w-20' >1</td>
-                        <td className='text-left  w-52' > 
-                        <img src='/Images/logi.jpg' alt='logo company ' className=' inline rounded-full w-20'></img>
-                        Company 1</td>
-                        <td className='text-left  w-52' > posts data  </td>
-                        <td className='text-left w-48 ' > 25 July 2024  </td>
-                        <td className='text-left w-48 ' > pending </td>
-                        {/* <td className='text-left w-20' >  </td> 
-
-                        </tr>
-                      
-                    </tbody>
-                </table> */}
-                
-
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-14">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
