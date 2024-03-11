@@ -18,33 +18,45 @@ export default function CompanyDetails() {
   const { companyId } = useParams();
   const [company, setCompany] = useState(false);
   const [reviews, setReviews] = useState(false);
+  const [reviewsToShow, setReviewsToShow] = useState(false);
 
   const getCompany = async function (id) {
-    // Get Company By It's Id
-    const response = await axios.get(
-      `https://job-hunter-server-1.onrender.com/api/companies/${id}`
-    );
-    setCompany(response.data.data);
+    try {
+      // Create an array of promises for both API calls
+      const promises = [
+        axios.get(
+          `https://job-hunter-server-1.onrender.com/api/companies/${id}`
+        ),
+        axios.get(
+          `https://job-hunter-server-1.onrender.com/api/reviews/company/${id}`
+        ),
+      ];
 
-    // Get Company Reviews
-    const getCompanyReviews = await axios.get(
-      `https://job-hunter-server-1.onrender.com/api/reviews/company/${id}`
-    );
-    let revs = getCompanyReviews.data.data;
-    // Get Employees names
-    for (let i = 0; i < revs.length; i++) {
-      const review = revs[i];
-      const getEmployee = await axios.get(
-        `https://job-hunter-server-1.onrender.com/api/employees/${review.employee}`
-      );
-      const emp = getEmployee.data.data;
-      revs[i] = {
-        ...revs[i],
-        employeeName: emp.userName,
-        employeeJobTitle: emp.jobTitle,
-      };
+      // Wait for all promises to resolve or reject
+      const [companyResponse, reviewsResponse] = await Promise.all(promises);
+
+      // Update state with data from both responses
+      setCompany(companyResponse.data.data);
+
+      const revs = reviewsResponse.data.data;
+      for (let i = 0; i < revs.length; i++) {
+        const review = revs[i];
+        const getEmployee = await axios.get(
+          `https://job-hunter-server-1.onrender.com/api/employees/${review.employee}`
+        );
+        const emp = getEmployee.data.data;
+        revs[i] = {
+          ...revs[i],
+          employeeName: emp.userName,
+          employeeJobTitle: emp.jobTitle,
+        };
+      }
+      setReviews(revs);
+      setReviewsToShow(revs.slice(0, 1)); // Show first 2 reviews initially
+    } catch (error) {
+      // Handle errors appropriately for both company and review fetching
+      console.error("Error fetching data:", error);
     }
-    setReviews(revs);
   };
 
   const getFormatedDate = function (dateString) {
@@ -63,6 +75,10 @@ export default function CompanyDetails() {
   useEffect(() => {
     getCompany(companyId);
   }, [companyId]);
+
+  const handleShowMore = () => {
+    setReviewsToShow(reviews); // Show all remaining reviews
+  };
 
   return (
     <>
@@ -214,13 +230,12 @@ export default function CompanyDetails() {
             <h2 className=" text-3xl font-semibold">Reviews & Comments</h2>
             <div className="flex flex-col gap-5 md:flex-row">
               <div className=" md:w-2/3 p-2">
-                {reviews &&
-                  reviews.map((review) => (
-                    <Review key={review._id} {...review} />
-                  ))}
-                {reviews.length > 3 ? (
+                {reviewsToShow.map((review) => (
+                  <Review key={review._id} {...review} />
+                ))}
+                {reviewsToShow.length <= 1 ? (
                   <div className="flex justify-center p-3">
-                    <Button>Show more</Button>
+                    <Button onClick={handleShowMore}>Show more</Button>
                   </div>
                 ) : (
                   ""
