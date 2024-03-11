@@ -80,6 +80,23 @@ export default function CompanyDetails() {
     setReviewsToShow(reviews); // Show all remaining reviews
   };
 
+  const [reviewText, setReviewText] = useState("");
+
+  const handleReviewChange = (event) => {
+    setReviewText(event.target.value);
+  };
+
+  const handleSubmitReview = (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    console.log("New review:", reviewText); // Print submitted review to console
+
+    // Replace this with your API call to submit the review
+    // ... send review to API (future implementation)
+
+    setReviewText(""); // Clear review text after submission
+  };
+
   return (
     <>
       {company && reviews ? (
@@ -243,9 +260,18 @@ export default function CompanyDetails() {
               </div>
               <div className="md:w-1/3 flex flex-col gap-4">
                 <h2 className=" text-2xl font-medium">Add your Review</h2>
-                <textarea className=" border-2 border-primary-light  rounded-lg w-full h-2/3 focus:outline-none p-3"></textarea>
+                <textarea
+                  className="border-2 border-primary-light rounded-lg w-full h-2/3 focus:outline-none p-3"
+                  placeholder="Write your review..."
+                  value={reviewText}
+                  onChange={handleReviewChange}
+                  rows="5"
+                />
                 <div className="flex justify-end">
-                  <Button className="flex justify-center items-center gap-2 rounded">
+                  <Button
+                    className="flex justify-center items-center gap-2 rounded"
+                    onClick={handleSubmitReview}
+                  >
                     Submit <PaperAirplaneIcon className="w-4 h-4 " />{" "}
                   </Button>
                 </div>
