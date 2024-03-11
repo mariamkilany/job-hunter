@@ -20,12 +20,13 @@ export default function AuthLayout({ children }) {
         <form className="px-10" style={{ height: "500px" }}>
           {children}
         </form>
-        <div className="flex justify-end px-10">
-          <Button type="button" className="px-20">
-            {pathname === "/login" ? "Login" : "Register"}
-          </Button>
-        </div>
       </div>
     </section>
   );
 }
+
+// <div className="flex justify-end px-10">
+//   <Button type="button" className="px-20">
+//     {pathname === "/login" ? "Login" : "Register"}
+//   </Button>
+// </div>

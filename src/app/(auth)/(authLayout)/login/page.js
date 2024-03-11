@@ -1,9 +1,22 @@
+"use client";
+import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
-import Switch from "@/components/Switch";
+import { login } from "@/lib/features/auth/authActions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
+  const [user, setUser] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const handleLogin = () => {
+    dispatch(login(user)).then(() => {
+      router.push("/landing");
+    });
+  };
   return (
     <>
       <p className="text-gray-600 text-sm my-8">
@@ -13,7 +26,13 @@ export default function Login() {
       <div className="mt-10">
         <div className="mb-6">
           <Label htmlFor="email">Enter your email</Label>
-          <Input type="text" id="email" placeholder="name@mail.com" />
+          <Input
+            type="text"
+            id="email"
+            placeholder="name@mail.com"
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+          />
         </div>
         <div className="mb-6">
           <Label htmlFor="password">Enter your password</Label>
@@ -21,6 +40,8 @@ export default function Login() {
             type="password"
             id="password"
             placeholder="•••••••••"
+            value={user.password}
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
             required
           />
         </div>
@@ -36,6 +57,11 @@ export default function Login() {
               Forget password?
             </Link>
           </div>
+        </div>
+        <div className="flex justify-end px-10">
+          <Button type="button" className="px-20" onClick={handleLogin}>
+            Login
+          </Button>
         </div>
       </div>
     </>
