@@ -4,31 +4,20 @@ const { getAllCompaniesAction } = require("./companyActions");
 const initialState = {
   company: [],
   filteredcompany: [],
-  company_industry: [],
   isLoading: false,
-  company_capacity: [],
-  company_Tech: [],
   error: null,
+  filter:{industry:"",capacity:"",tech:""}
 };
+
 const companySlice = createSlice({
   name: "company",
   initialState,
   reducers: {
-    reset: (state) => initialState,
-    getCompanyIndustry: (state) => {
-      const industries = [
-        ...new Set(
-          state.company.map((c) => {
-            return c.industry;
-          })
-        ),
-      ];
-      return {
-        ...state,
-        company_industry: industries,
-      };
-    },
+    reset: () => initialState,// to get data if nothing checked
+
+
     getCompanyByIndustry: (state, action) => {
+      console.log(action.payload)
       let filteredcompany = [];
       Object.keys(action.payload).map((key) => {
         if (action.payload[key]) {
@@ -37,25 +26,30 @@ const companySlice = createSlice({
           });
         }
       });
+
       if (filteredcompany.length === 0) filteredcompany = state.company;
       return { ...state, filteredcompany };
     },
   },
+
+
+
   extraReducers: (builder) => {
     builder.addCase(getAllCompaniesAction.fulfilled, (state, action) => {
-      state.company = action.payload;
-      state.filteredcompany = action.payload;
+      state.company = action.payload.data;
+      state.filteredcompany = action.payload.data;
       state.isLoading = false;
     });
-    builder.addCase(getAllCompaniesAction.pending, (state, action) => {
+    builder.addCase(getAllCompaniesAction.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(getAllCompaniesAction.rejected, (state, action) => {
+    builder.addCase(getAllCompaniesAction.rejected, (state) => {
       state.isLoading = false;
       state.error = true;
     });
   },
 });
+
 export default companySlice.reducer;
 export const { reset, getCompanyByIndustry, getCompanyIndustry } =
   companySlice.actions;

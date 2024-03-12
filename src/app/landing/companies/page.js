@@ -9,26 +9,25 @@ import {
 } from "@/lib/features/company/companySlice";
 
 import style from "@/styles/Companies.module.css";
-import {
-  MagnifyingGlassCircleIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const Compaines = () => {
-  const { company, isLoading } = useSelector((store) => store.company);
+  const company = useSelector((state) => state.company.filteredcompany);
+  
+
   const [checkedOptions, setCheckedOptions] = useState({});
-  console.log(company.data);
+  // console.log(company.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCompanyIndustry());
     dispatch(getAllCompaniesAction());
   }, []);
   const handelChange = (event) => {
     setCheckedOptions({
       ...checkedOptions,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.checked,
     });
+    console.log(event.target.name)
     dispatch(
       getCompanyByIndustry({
         ...checkedOptions,
@@ -47,7 +46,7 @@ const Compaines = () => {
     "Finance",
     "Healthcare",
     "Insurance",
-    "Technology"
+    "Technology",
   ];
   const companySize = [
     "1-10",
@@ -106,14 +105,15 @@ const Compaines = () => {
           <div className=" p-2 hidden md:block">
             <h5 className=" font-semibold text-lg ">Industry</h5>
             <div className=" pl-3">
+
               {industries.map((industry, index) => (
                 <div key={index} className=" pb-2 flex gap-3">
                   <Input
                     type="checkbox"
-                    name="industry"
+                    name={industry}
                     id={industry}
                     className="!w-4 !h-4 "
-                    onChange={(e)=>handelChange(e)}
+                    onChange={(e) => handelChange(e)}
                   />
                   <label className=" text-gray-700 " htmlFor={industry}>
                     {industry}
@@ -171,15 +171,14 @@ const Compaines = () => {
               <Input className="ps-8" />
             </div>
           </div>
-          {Array.isArray(company.data) &&
-            company.data.map((companyItem, index) => (
-              <div
-                key={index}
-                className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 h-fit"
-              >
-                <Company company={companyItem} />
-              </div>
-            ))}
+          {company?.map((companyItem, index) => (
+            <div
+              key={index}
+              className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 h-fit"
+            >
+              <Company company={companyItem} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
