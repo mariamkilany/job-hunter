@@ -163,7 +163,8 @@ export default function CompanyDetails() {
                     </span>
                     <div className="flex flex-col text-gray-300">
                       <span>Location</span>
-                      <span className="font-semibold">20 countries</span>
+                      {/* <span className="font-semibold">20 countries</span> */}
+                      <span className="font-semibold">{company.address}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -270,7 +271,7 @@ export default function CompanyDetails() {
                   {reviewsToShow.map((review) => (
                     <Review key={review._id} {...review} />
                   ))}
-                  {reviews.length > 3 ? (
+                  {reviews.length > 3 && reviewsToShow.length <= 2 ? (
                     <div className="flex justify-center p-3">
                       <Button onClick={handleShowMore}>Show more</Button>
                     </div>
