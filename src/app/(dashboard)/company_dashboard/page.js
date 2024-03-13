@@ -1,3 +1,4 @@
+"use client";
 import BarChart from "@/components/company_bar/bar_chart";
 import CompanyPiechart from "@/components/company_pie/company_piechart";
 import DashboardHeader from "@/components/dashboard_header";
