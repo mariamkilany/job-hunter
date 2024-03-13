@@ -4,6 +4,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 
 export default function Review(review) {
   const [rev, setRev] = useState(review); // review State
@@ -14,11 +15,33 @@ export default function Review(review) {
     setIsEdit(!isEdit); // Toggle edit mode on button click
   };
 
-  const handleSave = (updatedComment) => {
+  const handleSave = async (updatedComment) => {
     // Implement logic to send updated comment to backend (API)
-    console.log("Saving review:", updatedComment);
-    console.log("rev state", rev);
+    const updatedReview = {
+      company: rev.company,
+      employee: rev.employee,
+      rating: rev.rating,
+      comment: rev.comment,
+    };
+    const authToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjBkMTFhYmMwMDVhNjVlMmQwY2VhOCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTcxMDI4MTA4MiwiZXhwIjoxNzEwMzE3MDgyfQ.rC1_ufGWnRT74cghD5Zvj1CMtvjqtDWeiwyg0s2EsAM";
     setIsEdit(false); // Exit edit mode after save
+
+    await axios
+      .put(
+        `https://job-hunter-server-1.onrender.com/api/reviews/${rev._id}`,
+        updatedReview,
+        {
+          headers: {
+            "auth-token": authToken,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        // console.log("Saving review:", updatedComment);
+        console.log("rev state", rev);
+      });
   };
 
   useEffect(() => {
