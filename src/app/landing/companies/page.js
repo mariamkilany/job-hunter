@@ -1,12 +1,41 @@
+"use client";
 import Company from "@/components/Company";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
+import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
+import {
+  getCompanyByIndustry,
+  getCompanyIndustry,
+} from "@/lib/features/company/companySlice";
+
 import style from "@/styles/Companies.module.css";
 import {
   MagnifyingGlassCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Compaines = () => {
+  const { company, isLoading } = useSelector((store) => store.company);
+  const [checkedOptions, setCheckedOptions] = useState({});
+  console.log(company.data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCompanyIndustry());
+    dispatch(getAllCompaniesAction());
+  }, []);
+  const handelChange = (event) => {
+    setCheckedOptions({
+      ...checkedOptions,
+      [event.target.name]: event.target.value,
+    });
+    dispatch(
+      getCompanyByIndustry({
+        ...checkedOptions,
+        [event.target.name]: event.target.checked,
+      })
+    );
+  };
   const industries = [
     "Advertising",
     "Business Service",
@@ -18,6 +47,7 @@ const Compaines = () => {
     "Finance",
     "Healthcare",
     "Insurance",
+    "Technology"
   ];
   const companySize = [
     "1-10",
@@ -83,6 +113,7 @@ const Compaines = () => {
                     name="industry"
                     id={industry}
                     className="!w-4 !h-4 "
+                    onChange={(e)=>handelChange(e)}
                   />
                   <label className=" text-gray-700 " htmlFor={industry}>
                     {industry}
@@ -101,6 +132,7 @@ const Compaines = () => {
                     name="industry"
                     id={size}
                     className="!w-4 !h-4 "
+                    // onChange={(e)=>handelChange(e)}
                   />
                   <label className=" text-gray-700 " htmlFor={size}>
                     {size}
@@ -119,6 +151,7 @@ const Compaines = () => {
                     name="industry"
                     id={technology}
                     className="mr-2 w-4 h-4 "
+                    // onChange={(e)=>handelChange(e)}
                   />
                   <label className=" text-gray-700 " htmlFor={technology}>
                     {technology}
@@ -138,20 +171,15 @@ const Compaines = () => {
               <Input className="ps-8" />
             </div>
           </div>
-          <div className="grid lg:grid-cols-3 md:grid-cols-2  gap-5 h-fit">
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-            <Company />
-          </div>
+          {Array.isArray(company.data) &&
+            company.data.map((companyItem, index) => (
+              <div
+                key={index}
+                className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 h-fit"
+              >
+                <Company company={companyItem} />
+              </div>
+            ))}
         </div>
       </div>
     </div>
