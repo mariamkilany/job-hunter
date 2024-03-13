@@ -24,9 +24,3 @@ export default function AuthLayout({ children }) {
     </section>
   );
 }
-
-// <div className="flex justify-end px-10">
-//   <Button type="button" className="px-20">
-//     {pathname === "/login" ? "Login" : "Register"}
-//   </Button>
-// </div>

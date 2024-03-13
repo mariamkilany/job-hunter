@@ -14,7 +14,7 @@ export default function AccountInfo() {
     <form className="p-8 my-12">
       <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
-          <Label for="years_of_experience">Years of experience</Label>
+          <Label htmlFor="years_of_experience">Years of experience</Label>
           <Input
             type="number"
             name="years_of_experience"
@@ -23,22 +23,22 @@ export default function AccountInfo() {
           />
         </div>
         <div>
-          <Label for="university">University</Label>
+          <Label htmlFor="university">University</Label>
           <Input type="text" name="university" id="university" required="" />
         </div>
         <div className="flex gap-5">
           <div className="w-1/2">
-            <Label for="github">Github</Label>
+            <Label htmlFor="github">Github</Label>
             <Input type="text" name="github" id="github" required="" />
           </div>
           <div className="w-1/2">
-            <Label for="github">LinkedIn</Label>
+            <Label htmlFor="github">LinkedIn</Label>
             <Input type="text" name="github" id="github" required="" />
           </div>
         </div>
         <div className="flex gap-5">
           <div className="w-1/2">
-            <Label for="graduation_pro">Graduation Year</Label>
+            <Label htmlFor="graduation_pro">Graduation Year</Label>
             <Input
               type="text"
               name="graduation_pro"
@@ -47,16 +47,16 @@ export default function AccountInfo() {
             />
           </div>
           <div className="w-1/2">
-            <Label for="grade">Grade</Label>
+            <Label htmlFor="grade">Grade</Label>
             <Input type="text" name="grade" id="grade" required="" />
           </div>
         </div>
         <div>
-          <Label for="location">Location</Label>
+          <Label htmlFor="location">Location</Label>
           <Input type="text" name="location" id="location" required="" />
         </div>
         <div>
-          <Label for="location">Birth Date</Label>
+          <Label htmlFor="location">Birth Date</Label>
           <Input type="date" name="birth_date" id="birth_date" required="" />
         </div>
         <div className="flex flex-col gap-4">
