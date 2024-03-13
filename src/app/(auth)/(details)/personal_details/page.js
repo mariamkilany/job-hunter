@@ -14,7 +14,7 @@ export default function PersonalDetails() {
     <form className="p-8 my-12">
       <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
-          <Label for="username">Username</Label>
+          <Label htmlFor="username">Username</Label>
           <Input
             type="text"
             name="username"
@@ -24,7 +24,7 @@ export default function PersonalDetails() {
           />
         </div>
         <div>
-          <Label for="email">Email</Label>
+          <Label htmlFor="email">Email</Label>
           <Input
             type="email"
             name="email"
@@ -34,7 +34,7 @@ export default function PersonalDetails() {
           />
         </div>
         <div>
-          <Label for="password">Password</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
             type="password"
             name="password"
@@ -44,15 +44,15 @@ export default function PersonalDetails() {
           />
         </div>{" "}
         <div>
-          <Label for="phone">Phone</Label>
+          <Label htmlFor="phone">Phone</Label>
           <Input type="mobile" name="phone" id="phone" required="" />
         </div>
         <div>
-          <Label for="location">Location</Label>
+          <Label htmlFor="location">Location</Label>
           <Input type="text" name="location" id="location" required="" />
         </div>
         <div>
-          <Label for="location">Birth Date</Label>
+          <Label htmlFor="location">Birth Date</Label>
           <Input type="date" name="birth_date" id="birth_date" required="" />
         </div>
         <div className="flex">
@@ -64,7 +64,7 @@ export default function PersonalDetails() {
               name="gender"
               className="w-4 h-4 text-primary"
             />
-            <Label for="male">Male</Label>
+            <Label htmlFor="male">Male</Label>
           </div>
           <div className="w-1/2 flex gap-3">
             <Input
@@ -74,7 +74,7 @@ export default function PersonalDetails() {
               name="gender"
               className="w-4 h-4 text-primary"
             />
-            <Label for="female">Female</Label>
+            <Label htmlFor="female">Female</Label>
           </div>
         </div>
       </div>

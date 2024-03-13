@@ -22,40 +22,42 @@ export default function CompanyDetails() {
 
   const getCompany = async function (id) {
     try {
-      // Create an array of promises for both API calls
-      const promises = [
-        axios.get(
-          `https://job-hunter-server-1.onrender.com/api/companies/${id}`
-        ),
-        axios.get(
+      // Fetch company data independently
+      const companyResponse = await axios.get(
+        `https://job-hunter-server-1.onrender.com/api/companies/${id}`
+      );
+      setCompany(companyResponse.data.data); // Immediately set company data
+
+      // Fetch reviews separately
+      const reviewsResponse = await axios
+        .get(
           `https://job-hunter-server-1.onrender.com/api/reviews/company/${id}`
-        ),
-      ];
-
-      // Wait for all promises to resolve or reject
-      const [companyResponse, reviewsResponse] = await Promise.all(promises);
-
-      // Update state with data from both responses
-      setCompany(companyResponse.data.data);
-
-      const revs = reviewsResponse.data.data;
-      for (let i = 0; i < revs.length; i++) {
-        const review = revs[i];
-        const getEmployee = await axios.get(
-          `https://job-hunter-server-1.onrender.com/api/employees/${review.employee}`
-        );
-        const emp = getEmployee.data.data;
-        revs[i] = {
-          ...revs[i],
-          employeeName: emp.userName,
-          employeeJobTitle: emp.jobTitle,
-        };
-      }
-      setReviews(revs);
-      setReviewsToShow(revs.slice(0, 1)); // Show first 2 reviews initially
+        )
+        .then(async (res) => {
+          const revs = res.data.data;
+          for (let i = 0; i < revs.length; i++) {
+            const review = revs[i];
+            const getEmployee = await axios.get(
+              `https://job-hunter-server-1.onrender.com/api/employees/${review.employee}`
+            );
+            const emp = getEmployee.data.data;
+            revs[i] = {
+              ...revs[i],
+              employeeName: emp.userName,
+              employeeJobTitle: emp.jobTitle,
+            };
+          }
+          setReviews(revs);
+          setReviewsToShow(revs.slice(0, 2));
+        })
+        .catch((err) => {
+          console.log(err);
+          setReviews(true);
+        });
     } catch (error) {
-      // Handle errors appropriately for both company and review fetching
       console.error("Error fetching data:", error);
+      // setReviews(true);
+      // Handle errors appropriately
     }
   };
 
@@ -78,6 +80,40 @@ export default function CompanyDetails() {
 
   const handleShowMore = () => {
     setReviewsToShow(reviews); // Show all remaining reviews
+  };
+
+  const [reviewText, setReviewText] = useState("");
+
+  const handleReviewChange = (event) => {
+    setReviewText(event.target.value);
+  };
+
+  const handleSubmitReview = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    console.log("New review:", reviewText); // Print submitted review to console
+    const reviewObj = {
+      company: companyId,
+      employee: "65f0d11abc005a65e2d0cea8",
+      rating: 3,
+      comment: reviewText,
+    };
+    // Replace this with your API call to submit the review
+    // ... send review to API (future implementation)
+    const authToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjBkMTFhYmMwMDVhNjVlMmQwY2VhOCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTcxMDI4MTA4MiwiZXhwIjoxNzEwMzE3MDgyfQ.rC1_ufGWnRT74cghD5Zvj1CMtvjqtDWeiwyg0s2EsAM";
+    await axios
+      .post("https://job-hunter-server-1.onrender.com/api/reviews", reviewObj, {
+        headers: {
+          "auth-token": authToken,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log("Review Posted");
+        setReviewText(""); // Clear review text after submission
+      });
+    window.location.reload();
   };
 
   return (
@@ -127,7 +163,8 @@ export default function CompanyDetails() {
                     </span>
                     <div className="flex flex-col text-gray-300">
                       <span>Location</span>
-                      <span className="font-semibold">20 countries</span>
+                      {/* <span className="font-semibold">20 countries</span> */}
+                      <span className="font-semibold">{company.address}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -227,25 +264,36 @@ export default function CompanyDetails() {
             </div>
           </div>
           <div className="px-10 pb-10">
-            <h2 className=" text-3xl font-semibold">Reviews & Comments</h2>
+            <h2 className=" text-3xl font-semibold py-3">Reviews & Comments</h2>
             <div className="flex flex-col gap-5 md:flex-row">
-              <div className=" md:w-2/3 p-2">
-                {reviewsToShow.map((review) => (
-                  <Review key={review._id} {...review} />
-                ))}
-                {reviewsToShow.length <= 1 ? (
-                  <div className="flex justify-center p-3">
-                    <Button onClick={handleShowMore}>Show more</Button>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
+              {reviewsToShow && (
+                <div className=" md:w-2/3 p-2">
+                  {reviewsToShow.map((review) => (
+                    <Review key={review._id} {...review} />
+                  ))}
+                  {reviews.length > 3 && reviewsToShow.length <= 2 ? (
+                    <div className="flex justify-center p-3">
+                      <Button onClick={handleShowMore}>Show more</Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              )}
               <div className="md:w-1/3 flex flex-col gap-4">
                 <h2 className=" text-2xl font-medium">Add your Review</h2>
-                <textarea className=" border-2 border-primary-light  rounded-lg w-full h-2/3 focus:outline-none p-3"></textarea>
+                <textarea
+                  className="border-2 border-primary-light rounded-lg w-full h-2/3 focus:outline-none p-3"
+                  placeholder="Write your review..."
+                  value={reviewText}
+                  onChange={handleReviewChange}
+                  rows="5"
+                />
                 <div className="flex justify-end">
-                  <Button className="flex justify-center items-center gap-2 rounded">
+                  <Button
+                    className="flex justify-center items-center gap-2 rounded"
+                    onClick={handleSubmitReview}
+                  >
                     Submit <PaperAirplaneIcon className="w-4 h-4 " />{" "}
                   </Button>
                 </div>

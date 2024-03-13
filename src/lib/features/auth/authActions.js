@@ -2,7 +2,34 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../axiosConfig";
 
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
-  const res = await axios.post("/login", { ...user, role: "company" });
+  const res = await axios.post("/login", user);
   const data = await res.data;
   return data;
 });
+
+export const startLogoutTimer = () => (dispatch) => {
+  setTimeout(() => {
+    localStorage.removeItem("token");
+  }, 10 * 60 * 60 * 1000); // 10 hours in milliseconds
+};
+
+export const setUser = createAsyncThunk(
+  "auth/setUser",
+  async ({ id, role }, thunkAPI) => {
+    let res;
+    switch (role) {
+      case "employee":
+        res = await axios.get(`/employees/${id}`);
+        break;
+      case "company":
+        res = await axios.get(`/companies/${id}`);
+        break;
+      case "admin":
+        res = await axios.get(`/admins/${id}`);
+        break;
+      default:
+        throw new Error("Invalid user role");
+    }
+    return res.data;
+  }
+);

@@ -1,9 +1,14 @@
+"use client";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
-import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Register() {
+  const user = useSelector((store) => store.auth.user);
+  useEffect(() => {
+    console.log(user);
+  }, []);
   return (
     <>
       <p className="text-gray-600 text-sm my-8">
@@ -12,15 +17,15 @@ export default function Register() {
       </p>
       <div className="mt-10">
         <div className="mb-6">
-          <Label for="email">Enter your email</Label>
+          <Label htmlFor="email">Enter your email</Label>
           <Input type="text" id="email" placeholder="name@mail.com" />
         </div>
         <div className="mb-6">
-          <Label for="name"> User / Company Name</Label>
+          <Label htmlFor="name"> User / Company Name</Label>
           <Input type="text" id="name" placeholder="Name" />
         </div>
         <div className="mb-6">
-          <Label for="password">Password</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
             type="password"
             id="password"
@@ -39,7 +44,7 @@ export default function Register() {
             />
 
             <Label
-              for="company"
+              htmlFor="company"
               className="ml-3 text-sm font-medium text-gray-900"
             >
               Company
@@ -55,7 +60,7 @@ export default function Register() {
             />
 
             <Label
-              for="job_seeker"
+              htmlFor="job_seeker"
               className="ml-3 text-sm font-medium text-gray-900"
             >
               Job Seeker
