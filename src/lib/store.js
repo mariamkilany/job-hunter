@@ -6,6 +6,8 @@ import storage from "redux-persist/lib/storage"; // Defaults to localStorage for
 import AuthSlice from "./features/auth/authSlice";
 import companySlice from "./features/company/companySlice";
 import JobSlice from "./features/jobs/jobsSlice"
+import EmployeeSlice from "./features/employees/employeeSlice"
+
 
 
 const authPersistConfig = {
@@ -19,7 +21,8 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     company:companySlice,
-    jobs:JobSlice
+    jobs:JobSlice,
+    employee:EmployeeSlice,
   },
 });
 
