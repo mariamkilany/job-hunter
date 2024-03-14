@@ -7,9 +7,7 @@ import {
   HeartIcon,
   PlusCircleIcon,
   TrashIcon,
-} from "@heroicons/react/24/outline";
-import { HeartSolidIcon } from "@heroicons/react/24/solid";
-// import { HeartIcon, HeartFillIcon } from "@heroicons/react/outline";
+} from "@heroicons/react/24/solid";
 
 import axios from "../axiosConfig";
 import { useSelector } from "react-redux";
@@ -60,9 +58,9 @@ export default function Review(review) {
     for (let i = 0; i < 5; i++) {
       if (i < rating) {
         icons.push(<HeartIcon key={i} className="h-5 w-5 text-red-500" />); // Filled heart for ratings up to and including current index
-      } else {
+      } /*  else {
         icons.push(<HeartIcon key={i} className="h-5 w-5 text-gray-400" />); // Outline heart for ratings beyond current index
-      }
+      } */
     }
     return icons;
   };
