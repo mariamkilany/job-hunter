@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, setUser, startLogoutTimer } from "./authActions";
-import { redirect } from "next/navigation";
+import { login } from "./authActions";
 
 const intialState = {
   user: null,
+  error: null,
+  loading: false,
 };
 
 export const AuthSlice = createSlice({
@@ -18,14 +19,17 @@ export const AuthSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload.data;
+      console.log("fulfilled");
+      state.error = null;
       localStorage.setItem("token", action.payload.token);
-      startLogoutTimer();
     });
     builder.addCase(login.rejected, (state, action) => {
+      console.log("rejected");
       state.user = null;
+      state.error = action.payload;
     });
-    builder.addCase(setUser.fulfilled, (state, action) => {
-      state.user = action.payload.data;
+    builder.addCase(login.pending, (state, action) => {
+      state.loading = true;
     });
   },
 });

@@ -10,7 +10,7 @@ export default function Switch() {
       <div className=" w-1/2 text-center bg-primary-light rounded p-2">
         <Link
           className={`inline-block rounded ${
-            pathname === "/login" && "bg-primary"
+            pathname.includes("login") && "bg-primary"
           } p-2 w-3/6`}
           href="/login"
         >
@@ -18,7 +18,7 @@ export default function Switch() {
         </Link>
         <Link
           className={`inline-block rounded ${
-            pathname === "/register" && "bg-primary"
+            pathname.includes("register") && "bg-primary"
           } p-2 w-3/6`}
           href="/register"
         >
