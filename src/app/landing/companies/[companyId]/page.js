@@ -10,11 +10,14 @@ import {
   PaperAirplaneIcon,
   UsersIcon,
 } from "@heroicons/react/24/solid";
-import axios from "axios";
+import { v4 as uuid } from "uuid";
+import axios from "../../../../axiosConfig";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function CompanyDetails() {
+  const user = useSelector((state) => state.auth.user);
   const { companyId } = useParams();
   const [company, setCompany] = useState(false);
   const [reviews, setReviews] = useState(false);
@@ -23,22 +26,18 @@ export default function CompanyDetails() {
   const getCompany = async function (id) {
     try {
       // Fetch company data independently
-      const companyResponse = await axios.get(
-        `https://job-hunter-server-1.onrender.com/api/companies/${id}`
-      );
+      const companyResponse = await axios.get(`/companies/${id}`);
       setCompany(companyResponse.data.data); // Immediately set company data
 
       // Fetch reviews separately
       const reviewsResponse = await axios
-        .get(
-          `https://job-hunter-server-1.onrender.com/api/reviews/company/${id}`
-        )
+        .get(`/reviews/company/${id}`)
         .then(async (res) => {
           const revs = res.data.data;
           for (let i = 0; i < revs.length; i++) {
             const review = revs[i];
             const getEmployee = await axios.get(
-              `https://job-hunter-server-1.onrender.com/api/employees/${review.employee}`
+              `/employees/${review.employee}`
             );
             const emp = getEmployee.data.data;
             revs[i] = {
@@ -55,9 +54,9 @@ export default function CompanyDetails() {
           setReviews(true);
         });
     } catch (error) {
-      console.error("Error fetching data:", error);
       // setReviews(true);
       // Handle errors appropriately
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -91,29 +90,26 @@ export default function CompanyDetails() {
   const handleSubmitReview = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
 
-    console.log("New review:", reviewText); // Print submitted review to console
+    // console.log("New review:", reviewText); // Print submitted review to console
     const reviewObj = {
       company: companyId,
-      employee: "65f0d11abc005a65e2d0cea8",
+      employee: user._id,
       rating: 3,
       comment: reviewText,
     };
     // Replace this with your API call to submit the review
     // ... send review to API (future implementation)
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjBkMTFhYmMwMDVhNjVlMmQwY2VhOCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTcxMDI4MTA4MiwiZXhwIjoxNzEwMzE3MDgyfQ.rC1_ufGWnRT74cghD5Zvj1CMtvjqtDWeiwyg0s2EsAM";
-    await axios
-      .post("https://job-hunter-server-1.onrender.com/api/reviews", reviewObj, {
-        headers: {
-          "auth-token": authToken,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        console.log("Review Posted");
-        setReviewText(""); // Clear review text after submission
-      });
-    window.location.reload();
+    await axios.post("/reviews", reviewObj).then((res) => {
+      // console.log(res);
+      // console.log("reviewObj: ", reviewObj);
+      // console.log("Review Posted");
+      setReviews((old) => [...old, { ...reviewObj, _id: res.data.data._id }]);
+      if (reviews.length == reviewsToShow.length)
+        setReviewsToShow((old) => [...old, { ...reviewObj, _id: uuid() }]);
+      setReviewText(""); // Clear review text after submission
+    });
+    // console.log("reviews", reviews);
+    // window.location.reload();
   };
 
   return (
@@ -269,9 +265,14 @@ export default function CompanyDetails() {
               {reviewsToShow && (
                 <div className=" md:w-2/3 p-2">
                   {reviewsToShow.map((review) => (
-                    <Review key={review._id} {...review} />
+                    <Review
+                      key={uuid()}
+                      {...review}
+                      updateReviews={setReviews} // Pass setReviews function
+                      updateReviewsToShow={setReviewsToShow} // Pass setReviewsToShow function
+                    />
                   ))}
-                  {reviews.length > 3 && reviewsToShow.length <= 2 ? (
+                  {reviews.length >= 3 && reviewsToShow.length <= 2 ? (
                     <div className="flex justify-center p-3">
                       <Button onClick={handleShowMore}>Show more</Button>
                     </div>
