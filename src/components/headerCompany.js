@@ -19,21 +19,21 @@ const HeaderCompany = ({company}) => {
           <div className="mt-2 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6 ">
             <div className="mt-2 flex items-center text-sm text-gray-500 ">
               <FireIcon className="w-5" />
-              {new Date(company.foundedIn).toLocaleDateString()}
+              {new Date(company?.foundedIn).toLocaleDateString()}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
 
               <MapPinIcon className="w-5" />
-              {company.address}
+              {company?.address}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <UsersIcon className="w-5" />
-              {company.employeesNumber}
+              {company?.employeesNumber}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <BuildingOffice2Icon className="w-5" />
 
-              {company.industry}
+              {company?.industry}
             </div>
           </div>
         </div>
