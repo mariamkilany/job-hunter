@@ -4,7 +4,9 @@ import Input from "@/components/Input";
 import Label from "@/components/Label";
 import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
 import {
+  getCompanyByCapacity,
   getCompanyByIndustry,
+  getCompanyByTech,
   getCompanyIndustry,
 } from "@/lib/features/company/companySlice";
 
@@ -14,27 +16,46 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 const Compaines = () => {
   const company = useSelector((state) => state.company.filteredcompany);
-  
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [checkedOptions, setCheckedOptions] = useState({});
-  // console.log(company.data);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllCompaniesAction());
   }, []);
+
+
   const handelChange = (event) => {
     setCheckedOptions({
       ...checkedOptions,
       [event.target.name]: event.target.checked,
     });
-    console.log(event.target.name)
+    console.log(event.target.name);
     dispatch(
       getCompanyByIndustry({
         ...checkedOptions,
         [event.target.name]: event.target.checked,
       })
     );
+    // dispatch(
+    //   getCompanyByCapacity({
+    //     ...checkedOptions,
+    //     [event.target.name]: event.target.checked,
+    //   })
+    // );
+    dispatch(
+      getCompanyByTech({
+        ...checkedOptions,
+        [event.target.name]: event.target.checked,
+      })
+    );
   };
+
+  const handelSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+
   const industries = [
     "Advertising",
     "Business Service",
@@ -105,7 +126,6 @@ const Compaines = () => {
           <div className=" p-2 hidden md:block">
             <h5 className=" font-semibold text-lg ">Industry</h5>
             <div className=" pl-3">
-
               {industries.map((industry, index) => (
                 <div key={index} className=" pb-2 flex gap-3">
                   <Input
@@ -129,7 +149,7 @@ const Compaines = () => {
                 <div key={index} className=" pb-2 flex gap-3  ">
                   <Input
                     type="checkbox"
-                    name="industry"
+                    name={size}
                     id={size}
                     className="!w-4 !h-4 "
                     // onChange={(e)=>handelChange(e)}
@@ -148,10 +168,10 @@ const Compaines = () => {
                 <div key={index} className=" pb-2">
                   <input
                     type="checkbox"
-                    name="industry"
+                    name={technology}
                     id={technology}
                     className="mr-2 w-4 h-4 "
-                    // onChange={(e)=>handelChange(e)}
+                    onChange={(e)=>handelChange(e)}
                   />
                   <label className=" text-gray-700 " htmlFor={technology}>
                     {technology}
@@ -168,17 +188,21 @@ const Compaines = () => {
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <MagnifyingGlassIcon className="w-5 h-5" />
               </div>
-              <Input className="ps-8" />
+              <Input className="ps-8" onChange={handelSearchChange} />
             </div>
           </div>
-          {company?.map((companyItem, index) => (
-            <div
-              key={index}
-              className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 h-fit"
-            >
-              <Company company={companyItem} />
-            </div>
-          ))}
+
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 h-fit">
+            {company
+              ?.filter((item) => {
+                return searchTerm.toLowerCase() === ""
+                  ? item
+                  : item.name.toLowerCase().includes(searchTerm);
+              })
+              .map((companyItem, index) => (
+                <Company key={index} company={companyItem} />
+              ))}
+          </div>
         </div>
       </div>
     </div>
