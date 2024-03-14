@@ -2,6 +2,7 @@
 import Button from '@/components/Button';
 import { getAllCompaniesAction } from '@/lib/features/company/companyActions';
 import { getAllJobs } from '@/lib/features/jobs/jobsActions';
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { BriefcaseIcon, BuildingOfficeIcon, ClockIcon, CurrencyDollarIcon, ListBulletIcon, NewspaperIcon } from '@heroicons/react/24/solid';
 import { split } from 'postcss/lib/list';
 import React, { useEffect, useState } from 'react';
@@ -11,8 +12,11 @@ import { useDispatch } from 'react-redux';
 const Jobs = () => {
     // reading jobs and companies data 
     const allJobs =  useSelector((state)=>state.jobs.jobs)
-    const allCompanies = useSelector((state)=>state.company.company.data)
+    const allCompanies = useSelector((state)=>state.company.company)
   
+    console.log(allJobs);
+    console.log(allCompanies);
+
      const dispatch = useDispatch();
      // call datafrom api
      useEffect(()=>{
@@ -26,6 +30,14 @@ const Jobs = () => {
         setStatus(!status);
      }
 
+     // id for jobs
+     let counter = 0 ; 
+     const [jobStatus , setJobStatus] = useState("pending");
+     // handle accept status
+     const handleAcceptance = ()=>{
+        setJobStatus("accepted");
+        
+     }
 
     return (
         <div>
@@ -80,19 +92,22 @@ const Jobs = () => {
                     </tr>
                     </thead>
                     <tbody>
-                  
-                        {allJobs?.map((job)=>{
-                        return<> 
+                                      
+                    {allJobs?.map((job)=>{
+                            counter++;
+                        return (<> 
                             {allCompanies?.map((company)=>{
+                                
                                 if(job.company === company._id){
+
                                     return(
                                         <>
                                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td className="w-4 p-4">
-                                    1 
+                                   {counter}
                                 </td>
                                 <td scope="row" className="px-6 py-4 font-medium text-gray-900 flex items-center  dark:text-white" style={{minWidth:"280px"}}>
-                                    <img src='/Images/logi.jpg' alt='logo company ' className=' inline rounded-full w-16'></img>
+                                    <img src={company.image} alt='logo company ' className=' inline rounded-full w-12 me-3'></img>
         
                                 {company.name}
                                 </td>
@@ -105,11 +120,26 @@ const Jobs = () => {
                                 <td className="px-6 py-4">
                                 {job.createdAt.slice(0,10)}
                                 </td>
-                                <td className="px-6 py-4">
-                                <span className='block p-2 px-4 rounded-2xl border border-1 border-emerald-600 bg-emerald-600	 text-white '>
-                                Accepted
-                                </span>
-                                </td>
+
+                                {job.status === "pending"&&(<td className="px-6 py-4">
+                                        <span className='block p-2 px-4 rounded-2xl border border-1 border-orange-400 bg-orange-400 text-white  '>
+                                        {job.status}
+                                        </span>
+                                        </td>  )
+                                  } 
+                                    {job.status === "accepted"&&(<td className="px-6 py-4">
+                                        <span className='block p-2 px-4 rounded-2xl border border-1 border-emerald-600 bg-emerald-600	 text-white '>
+                                        {job.status}
+                                        </span>
+                                        </td>  )
+                                  }
+                                    {job.status === "rejected"&&(<td className="px-6 py-4">
+                                        <span className='block p-2 px-4 rounded-2xl border border-1 border-emerald-600 bg-pink-600	 text-white '>
+                                        {job.status}
+                                        </span>
+                                        </td>  )
+                                  }
+                                
                                 <td className="px-6 py-4">
                                     <Button
                                         className="flex gap-3 justify-center items-center"
@@ -162,7 +192,7 @@ const Jobs = () => {
                               
        
                                <div className='flex items-center   sm:direction-columns'>
-                                   <img src='/Images/logi.jpg' alt='logo company ' className=' inline rounded-full w-16'></img>
+                                   <img src={company.image} alt='logo company ' className=' inline rounded-full w-12 me-4'></img>
                                    <div>
                                    <h3 className="font-bold text-xl mt-0">
                                   {job.title}
@@ -190,7 +220,7 @@ const Jobs = () => {
                                    <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
                                    {" "}
                                    </CurrencyDollarIcon>{" "}
-                                   {job.salary}
+                                   {job.salary} L.E
                                </p>
        
                                <p>
@@ -200,6 +230,14 @@ const Jobs = () => {
                                         <span> {skill} ,</span>
                                        ) 
                                     })}
+                               </p>
+                               <p> 
+                                   <LinkIcon className="me-2 w-6 inline-block text-gray-400">
+                                   {" "}
+                                   </LinkIcon>{" "}
+                                  <a className='text-primary' href={company.links.linkedIn} target='_blank'>
+                                        {company.links.linkedIn}
+                                    </a>  
                                </p>
        
                                <h2 className="font-bold text-lg">About the Job </h2>
@@ -223,7 +261,8 @@ const Jobs = () => {
                                    data-modal-hide="static-modal"
                                    type="button"
                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                               >
+                                onClick={handleAcceptance}
+                              >
                                    Accept Job Post
                                </button>
                                <button
@@ -245,20 +284,9 @@ const Jobs = () => {
                                 }
                             })}
                           
-                            </>
+                            </>)
                         })}
 
-                    {/*  
-                         <td className="px-6 py-4">
-                        <span className='block p-2 px-4 rounded-2xl border border-1 border-orange-400 text-orange-400 '>
-                        pending
-                          </span>
-                        </td>
-
-                    
-                    <span className='block p-2 px-4 rounded-2xl border border-1 border-pink-600	 text-pink-600 '>
-                        rejected
-                          </span> */}
                    
                     </tbody>
                 </table>

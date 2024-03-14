@@ -44,7 +44,7 @@ const companySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllCompaniesAction.fulfilled, (state, action) => {
-      state.company = action.payload;
+      state.company = action.payload.data;
       state.filteredcompany = action.payload;
       state.isLoading = false;
     });
