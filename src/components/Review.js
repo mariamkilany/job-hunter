@@ -3,10 +3,17 @@
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
+import {
+  HeartIcon,
+  PlusCircleIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
+
+import axios from "../axiosConfig";
+import { useSelector } from "react-redux";
 
 export default function Review(review) {
+  const user = useSelector((state) => state.auth.user);
   const [rev, setRev] = useState(review); // review State
   const [isEdit, setIsEdit] = useState(false); // State to track edit mode
   const commentInputRef = useRef(null); // useRef for textarea
@@ -23,25 +30,39 @@ export default function Review(review) {
       rating: rev.rating,
       comment: rev.comment,
     };
-    const authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjBkMTFhYmMwMDVhNjVlMmQwY2VhOCIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTcxMDI4MTA4MiwiZXhwIjoxNzEwMzE3MDgyfQ.rC1_ufGWnRT74cghD5Zvj1CMtvjqtDWeiwyg0s2EsAM";
     setIsEdit(false); // Exit edit mode after save
 
-    await axios
-      .put(
-        `https://job-hunter-server-1.onrender.com/api/reviews/${rev._id}`,
-        updatedReview,
-        {
-          headers: {
-            "auth-token": authToken,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        // console.log("Saving review:", updatedComment);
-        console.log("rev state", rev);
+    await axios.put(`/reviews/${rev._id}`, updatedReview).then((res) => {
+      // console.log(res);
+      // console.log("Saving review:", updatedComment);
+      // console.log("rev state", rev);
+    });
+  };
+
+  const handleDeleteClick = async () => {
+    await axios.delete("/reviews/" + rev._id).then((res) => {
+      console.log(res);
+      review.updateReviews((old) => {
+        console.log("old: ", old);
+        const newState = old.filter((el) => el._id != rev._id);
+        console.log(newState);
+        review.updateReviewsToShow(newState);
+        return newState;
       });
+      // window.location.reload();
+    });
+  };
+
+  const getRatingIcons = (rating) => {
+    const icons = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        icons.push(<HeartIcon key={i} className="h-5 w-5 text-red-500" />); // Filled heart for ratings up to and including current index
+      } /*  else {
+        icons.push(<HeartIcon key={i} className="h-5 w-5 text-gray-400" />); // Outline heart for ratings beyond current index
+      } */
+    }
+    return icons;
   };
 
   useEffect(() => {
@@ -66,21 +87,40 @@ export default function Review(review) {
             </span>
           </div>
         </div>
-        {isEdit ? ( // Conditionally render icons based on edit mode
-          <Button
-            className="w-fit h-fit p-1 bg-primary-500"
-            onClick={() => handleSave(rev.comment)}
-          >
-            <PlusCircleIcon className="w-4 h-4 text-white" />
-          </Button>
-        ) : (
-          <Button
-            className="w-fit h-fit p-1 bg-primary-500"
-            onClick={handleEditClick}
-          >
-            <PencilSquareIcon className="w-4 h-4 text-white" />
-          </Button>
+        {rev.employee === user._id && (
+          <div>
+            {isEdit ? ( // Conditionally render icons based on edit mode
+              <Button
+                className="w-fit h-fit p-1 bg-primary-500"
+                onClick={() => handleSave(rev.comment)}
+              >
+                <PlusCircleIcon className="w-4 h-4 text-white" />
+              </Button>
+            ) : (
+              <>
+                <Button
+                  className={`w-fit h-fit p-1 mx-1 bg-primary-500 ${
+                    rev.employee === user._id ? "" : "hidden"
+                  }`}
+                  onClick={handleEditClick}
+                >
+                  <PencilSquareIcon className="w-4 h-4 text-white" />
+                </Button>
+                <Button
+                  className={`w-fit h-fit p-1 mx-1 bg-primary-500 ${
+                    rev.employee === user._id ? "" : "hidden"
+                  }`}
+                  onClick={handleDeleteClick}
+                >
+                  <TrashIcon className="w-4 h-4 text-white" />
+                </Button>
+              </>
+            )}
+          </div>
         )}
+      </div>
+      <div className="flex items-center gap-1">
+        {getRatingIcons(rev.rating)}
       </div>
       <textarea
         type="text"
