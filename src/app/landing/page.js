@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/Button";
 import style from "@/styles/Landing.module.css";
 import {
@@ -6,9 +7,10 @@ import {
   ComputerDesktopIcon,
   PaintBrushIcon,
 } from "@heroicons/react/24/solid";
-export const metadata = {
-  title: "Job Hunter",
-};
+// import { useSelector } from "react-redux";
+// export const metadata = {
+//   title: "Job Hunter",
+// };
 
 export default function Home() {
   return (

@@ -1,6 +1,9 @@
-export default function Input(props) {
+import { forwardRef } from "react";
+
+export default forwardRef(function Input(props, ref) {
   return (
     <input
+      ref={ref}
       {...props}
       className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block ${
         props.type !== "radio" && props.type !== "checkbox"
@@ -11,4 +14,4 @@ export default function Input(props) {
       }`}
     />
   );
-}
+});

@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
@@ -30,7 +31,7 @@ export default function NewJob() {
           <textarea className=" border-1 border-gray-300 rounded-lg w-full h-full focus:outline-none p-3"></textarea>
         </div>
         <div>
-          <Label for="years_of_experience">Years of experience</Label>
+          <Label htmlFor="years_of_experience">Years of experience</Label>
           <Input
             type="number"
             name="years_of_experience"

@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   error: null,
   filter: { industry: "", capacity: "", technology: [] },
+  // selectedCompany: null, // state for the selected company by id
 };
 
 const companySlice = createSlice({
@@ -79,6 +80,20 @@ const companySlice = createSlice({
       state.isLoading = false;
       state.error = true;
     });
+
+    // // extra reducer for getCompanyById
+    // builder.addCase(getCompanyById.fulfilled, (state, action) => {
+    //   state.selectedCompany = action.payload; // Set the selected company
+    //   console.log('getCompanyById ', action.payload);
+    //   state.isLoading = false;
+    // });
+    // builder.addCase(getCompanyById.pending, (state, action) => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(getCompanyById.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.error.message || "Error fetching company"; // Handle errors
+    // });
   },
 });
 

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ApplicationStepper from "@/components/ApplicationStepper";
 const Page = ({ children }) => {
