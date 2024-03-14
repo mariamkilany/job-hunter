@@ -1,5 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Stepper() {
   const pathname = usePathname();
@@ -17,13 +18,18 @@ export default function Stepper() {
 
   const active = "text-primary after:border-primary-500 ";
 
+  const { step1, step2, step3, step4 } = useSelector((store) => store.register);
+
   const condition1 =
-    pathname === "/personal_details" ||
-    pathname === "/account_details" ||
-    pathname === "/experience_details";
+    (pathname.includes("personal_details") ||
+      pathname.includes("account_details") ||
+      pathname.includes("experience_details")) &&
+    step1;
   const condition2 =
-    pathname === "/account_details" || pathname === "/experience_details";
-  const condition3 = pathname === "/experience_details";
+    (pathname.includes("account_details") ||
+      pathname.includes("experience_details")) &&
+    step2;
+  const condition3 = pathname.includes("experience_details") && step3;
 
   return (
     <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base">

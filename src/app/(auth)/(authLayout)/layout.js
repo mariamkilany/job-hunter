@@ -17,9 +17,9 @@ export default function AuthLayout({ children }) {
           Welcome to Job Huntly
         </p>
         <Switch />
-        <form className="px-10" style={{ height: "500px" }}>
+        <div className="px-10" style={{ height: "500px" }}>
           {children}
-        </form>
+        </div>
       </div>
     </section>
   );

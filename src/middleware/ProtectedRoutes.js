@@ -16,6 +16,7 @@ export default function ProtectedRoutes({ children }) {
     path.includes("register") ||
     path.includes("not-found") ||
     path.includes("not-auth");
+
   if (role && token && (path.includes("login") || path.includes("register")))
     redirect("/landing");
   if (
@@ -28,6 +29,12 @@ export default function ProtectedRoutes({ children }) {
   )
     redirect("/not-found");
   if (commonRoute) return <>{children}</>;
-  if (!(companyRoute || empolyeeRoute || adminRoute)) redirect("/landing");
-  else return <>{children}</>;
+  if (
+    !(companyRoute || empolyeeRoute || adminRoute) &&
+    (path.includes("company_dashboard") ||
+      path.includes("userdashboard") ||
+      path.includes("admindashboard"))
+  ) {
+    redirect("/landing");
+  } else return <>{children}</>;
 }

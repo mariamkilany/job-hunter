@@ -5,7 +5,7 @@ import React from "react";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="">
+    <div>
       <Sidebar />
       <section className="p-4 md:ml-64 mt-20 ">{children}</section>
     </div>

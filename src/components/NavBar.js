@@ -91,42 +91,26 @@ export default function NavBar() {
                 </Link>
               </li>
               {user ? (
-                <li className="md:!ml-80 w-10 h-10 relative">
-                  <Button
-                    className="!p-1"
-                    onClick={() => setIsSmallMenuOpen(!isSmallMenuOpen)}
-                  >
-                    <UserCircleIcon className="w-8 h-8 text-white" />
-                  </Button>
-                  <div
-                    id="dropdownNavbar"
-                    className={`!z-10 ${
-                      !isSmallMenuOpen && "hidden"
-                    } font-normal bg-white divide-y absolute right-0 top-12 divide-gray-100 rounded-lg shadow w-44 `}
-                  >
-                    <ul className="p-2 text-sm bg-gray-100 shadow-md ">
-                      <li className="mb-2">
-                        <Link
-                          href={
-                            user?.role === "employee"
-                              ? "/userdashboard"
-                              : user.role === "company"
-                              ? "/company_dashboard"
-                              : "/admindashboard"
-                          }
-                          className="block px-4 py-2 hover:bg-primary-light hover:text-white"
-                        >
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li>
-                        <Button onClick={() => dispatch(logout())}>
-                          SignOut
-                        </Button>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
+                <>
+                  <li className="md:!ml-80 w-10 h-10 ">
+                    <Link
+                      href={
+                        user?.role === "employee"
+                          ? "/userdashboard"
+                          : user.role === "company"
+                          ? "/company_dashboard"
+                          : "/admindashboard"
+                      }
+                    >
+                      <UserCircleIcon className="w-8 h-8 text-primary hover:text-primary-light" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Button className="!p-2" onClick={() => dispatch(logout())}>
+                      SignOut
+                    </Button>
+                  </li>
+                </>
               ) : (
                 <>
                   <li className="md:!ml-44">
@@ -137,7 +121,7 @@ export default function NavBar() {
                           pathname.includes("/landing/contactus")) &&
                         "bg-white !text-primary hover:bg-primary-light hover:!text-white"
                       }`}
-                      onClick={() => router.push("/userdashboard")}
+                      onClick={() => router.push("/register")}
                     >
                       Sign Up
                     </Button>
@@ -165,3 +149,40 @@ export default function NavBar() {
     </>
   );
 }
+
+// <li className="md:!ml-80 w-10 h-10 relative">
+//   <Button
+//     className="!p-1"
+//     onClick={() => setIsSmallMenuOpen(!isSmallMenuOpen)}
+//   >
+//     <UserCircleIcon className="w-8 h-8 text-white" />
+//   </Button>
+//   <div
+//     id="dropdownNavbar"
+//     className={`!z-10 ${
+//       !isSmallMenuOpen && "hidden"
+//     } font-normal bg-white divide-y absolute right-0 top-12 divide-gray-100 rounded-lg shadow w-44 `}
+//   >
+//     <ul className="p-2 text-sm bg-gray-100 shadow-md ">
+//       <li className="mb-2">
+//         <Link
+//           href={
+//             user?.role === "employee"
+//               ? "/userdashboard"
+//               : user.role === "company"
+//               ? "/company_dashboard"
+//               : "/admindashboard"
+//           }
+//           className="block px-4 py-2 hover:bg-primary-light hover:text-white"
+//         >
+//           Dashboard
+//         </Link>
+//       </li>
+// <li>
+//   <Button onClick={() => dispatch(logout())}>
+//     SignOut
+//   </Button>
+// </li>
+//     </ul>
+//   </div>
+// </li>
