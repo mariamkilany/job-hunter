@@ -36,10 +36,7 @@ const CheckoutForm = ({ selectedPlan }) => {
 				body: JSON.stringify({
 					id,
 					amount,
-					user: {
-						name: "MyCompany",
-						userId: "65f273705ed9351afc92a2ca",
-					},
+					user: JSON.parse(JSON.parse(localStorage.getItem("persist:auth")).user),
 				}),
 			});
 
@@ -50,7 +47,7 @@ const CheckoutForm = ({ selectedPlan }) => {
 			if (data.payment.status === "succeeded") {
 				setErrorMessage("Payment successful!");
 				// Redirect to the success page
-				router.push("/landing");
+				router.push("/company_dashboard/newjob");
 			} else setErrorMessage("Payment failed.");
 		}
 	};
