@@ -51,7 +51,7 @@ export default function Profile() {
     setIsLoading(true);
     try {
       const response = await axios.put(`/api/users/${userId}`, userData);
-      console.log('User updated successfully:', response.data);
+      console.log("User updated successfully:", response.data);
       // Handle successful update (e.g., show success message, redirect)
     } catch (error) {
       setError(error.message);
@@ -570,50 +570,86 @@ export default function Profile() {
                   alt="logo company "
                   className=" inline rounded-full w-12 me-4"
                 ></img> */}
-                <div>
+                {/* <div>
                   <h3 className="font-bold text-xl mt-0">aaaaaa</h3>
                   <span className="text-sm"> aaaa ,</span>
                   <span className="text-sm"> aaaaaaa</span>
-                </div>
+                </div> */}
               </div>
               <div className=" space-y-4 ps-8">
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-3">
-                    <label htmlFor="userName" className="form-label">
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="userName"
-                      name="userName"
-                      value={userData.userName || ""}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                      Email
+                <form className="space-y-4" action="#">
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Your email
                     </label>
                     <input
                       type="email"
-                      className="form-control"
-                      id="email"
                       name="email"
-                      value={userData.email || ""}
-                      onChange={handleChange}
+                      id="email"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                      placeholder="name@company.com"
                       required
                     />
                   </div>
-                  {/* ... other form fields for remaining user properties */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Your password
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex items-start">
+                      <div className="flex items-center h-5">
+                        <input
+                          id="remember"
+                          type="checkbox"
+                          defaultValue
+                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                          required
+                        />
+                      </div>
+                      <label
+                        htmlFor="remember"
+                        className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                    <a
+                      href="#"
+                      className="text-sm text-blue-700 hover:underline dark:text-blue-500"
+                    >
+                      Lost Password?
+                    </a>
+                  </div>
                   <button
                     type="submit"
-                    className="btn btn-primary"
-                    disabled={isLoading}
+                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Update User
+                    Login to your account
                   </button>
+                  <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+                    Not registered?{" "}
+                    <a
+                      href="#"
+                      className="text-blue-700 hover:underline dark:text-blue-500"
+                    >
+                      Create account
+                    </a>
+                  </div>
                 </form>
               </div>
             </div>
