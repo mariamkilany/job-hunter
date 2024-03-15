@@ -1,6 +1,6 @@
 import React from "react";
 import { PencilSquareIcon, PlusIcon } from "@heroicons/react/24/solid";
-const TechStack = () => {
+const TechStack = ({ company }) => {
   return (
     <div>
       <div className="flex justify-between">
@@ -12,27 +12,16 @@ const TechStack = () => {
       </div>
 
       <div className="flex flex-wrap gap-3 p-4">
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          Html
-        </span>{" "}
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          css
-        </span>{" "}
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          JS
-        </span>{" "}
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          MUI
-        </span>
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          MUI
-        </span>
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          MUI
-        </span>
-        <span className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full">
-          MUI
-        </span>
+        {company.techStack?.map((co, i) => {
+          return (
+            <span
+              className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full"
+              key={i}
+            >
+              {co}
+            </span>
+          );
+        })}
       </div>
     </div>
   );

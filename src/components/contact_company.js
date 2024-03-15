@@ -5,7 +5,7 @@ import {
   EnvelopeIcon,
   PlusIcon,
 } from "@heroicons/react/24/solid";
-const ContactCompany = () => {
+const ContactCompany = ({company}) => {
   return (
     <>
       <div className="flex justify-between">
@@ -22,14 +22,21 @@ const ContactCompany = () => {
           style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
         >
           <LinkIcon color="#4640DE" className="w-5 mr-2" />
-          linkedin.com/company/nomad
+          {company.links.linkedIn}
         </span>
         <span
-          className="flex p-2 rounded"
+          className="flex p-2 mr-2 rounded"
           style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
         >
-          <EnvelopeIcon color="#4640DE" className="w-5 mr-2" />
-          nomad@gmail.com
+          <LinkIcon color="#4640DE" className="w-5 mr-2" />
+          {company.links.facebook}
+        </span>
+        <span
+          className="flex p-2 mr-2 rounded"
+          style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
+        >
+          <LinkIcon color="#4640DE" className="w-5 mr-2" />
+          {company.links.instagram}
         </span>
       </div>
     </>

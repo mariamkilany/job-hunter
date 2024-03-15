@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   FireIcon,
@@ -5,7 +6,9 @@ import {
   UsersIcon,
   BuildingOffice2Icon,
 } from "@heroicons/react/24/solid";
-const HeaderCompany = () => {
+import { useSelector } from "react-redux";
+const HeaderCompany = ({company}) => {
+
   return (
     <div>
       <div className="lg:flex md:items-center lg:justify-between">
@@ -16,21 +19,21 @@ const HeaderCompany = () => {
           <div className="mt-2 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6 ">
             <div className="mt-2 flex items-center text-sm text-gray-500 ">
               <FireIcon className="w-5" />
-              Founded
+              {new Date(company?.foundedIn).toLocaleDateString()}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
 
               <MapPinIcon className="w-5" />
-              Location
+              {company?.address}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <UsersIcon className="w-5" />
-              Employees
+              {company?.employeesNumber}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
               <BuildingOffice2Icon className="w-5" />
 
-              Industries
+              {company?.industry}
             </div>
           </div>
         </div>

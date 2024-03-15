@@ -13,6 +13,8 @@
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.2.1",
+    "@stripe/react-stripe-js": "^2.6.0",
+    "@stripe/stripe-js": "^3.0.8",
     "apexcharts": "^3.46.0",
     "axios": "^1.6.7",
     "flowbite": "^2.3.0",
@@ -25,8 +27,8 @@
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
-    "yup": "^1.4.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
