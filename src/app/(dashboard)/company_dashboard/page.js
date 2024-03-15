@@ -3,8 +3,7 @@ import BarChart from "@/components/company_bar/bar_chart";
 import CompanyPiechart from "@/components/company_pie/company_piechart";
 import DashboardHeader from "@/components/dashboard_header";
 import JobUpdatesCard from "@/components/job_updates_card";
-import TotalJobs from "@/components/total_jobs";
-import Totalmatchers from "@/components/totalmatchers";
+
 import React from "react";
 
 const Page = () => {
@@ -22,14 +21,7 @@ const Page = () => {
             <BarChart />
           </div>
         </div>
-        <section>
-          <div>
-            <TotalJobs />
-          </div>
-          <div className="mt-2">
-            <Totalmatchers />
-          </div>
-        </section>
+       
       </section>
       <div>
         <h4 className="text-3xl text-center md:text-start">Job Updates</h4>
