@@ -24,7 +24,7 @@ const TransactionTable = ({ data }) => {
 								{transaction.userName}
 							</th>
 							<td className="px-6 py-4">{new Date(transaction.paymentDate).toLocaleDateString()}</td>
-							<td className="px-6 py-4">{transaction.amount * 100} $</td>
+							<td className="px-6 py-4">{transaction.amount} $</td>
 						</tr>
 					))}
 			</tbody>
@@ -33,7 +33,7 @@ const TransactionTable = ({ data }) => {
 					<th scope="row" className="px-6 py-3 text-base" colSpan={2}>
 						Total
 					</th>
-					<td className="px-6 py-3">{data.reduce((acc, curr) => acc + curr.amount * 100, 0)} $</td>
+					<td className="px-6 py-3">{data.reduce((acc, curr) => acc + curr.amount, 0)} $</td>
 				</tr>
 			</tfoot>
 		</table>

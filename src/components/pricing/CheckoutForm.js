@@ -28,7 +28,7 @@ const CheckoutForm = ({ selectedPlan }) => {
 			const id = paymentMethod.id;
 			const amount = selectedPlan;
 
-			const response = await fetch("http://localhost:8000/api/payment/checkout", {
+			const response = await fetch("https://job-hunter-server-1.onrender.com/api/payment/checkout", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
