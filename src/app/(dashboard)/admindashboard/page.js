@@ -12,10 +12,6 @@ const Admin = () => {
   const allCompanies = useSelector((state)=>state.company.company)
   const allEmployees = useSelector((state)=>state.employee.employee)
    const dispatch = useDispatch();
-   const [chartValues, setChartValues]= useState([]);
-  //  const [columnValues , setColumnValues] = useState([]) 
-   
-  // console.log(columnValues);
 
   useEffect(()=>{
     //calling data
@@ -181,14 +177,14 @@ const Admin = () => {
         yaxis: {
           labels: {
             formatter: function (value) {
-              return value.toFixed(2) + "%";
+              return value?.toFixed(2) + "%";
             },
           },
         },
         xaxis: {
           labels: {
             formatter: function (value) {
-              return value.toFixed(2) + "%";
+              return value?.toFixed(2) + "%";
             },
           },
           axisTicks: {
