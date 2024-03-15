@@ -9,13 +9,9 @@ import { getAllEmployees } from "@/lib/features/employees/employeeActions";
 const Admin = () => {
   // reading jobs and companies data 
   const allJobs =  useSelector((state)=>state.jobs.jobs)
-  const allCompanies = useSelector((state)=>state.company.company.data)
+  const allCompanies = useSelector((state)=>state.company.company)
   const allEmployees = useSelector((state)=>state.employee.employee)
    const dispatch = useDispatch();
-   const [chartValues, setChartValues]= useState([]);
-  //  const [columnValues , setColumnValues] = useState([]) 
-   
-  // console.log(columnValues);
 
   useEffect(()=>{
     //calling data
@@ -140,7 +136,7 @@ const Admin = () => {
       const backend = allJobs?.filter((c)=>c.category==="back-end").length
       const frequenciesSum =  fullStack + frontEnd + backend;
       
-      const fullstackPercentage = (fullStack/ frequenciesSum )* 100 ;
+      const fullstackPercentage =  ((fullStack/ frequenciesSum )* 100) ;
       const frontEndPercentage = (frontEnd/ frequenciesSum )* 100 ;
       const BackendPercentage = (backend/ frequenciesSum )* 100 ;
 
@@ -181,14 +177,14 @@ const Admin = () => {
         yaxis: {
           labels: {
             formatter: function (value) {
-              return value + "%";
+              return value?.toFixed(2) + "%";
             },
           },
         },
         xaxis: {
           labels: {
             formatter: function (value) {
-              return value + "%";
+              return value?.toFixed(2) + "%";
             },
           },
           axisTicks: {

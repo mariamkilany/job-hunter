@@ -30,4 +30,4 @@ export default function MultiSelect({ skills, setSkills, children }) {
       </Select>
     </div>
   );
-}
+
