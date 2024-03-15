@@ -11,17 +11,18 @@ import { useForm } from "react-hook-form";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import ErrorMessage from "@/components/ErrorMessage";
 import { setStep3 } from "@/lib/features/register/registerSlice";
+import Select from "@/components/Select";
 
 const schema = yup
   .object({
-    years_of_experience: yup
+    yearsOfExperience: yup
       .string()
       .min(0, "min years of experience is 0")
       .required("Years of experience is required"),
-    university: yup.string().required("University is required"),
-    graduation_year: yup.string().required("Graduation year is required"),
+    // university: yup.string().required("University is required"),
+    graduationYear: yup.string().required("Graduation year is required"),
     grade: yup.string().required("Grade is required"),
-    education_level: yup.string().required("Education level is required"),
+    educationLevel: yup.string().required("Education level is required"),
   })
   .required();
 
@@ -36,82 +37,94 @@ export default function AccountInfo() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      years_of_experience: "",
-      university: "",
-      graduation_year: "",
-      education_level: "",
+      yearsOfExperience: "",
+      graduationYear: "",
+      educationLevel: "",
       grade: "",
-      typeOfJob: [],
-      workPlaceType: [],
+      typeOfJob: "",
+      // university:"",
+      workPlaceType: "",
       links: [],
     },
     resolver: yupResolver(schema),
   });
-  const [links, setLinks] = useState([]);
-  const [link, setLink] = useState({ link: "", name: "" });
+  const linksNames = ["github", "linkedIn", "portfolio", "website"];
+  const [links, setLinks] = useState({});
+  const [link, setLink] = useState("github");
+  const [linkUrl, setLinkUrl] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!step2) router.push("/register/account_details");
+    if (!step2) router.push("/register/personal_details");
   }, []);
   const addWebsite = (e) => {
-    if (link.name && link.link) {
-      setLinks([...links, link]);
-      setLink({
-        link: "",
-        name: "",
-      });
+    e.preventDefault();
+    if (linkUrl && link) {
+      setLinks({ ...links, [link]: linkUrl });
+      setLinkUrl("");
+      setLink("");
     }
   };
-  const removeWebsite = (name) => {
-    setLinks(links.filter((item) => item.name !== name));
-  };
   const handleNavigate = (data) => {
-    let transformedLinks = {};
-    const linksArr = links.map((linkObj) => {
-      transformedLinks[linkObj.name] = linkObj.link;
-      return transformedLinks;
-    });
-
-    data.links = linksArr;
+    data.links = links;
+    data.yearsOfExperience = +data.yearsOfExperience;
+    data.graduationYear = +data.graduationYear;
     dispatch(setStep3(data));
     router.push("/register/experience_details");
   };
+
+  const removeWebsite = (link) => {
+    const newLinks = { ...links };
+    delete newLinks[link];
+    setLinks(newLinks);
+  };
+
   return (
     <form className="p-8 my-12" onSubmit={handleSubmit(handleNavigate)}>
       <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
-          <Label htmlFor="years_of_experience">Years of experience</Label>
+          <Label htmlFor="yearsOfExperience">Years of experience</Label>
           <Input
             type="number"
-            name="years_of_experience"
-            id="years_of_experience"
-            {...register("years_of_experience")}
-            className={errors.years_of_experience && errorStyle}
+            name="yearsOfExperience"
+            id="yearsOfExperience"
+            {...register("yearsOfExperience")}
+            className={errors.yearsOfExperience && errorStyle}
           />
-          <ErrorMessage>{errors.years_of_experience?.message}</ErrorMessage>
+          <ErrorMessage>{errors.yearsOfExperience?.message}</ErrorMessage>
         </div>
-        <div>
-          <Label htmlFor="university">University</Label>
-          <Input
-            type="text"
-            name="university"
-            id="university"
-            {...register("university")}
-            className={errors.university && errorStyle}
-          />
-          <ErrorMessage>{errors.university?.message}</ErrorMessage>
-        </div>
+        {
+          // <div>
+          //   <Label htmlFor="university">University</Label>
+          //   <Input
+          //     type="text"
+          //     name="university"
+          //     id="university"
+          //     {...register("university")}
+          //     className={errors.university && errorStyle}
+          //   />
+          //   <ErrorMessage>{errors.university?.message}</ErrorMessage>
+          // </div>
+        }
         <div className="flex flex-col">
-          <div className="flex gap-5 items-end">
-            <div className="w-1/6">
+          <div className="flex gap-1 items-end">
+            <div className="w-2/6">
               <Label htmlFor="website">Website</Label>
-              <Input
+              <Select
                 type="text"
                 name="website"
                 id="website"
-                value={link.name}
-                onChange={(e) => setLink({ ...link, name: e.target.value })}
-              />
+                onChange={(e) => setLink(e.target.value)}
+                value={link}
+              >
+                {linksNames.map(
+                  (name) =>
+                    !Object.keys(links).includes(name) && (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    )
+                )}
+              </Select>
             </div>
             <div className="w-4/6">
               <Label htmlFor="link" className="flex items-center mb-2 gap-2">
@@ -121,8 +134,8 @@ export default function AccountInfo() {
                 type="text"
                 name="link"
                 id="link"
-                value={link.link}
-                onChange={(e) => setLink({ ...link, link: e.target.value })}
+                value={linkUrl}
+                onChange={(e) => setLinkUrl(e.target.value)}
               />
             </div>
             <Button className="w-8 h-8 !p-0" onClick={addWebsite}>
@@ -130,18 +143,28 @@ export default function AccountInfo() {
             </Button>
           </div>
           <div className="flex flex-col gap-2 mt-2">
-            {links.map(({ link, name }) => (
+            {Object.keys(links).map((link) => (
               <div
-                key={name}
+                key={link}
                 className="flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
               >
                 <div className="flex gap-2">
-                  <span className="font-bold">{name}</span>
-                  <span className="w-60 overflow-x-clip">{link}</span>
+                  <span className="font-bold">{link}</span>
+                  <span
+                    style={{
+                      maxWidth: "100px",
+                      overflow: "hidden",
+                      textOverflow: "clip",
+                      whiteSpace: "nowrap",
+                    }}
+                    className="overflow-x-clip"
+                  >
+                    {links[link]}
+                  </span>
                 </div>
                 <Button
-                  className="w-8 h-8 p-0"
-                  onClick={() => removeWebsite(name)}
+                  className="w-8 h-8 !p-0"
+                  onClick={() => removeWebsite(link)}
                 >
                   -
                 </Button>
@@ -151,71 +174,94 @@ export default function AccountInfo() {
         </div>
         <div className="flex gap-5">
           <div className="w-1/2">
-            <Label htmlFor="graduation_year">Graduation Year</Label>
-            <Input
-              type="month"
-              name="graduation_year"
-              id="graduation_year"
-              {...register("graduation_year")}
-              className={errors.graduation_year && errorStyle}
-            />
-            <ErrorMessage>{errors.graduation_year?.message}</ErrorMessage>
+            <Label htmlFor="graduationYear">Graduation Year</Label>
+
+            <Select
+              name="graduationYear"
+              id="graduationYear"
+              {...register("graduationYear")}
+            >
+              <option value="" disabled>
+                {" "}
+                Select{" "}
+              </option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+              <option value="2011">2011</option>
+              <option value="2010">2010</option>
+            </Select>
+            <ErrorMessage>{errors.graduationYear?.message}</ErrorMessage>
           </div>
           <div className="w-1/2">
             <Label htmlFor="grade">Grade</Label>
-            <Input
-              type="text"
-              name="grade"
-              id="grade"
-              {...register("grade")}
-              className={errors.grade && errorStyle}
-            />
+            <Select name="grade" id="grade" {...register("grade")}>
+              <option value="" disabled>
+                Select your grade
+              </option>
+              <option value="excellent">Excellent</option>
+              <option value="very good">Very Good</option>
+              <option value="good">Good</option>
+              <option value="pass">pass</option>
+            </Select>
             <ErrorMessage>{errors.grade?.message}</ErrorMessage>
           </div>
         </div>
         <div>
-          <Label htmlFor="education_level">Education level</Label>
-          <Input
-            type="text"
-            name="education_level"
-            id="education_level"
-            {...register("education_level")}
-            className={errors.education_level && errorStyle}
-          />
-          <ErrorMessage>{errors.education_level?.message}</ErrorMessage>
+          <Label htmlFor="educationLevel">Education level</Label>
+          <Select
+            name="educationLevel"
+            id="educationLevel"
+            {...register("educationLevel")}
+          >
+            <option value="high school">high school</option>
+            <option value="bachelor">bachelor</option>
+            <option value="master">master</option>
+            <option value="phd">phd</option>
+          </Select>
+          <ErrorMessage>{errors.educationLevel?.message}</ErrorMessage>
         </div>
         <div className="flex flex-col gap-4">
           <Label>Type of job</Label>
           <div className="flex">
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
+                type="radio"
                 id="full_time"
+                name="typeOfJob"
                 className="w-4 h-4"
-                value="full-time"
+                value="full-Time"
                 {...register("typeOfJob")}
               />
               <Label htmlFor="full_time">Full Time</Label>
             </div>
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
+                type="radio"
                 id="part_time"
+                name="typeOfJob"
                 className="w-4 h-4"
-                value="part-time"
+                value="part-Time"
                 {...register("typeOfJob")}
               />
               <Label htmlFor="part_time">Part Time</Label>
             </div>
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
-                id="project"
+                type="radio"
+                id="remote"
+                name="typeOfJob"
                 className="w-4 h-4"
-                value="project"
+                value="remote"
                 {...register("typeOfJob")}
               />
-              <Label htmlFor="project">Project</Label>
+              <Label htmlFor="remote">Remote</Label>
             </div>
           </div>
         </div>
@@ -224,27 +270,27 @@ export default function AccountInfo() {
           <div className="flex">
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
+                type="radio"
                 id="on_site"
                 className="w-4 h-4"
-                value="on site"
+                value="on-site"
                 {...register("workPlaceType")}
               />
               <Label htmlFor="on_site">On Site</Label>
             </div>
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
-                id="hybird"
+                type="radio"
+                id="hybrid"
                 className="w-4 h-4"
                 value="hybird"
                 {...register("workPlaceType")}
               />
-              <Label htmlFor="hybird">Hybird</Label>
+              <Label htmlFor="hybrid">hybrid</Label>
             </div>
             <div className="w-1/3 flex gap-4">
               <Input
-                type="checkbox"
+                type="radio"
                 id="remotly"
                 className="w-4 h-4"
                 value="remote"
@@ -256,7 +302,7 @@ export default function AccountInfo() {
         </div>
       </div>
       <div className="flex justify-end">
-        <Button onClick={handleNavigate}> Next Step: Experience Info</Button>
+        <Button> Next Step: Experience Info</Button>
       </div>
     </form>
   );

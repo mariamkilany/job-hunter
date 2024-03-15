@@ -23,7 +23,7 @@ const schema = yup
       .matches(/[a-z]/, "Password must include a lowercase letter")
       .matches(/[A-Z]/, "Password must include an uppercase letter")
       .required("Password can't be empty"),
-    name: yup.string().required("Name can't be empty"),
+    userName: yup.string().required("Name can't be empty"),
     role: yup.string().required("You have to select your role"),
   })
   .required();
@@ -39,7 +39,7 @@ export default function Register() {
     defaultValues: {
       email: "",
       password: "",
-      name: "",
+      userName: "",
       role: "",
     },
     resolver: yupResolver(schema),
@@ -77,7 +77,7 @@ export default function Register() {
             id="name"
             placeholder="Name"
             className={errors.name && errorStyle}
-            {...register("name")}
+            {...register("userName")}
           />
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
         </div>
@@ -115,8 +115,8 @@ export default function Register() {
               id="job_seeker"
               type="radio"
               value="employee"
-              {...register("role")}
               name="bordered-radio"
+              {...register("role")}
               className="text-primary w-4 h-4"
             />
 

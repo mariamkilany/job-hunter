@@ -15,22 +15,28 @@ export const RegisterSlice = createSlice({
     setStep1: (state, action) => {
       state.step1 = true;
       state.userData = { ...state.userData, ...action.payload };
+      console.log(state.userData);
     },
     setStep2: (state, action) => {
       state.step2 = true;
       state.userData = { ...state.userData, ...action.payload };
+      console.log(state.userData);
     },
     setStep3: (state, action) => {
       state.step3 = true;
-      console.log(action.payload);
       state.userData = { ...state.userData, ...action.payload };
+      console.log(state.userData);
     },
     setStep4: (state, action) => {
       state.step4 = true;
       state.userData = { ...state.userData, ...action.payload };
     },
+    reset: () => {
+      state = intialState;
+    },
   },
 });
 
-export const { setStep1, setStep2, setStep3, setStep4 } = RegisterSlice.actions;
+export const { setStep1, setStep2, setStep3, setStep4, reset } =
+  RegisterSlice.actions;
 export default RegisterSlice.reducer;
