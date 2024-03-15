@@ -20,7 +20,8 @@ const schema = yup
         /^(\+?20)?\d{10}$/,
         "Phone number must be 10 digits and may include country code"
       ),
-    location: yup.string().required("Address is required"),
+    country: yup.string().required("Country is required"),
+    city: yup.string().required("City is required"),
     birthDate: yup.string().required("Birth date is required"),
     gender: yup.string().required("Please select a gender"),
   })
@@ -39,9 +40,10 @@ export default function PersonalDetails() {
   } = useForm({
     defaultValues: {
       phone: "",
-      location: "",
       birthDate: "",
       gender: "",
+      city: "",
+      country: "",
     },
     resolver: yupResolver(schema),
   });
@@ -50,7 +52,17 @@ export default function PersonalDetails() {
     if (!step1) router.push("/register");
   }, []);
   const handleNavigate = (data) => {
-    dispatch(setStep2(data));
+    dispatch(
+      setStep2({
+        phone: data.phone,
+        birthDate: data.birthDate,
+        gender: data.gender,
+        location: {
+          city: data.city,
+          country: data.country,
+        },
+      })
+    );
     router.push("/register/account_details");
   };
   return (
@@ -100,16 +112,29 @@ export default function PersonalDetails() {
           />
           <ErrorMessage>{errors.phone?.message}</ErrorMessage>
         </div>
-        <div>
-          <Label htmlFor="location">Location</Label>
-          <Input
-            type="text"
-            name="location"
-            id="location"
-            className={errors.location && errorStyle}
-            {...register("location")}
-          />
-          <ErrorMessage>{errors.location?.message}</ErrorMessage>
+        <div className="flex gap-2">
+          <div className="w-1/2">
+            <Label htmlFor="country">Country</Label>
+            <Input
+              type="text"
+              name="country"
+              id="country"
+              className={errors.country && errorStyle}
+              {...register("country")}
+            />
+            <ErrorMessage>{errors.country?.message}</ErrorMessage>
+          </div>
+          <div className="w-1/2">
+            <Label htmlFor="city">City</Label>
+            <Input
+              type="text"
+              name="city"
+              id="city"
+              className={errors.city && errorStyle}
+              {...register("city")}
+            />
+            <ErrorMessage>{errors.city?.message}</ErrorMessage>
+          </div>
         </div>
         <div>
           <Label htmlFor="birthDate">Birth Date</Label>

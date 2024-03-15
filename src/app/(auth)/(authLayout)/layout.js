@@ -17,7 +17,7 @@ export default function AuthLayout({ children }) {
           Welcome to Job Huntly
         </p>
         <Switch />
-        <div className="px-10" style={{ height: "500px" }}>
+        <div className="px-10 " style={{ height: "500px" }}>
           {children}
         </div>
       </div>
