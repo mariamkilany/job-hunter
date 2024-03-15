@@ -1,16 +1,25 @@
-import Joblisting from "@/components/joblisting";
-
-import React from "react";
+"use client";
+import Table from "@/components/companyDashboard/Table";
+import { data } from "autoprefixer";
+import { useEffect, useState } from "react";
 
 const Page = () => {
-  return (
- <> <div>
-    <h1 className="text-4xl text-primary mb-5">job Listing</h1>
-  </div>
-    <div>
-        <Joblisting/>
-    </div></>
-  );
+	const [allJobs, setAllJobs] = useState([]);
+
+	useEffect(() => {
+		const id = JSON.parse(JSON.parse(localStorage.getItem("persist:auth")).user)._id;
+		fetch("https://job-hunter-server-1.onrender.com/api/jobs/company/" + id)
+			.then(res => res.json())
+			.then(data => setAllJobs(data.data));
+	}, []);
+
+	return (
+		<div className="container px-4 mx-auto">
+			<h1 className="mt-6 mb-4 text-3xl font-semibold tracking-wide">Job Listings</h1>
+			{console.log(allJobs)}
+			<Table data={allJobs} />
+		</div>
+	);
 };
 
 export default Page;
