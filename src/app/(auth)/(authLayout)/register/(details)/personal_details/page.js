@@ -13,13 +13,7 @@ import * as yup from "yup";
 
 const schema = yup
   .object({
-    phone: yup
-      .string()
-      .required("Phone number is required")
-      .matches(
-        /^(\+?20)?\d{10}$/,
-        "Phone number must be 10 digits and may include country code"
-      ),
+    phone: yup.string().required("Phone number is required"),
     country: yup.string().required("Country is required"),
     city: yup.string().required("City is required"),
     birthDate: yup.string().required("Birth date is required"),
@@ -74,7 +68,7 @@ export default function PersonalDetails() {
             type="text"
             name="username"
             id="username"
-            value={userData.name}
+            value={userData.userName}
             disabled
             className="bg-gray-100 border border-gray-300 text-gray-900 "
           />

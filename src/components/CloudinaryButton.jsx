@@ -44,6 +44,6 @@ export default function CloudinaryButton({ onImageUpload }) {
  *- Define State to hold imageURL => const [imageUrl, setImageUrl] = useState(null)
  *- Define function to handle the change =>const handleImageUpload = (url) => {setImageUrl(url);}
  *- Use the button and pass handle function as props =>  <CloudinaryButton onImageUpload={handleImageUpload} />
- *-Use URL in your img src =>{imageUrl && <img src={imageUrl} />}
+ *- Use URL in your img src =>{imageUrl && <img src={imageUrl} />}
  *
  */

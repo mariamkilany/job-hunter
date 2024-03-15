@@ -1,3 +1,4 @@
+"use client";
 import Stepper from "@/components/Stepper";
 
 export default function layout({ children }) {
