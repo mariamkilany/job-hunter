@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Select from "./Select";
 
-export default function MultiSelect(props) {
-  const [skills, setSkills] = useState([]);
+export default function MultiSelect({ skills, setSkills, children }) {
   return (
     <div>
       <div className="flex flex-wrap gap-2 ">
@@ -27,9 +25,8 @@ export default function MultiSelect(props) {
           if (!skills.includes(e.target.value))
             setSkills([...skills, e.target.value]);
         }}
-        {...props}
       >
-        {props.children}
+        {children}
       </Select>
     </div>
   );
