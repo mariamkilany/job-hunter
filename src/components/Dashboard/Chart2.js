@@ -6,7 +6,7 @@ import axios from "../../axiosConfig";
 
 const Chart2 = () => {
   const user = useSelector((state) => state.auth.user);
-  /* reviews, skills, applications */
+  /* Experiance, skills, applications */
   const options = { labels: ["Experiance", "Skills", "Applications"] };
   const [series, setseries] = useState([
     user.yearsOfExperience,

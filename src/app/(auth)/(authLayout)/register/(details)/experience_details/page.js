@@ -197,7 +197,7 @@ export default function ExperienceDetails() {
         </div>
         <div>
           <Label>Skills</Label>
-          <MultiSelect skills={skills} setSkills={setSkills}>
+          <MultiSelect skills={user.skills} setSkills={setSkills}>
             <option disabled>Choose a Skill</option>
             {skillsArr.map((skill) => {
               return (
