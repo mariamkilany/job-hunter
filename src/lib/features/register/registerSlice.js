@@ -22,6 +22,7 @@ export const RegisterSlice = createSlice({
     },
     setStep3: (state, action) => {
       state.step3 = true;
+      console.log(action.payload);
       state.userData = { ...state.userData, ...action.payload };
     },
     setStep4: (state, action) => {

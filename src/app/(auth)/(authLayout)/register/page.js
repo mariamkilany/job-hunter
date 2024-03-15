@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ErrorMessage from "@/components/ErrorMessage";
-import AlertMessage from "@/components/AlertMessage";
 import { setStep1 } from "@/lib/features/register/registerSlice";
 import { useRouter } from "next/navigation";
 
