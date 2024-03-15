@@ -16,9 +16,14 @@ import { LinkIcon } from "@heroicons/react/24/outline";
 const Edit = () => {
   // States
   const user = useSelector((state) => state.auth.user);
+  // Link Status
   const { _id, ...Userlinks } = user.links;
-  const [links, setLinks] = useState([]);
-  // const [link, setLink] = useState({ link: "", name: "" });
+  const linksNames = ["github", "linkedIn", "portfolio", "website"];
+  const [links, setLinks] = useState(Userlinks);
+  const [link, setLink] = useState(linksNames[0]);
+  const [linkUrl, setLinkUrl] = useState("");
+
+  // skills status
   const [skills, setSkills] = useState(user.skills);
   const skillsArr = [
     {
@@ -118,21 +123,18 @@ const Edit = () => {
 
   // Functions
   const addWebsite = (e) => {
-    if (link.name && link.link) {
-      setLinks([...links, link]);
-      setLink({
-        link: "",
-        name: "",
-      });
+    e.preventDefault();
+    if (linkUrl && link) {
+      setLinks({ ...links, [link]: linkUrl });
+      setLinkUrl("");
+      setLink("");
     }
   };
-  const removeWebsite = (name) => {
-    setLinks(links.filter((item) => item.name !== name));
-  };
 
-  // Function to add a new link type (optional)
-  const addLinkType = (type) => {
-    setValue("links", { ...formState.values.links, [type]: "" }); // Add new type with empty URL
+  const removeWebsite = (link) => {
+    const newLinks = { ...links };
+    delete newLinks[link];
+    setLinks(newLinks);
   };
 
   const getFormattedDate = function (dateString) {
@@ -178,13 +180,6 @@ const Edit = () => {
         city: yup.string().required("City is required"),
         country: yup.string().required("Country is required"),
       }),
-      links: yup.object({
-        linkedIn: yup.string().url("Invalid LinkedIn URL").optional(),
-        github: yup.string().url("Invalid GitHub URL").optional(),
-        portfolio: yup.string().url("Invalid Portfolio URL").optional(),
-        // website: yup.string().url("Invalid website URL").optional(),
-        // Add other optional link properties if needed
-      }),
       birthDate: yup.string().required("Birth date is required"),
       gender: yup.string().required("Please select a gender"),
     })
@@ -222,6 +217,7 @@ const Edit = () => {
   const hanndleEditProfile = (data) => {
     // console.log(data);
     data.skills = skills;
+    data.links = links;
     console.log({ ...user, ...data });
   };
 
@@ -256,55 +252,67 @@ const Edit = () => {
             <ErrorMessage>{errors.yearsOfExperience?.message}</ErrorMessage>
           </div>
           <div className="flex flex-col">
-            <div className="flex gap-5 items-end">
-              {Object.keys(Userlinks || {}).length > 0 && ( // Check for any link properties
-                <div>
-                  <h2>Links</h2>
-                  {Object.entries(Userlinks || {}).map(
-                    (
-                      [type, url],
-                      index // Iterate over link properties
-                    ) => (
-                      <div key={index}>
-                        <label htmlFor={`links[${type}]`}>{type}:</label>
-                        <input
-                          type="url"
-                          {...register(`links[${type}]`, { required: false })} // Make URL optional
-                          id={`links[${type}]`}
-                          defaultValue={url} // Set default value from user data
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setValue(`links.${type}`, "")}
-                        >
-                          Remove
-                        </button>
-                        <ErrorMessage>
-                          {errors.links?.[type]?.message}
-                        </ErrorMessage>
-                      </div>
-                    )
-                  )}
-                  {/* Optional button to add new link types */}
-                  <button type="button" onClick={() => addLinkType("website")}>
-                    Add Website Link
-                  </button>
-                </div>
-              )}
+            <div className="flex gap-1 items-end">
+              <div className="w-2/6">
+                <Label htmlFor="website">Website</Label>
+                <Select
+                  type="text"
+                  name="website"
+                  id="website"
+                  onChange={(e) => setLink(e.target.value)}
+                  value={link}
+                >
+                  <option value="" disabled selected>
+                    Choose a Site
+                  </option>
+                  {linksNames
+                    .filter((name) => !Object.keys(links).includes(name))
+                    .map((name) => (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                </Select>
+              </div>
+              <div className="w-4/6">
+                <Label htmlFor="link" className="flex items-center mb-2 gap-2">
+                  Link <LinkIcon className="w-4 h-4 text-primary" />
+                </Label>
+                <Input
+                  type="text"
+                  name="link"
+                  id="link"
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
+                />
+              </div>
+              <Button className="w-8 h-8 !p-0" onClick={addWebsite}>
+                +
+              </Button>
             </div>
             <div className="flex flex-col gap-2 mt-2">
-              {links.map(({ link, name }) => (
+              {Object.keys(links).map((link) => (
                 <div
-                  key={name}
+                  key={link}
                   className="flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
                 >
                   <div className="flex gap-2">
-                    <span className="font-bold">{name}</span>
-                    <span className="w-60 overflow-x-clip">{link}</span>
+                    <span className="font-bold">{link}</span>
+                    <span
+                      style={{
+                        // maxWidth: "100px",
+                        overflow: "hidden",
+                        textOverflow: "clip",
+                        whiteSpace: "nowrap",
+                      }}
+                      className="overflow-x-clip"
+                    >
+                      {links[link].replace(/^https:\/\//, "")}
+                    </span>
                   </div>
                   <Button
-                    className="w-8 h-8 p-0"
-                    onClick={() => removeWebsite(name)}
+                    className="w-8 h-8 !p-0"
+                    onClick={() => removeWebsite(link)}
                   >
                     -
                   </Button>
@@ -421,7 +429,7 @@ const Edit = () => {
         </div>
         <div>
           <Label>Skills</Label>
-          <MultiSelect skills={skills} setSkills={setSkills}>
+          {/* <MultiSelect skills={skills} setSkills={setSkills}>
             <option disabled>Choose a Skill</option>
             {skillsArr.map((skill) => {
               return (
@@ -430,7 +438,7 @@ const Edit = () => {
                 </option>
               );
             })}
-          </MultiSelect>
+          </MultiSelect> */}
         </div>
         <div>
           <Label>Categories</Label>
