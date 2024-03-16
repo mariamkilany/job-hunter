@@ -56,14 +56,6 @@ export default function AccountInfo() {
   useEffect(() => {
     if (!step2) router.push("/register/personal_details");
   }, []);
-  const addWebsite = (e) => {
-    e.preventDefault();
-    if (linkUrl && link) {
-      setLinks({ ...links, [link]: linkUrl });
-      setLinkUrl("");
-      setLink("");
-    }
-  };
   const handleNavigate = (data) => {
     data.links = links;
     data.yearsOfExperience = +data.yearsOfExperience;
@@ -72,6 +64,14 @@ export default function AccountInfo() {
     router.push("/register/experience_details");
   };
 
+  const addWebsite = (e) => {
+    e.preventDefault();
+    if (linkUrl && link) {
+      setLinks({ ...links, [link]: linkUrl });
+      setLinkUrl("");
+      setLink("");
+    }
+  };
   const removeWebsite = (link) => {
     const newLinks = { ...links };
     delete newLinks[link];
@@ -92,19 +92,6 @@ export default function AccountInfo() {
           />
           <ErrorMessage>{errors.yearsOfExperience?.message}</ErrorMessage>
         </div>
-        {
-          // <div>
-          //   <Label htmlFor="university">University</Label>
-          //   <Input
-          //     type="text"
-          //     name="university"
-          //     id="university"
-          //     {...register("university")}
-          //     className={errors.university && errorStyle}
-          //   />
-          //   <ErrorMessage>{errors.university?.message}</ErrorMessage>
-          // </div>
-        }
         <div className="flex flex-col">
           <div className="flex gap-1 items-end">
             <div className="w-2/6">
@@ -152,7 +139,7 @@ export default function AccountInfo() {
                   <span className="font-bold">{link}</span>
                   <span
                     style={{
-                      maxWidth: "100px",
+                      maxWidth: "200px",
                       overflow: "hidden",
                       textOverflow: "clip",
                       whiteSpace: "nowrap",
@@ -175,7 +162,6 @@ export default function AccountInfo() {
         <div className="flex gap-5">
           <div className="w-1/2">
             <Label htmlFor="graduationYear">Graduation Year</Label>
-
             <Select
               name="graduationYear"
               id="graduationYear"
