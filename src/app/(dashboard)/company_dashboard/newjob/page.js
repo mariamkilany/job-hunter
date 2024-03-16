@@ -110,7 +110,7 @@ export default function NewJob() {
 						</div>
 						<div className="row-span-2 ">
 							<Label>
-								Job Description{" "}
+								Job Description
 								{error["info.description"] && <span className="text-sm text-red-500">{error["info.description"]}</span>}
 							</Label>
 							<textarea

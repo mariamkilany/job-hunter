@@ -1,4 +1,5 @@
 "use client";
+import ApplicantsTable from "@/components/applicants_table";
 import Table from "@/components/companyDashboard/Table";
 import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
@@ -16,8 +17,9 @@ const Page = () => {
 	return (
 		<div className="container px-4 mx-auto">
 			<h1 className="mt-6 mb-4 text-3xl font-semibold tracking-wide">Job Listings</h1>
-			{console.log(allJobs)}
+			{/* {console.log(allJobs)} */}
 			<Table data={allJobs} />
+			
 		</div>
 	);
 };

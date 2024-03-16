@@ -139,7 +139,7 @@ export default function Profile() {
                 <br />
                 <b>Gender: {"  "}</b> {user.gender}
                 <br />
-                <b>Location: {"  "}</b> {user.location.city} -{" "}
+                <b>Location: {"  "}</b> {user.location.city} -
                 {user.location.country}
                 <br />
                 <b>Minimum Salary: {"  "}</b> {user.minimumSalary}
@@ -172,14 +172,14 @@ export default function Profile() {
               <div className="flex flex-col justify-center items-center sm:items-start">
                 <div className="flex items-center justify-between my-1">
                   <h6 className="text-gray-950 font-semibold">
-                    {user.jobTitle[0].toUpperCase() + user.jobTitle.slice(1)}{" "}
+                    {user.jobTitle[0].toUpperCase() + user.jobTitle.slice(1)}
                   </h6>
                 </div>
                 <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2">
                   <span>
                     {user.typeOfJob[0].toUpperCase() +
                       user.typeOfJob.slice(1) +
-                      "  .  "}{" "}
+                      "  .  "}
                     {user.workPlaceType[0].toUpperCase() +
                       user.workPlaceType.slice(1)}
                   </span>
@@ -265,7 +265,7 @@ export default function Profile() {
                 <div className="flex items-center justify-between my-1">
                   <h6 className="text-gray-950 font-semibold">
                     {user.educationLevel[0].toUpperCase() +
-                      user.educationLevel.slice(1)}{" "}
+                      user.educationLevel.slice(1)}
                     Degree
                   </h6>
                   {/* <PencilSquareIcon

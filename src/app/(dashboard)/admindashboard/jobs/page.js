@@ -32,7 +32,7 @@ const Jobs = () => {
 
      },[])
      useEffect(() => {
-    seFilteredData(allJobs);
+      seFilteredData(allJobs);
     }, [allJobs]);
 
 
@@ -85,6 +85,8 @@ const Jobs = () => {
         }
     };
     //handle pagination
+
+    
     const handlePagination = (pageNumber) => {
         // dispatch(getAllJobsPaginated({ page: pageNumber, pageSize: 6 }));
       };
@@ -94,18 +96,17 @@ const Jobs = () => {
             <h2 className='text-3xl font-bold text-primary'>
                 Jobs
             </h2>
-            
             <div className='flex mt-10 '>
-                <button onClick={()=>{handleFilter("all")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "all" ? "border-b-2 font-bold text-black" : ""}`}>
+                <button onClick={()=>{handleFilter("all")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "all" ? "border-b-2 !font-bold !text-black" : ""}`}>
                     All
                 </button>
-                <button onClick={()=>{handleFilter("pending")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "pending" ? "border-b-2 font-bold text-black" : ""}`}>
+                <button onClick={()=>{handleFilter("pending")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "pending" ? "border-b-2 !font-bold !text-black" : ""}`}>
                   Pending
                 </button>
-                <button  onClick={()=>{handleFilter("accepted")}}className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "accepted" ? "border-b-2 font-bold text-black" : ""}`}>
+                <button  onClick={()=>{handleFilter("accepted")}}className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "accepted" ? "border-b-2 !font-bold !text-black" : ""}`}>
                    Accepted
                 </button>
-                <button onClick={()=>{handleFilter("rejected")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "rejected" ? "border-b-2 font-bold text-black" : ""}`}>
+                <button onClick={()=>{handleFilter("rejected")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "rejected" ? "border-b-2 !font-bold !text-black" : ""}`}>
                    Rejected
                 </button>
             </div>
@@ -135,30 +136,25 @@ const Jobs = () => {
                         <th scope="col" className="px-6 py-3">
                         Status
                         </th>
-                        
                         <th scope="col" className="px-6 py-3" style={{minWidth:"200px"}}>
                         Actions
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
-                                      
-                    {filteredData?.map((job)=>{
+                    <tbody>         
+                    {filteredData?.map((job )=>{
                             counter++;
                         return (<> 
-                            {allCompanies?.map((company)=>{
-                                
+                            {allCompanies?.map((company)=>{     
                                 if(job.company === company._id){
-
                                     return(
                                         <>
-                                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <tr key={company._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td className="w-4 p-4">
                                    {counter}
                                 </td>
                                 <td scope="row" className="px-6 py-4 font-medium text-gray-900 flex items-center  dark:text-white" style={{minWidth:"280px"}}>
                                     <img src={company.image} alt='logo company ' className=' inline rounded-full w-12 me-3'></img>
-        
                                 {company.name}
                                 </td>
                                 <td className="px-6 py-4">
@@ -170,7 +166,6 @@ const Jobs = () => {
                                 <td className="px-6 py-4">
                                 {job.createdAt.slice(0,10)}
                                 </td>
-
                                 {job.status === "pending"&&(<><td className="px-6 py-4">
                                         <span className='block p-2 px-4 rounded-2xl border border-1 border-orange-400 bg-orange-400 text-white  '>
                                         {job.status.toUpperCase()}
@@ -184,9 +179,7 @@ const Jobs = () => {
                                              <span>Job Details</span>
                                              <NewspaperIcon className="size-6" />
                                          </Button>
-                                     </td> </>
-                                        )
-
+                                     </td> </>)
                                   } 
                                     {job.status === "accepted"&&(<td className="px-6 py-4">
                                         <span className='block p-2 px-4 rounded-2xl  border-emerald-600 bg-emerald-600	 text-white '>
@@ -201,7 +194,7 @@ const Jobs = () => {
                                         </td>  )
                                   }
                             </tr>
-                           <div
+                           <div 
                            id="static-modal"
                            data-modal-backdrop="static"
                            tabIndex={-1}
@@ -240,8 +233,6 @@ const Jobs = () => {
                                    <span className="sr-only">Close modal</span>
                                    </button>
                                </div>
-                              
-       
                                <div className='flex items-center   sm:direction-columns'>
                                    <img src={company.image} alt='logo company ' className=' inline rounded-full w-12 me-4'></img>
                                    <div>
@@ -250,42 +241,36 @@ const Jobs = () => {
                                    </h3>
                                    <span className="text-sm"> {company.name} ,</span>
                                    <span className="text-sm"> {company.address}</span>
-                               
                                    </div>
                                </div>
                                    <div className=' space-y-4 ps-8'>
-                                       
                                <p>
-                                   <BriefcaseIcon className="me-2 w-6 inline-block text-gray-400"></BriefcaseIcon>{" "}
+                                   <BriefcaseIcon className="me-2 w-6 inline-block text-gray-400"></BriefcaseIcon>
                                   {job.place}, {job.jobType}
                                </p>
                                <p>
-                                   <BuildingOfficeIcon className="me-2 w-6 inline-block text-gray-400"></BuildingOfficeIcon>{" "}
+                                   <BuildingOfficeIcon className="me-2 w-6 inline-block text-gray-400"></BuildingOfficeIcon>
                                    {company.employeesNumber} Employee
                                </p>
                                <p>
-                                   <ClockIcon className="me-2 w-6 inline-block text-gray-400"></ClockIcon>{" "}
-                                   9.00am to 6.00pm
-                               </p>
-                               <p>
                                    <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
-                                   {" "}
-                                   </CurrencyDollarIcon>{" "}
+                                   
+                                   </CurrencyDollarIcon>
                                    {job.salary} L.E
                                </p>
        
                                <p>
-                                   <ListBulletIcon className="me-2 w-6 inline-block text-gray-400"></ListBulletIcon>{" "}
-                                    Skills: {job.skills.map((skill)=>{
+                                   <ListBulletIcon className="me-2 w-6 inline-block text-gray-400"></ListBulletIcon>
+                                    Skills: {job.skills.map((skill, index)=>{
                                        return(
-                                        <span> {skill} ,</span>
+                                        <span key={index} > {skill} ,</span>
                                        ) 
                                     })}
                                </p>
                                <p> 
                                    <LinkIcon className="me-2 w-6 inline-block text-gray-400">
-                                   {" "}
-                                   </LinkIcon>{" "}
+                                   
+                                   </LinkIcon>
                                   <a className='text-primary' href={company.links.linkedIn} target='_blank'>
                                         {company.links.linkedIn}
                                     </a>  
@@ -298,9 +283,9 @@ const Jobs = () => {
        
                                <h2 className="font-bold text-lg">Requirements </h2>
                                <ul className="list-disc text-gray-600 ps-12">
-                                {job.info.responsibilities.split(",").map((resp)=>{
+                                {job.info.responsibilities.split(",").map((resp, index)=>{
                                     return(
-                                        <li>{resp}</li>     
+                                        <li key={index}>{resp}</li>     
                                     )
                                 })}
                                </ul>
@@ -328,7 +313,6 @@ const Jobs = () => {
                            </div>
                            </div>
                             </div> 
-                                        
                                         </>
 
                                     )
@@ -337,8 +321,6 @@ const Jobs = () => {
                           
                             </>)
                         })}
-
-                   
                     </tbody>
                 </table>
               
