@@ -23,8 +23,8 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.user = action.payload.data;
-      console.log("fulfilled");
       state.error = null;
+      state.loading = false;
       localStorage.setItem("token", action.payload.token);
     });
     builder.addCase(login.rejected, (state, action) => {
