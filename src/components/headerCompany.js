@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   FireIcon,
@@ -7,8 +7,9 @@ import {
   BuildingOffice2Icon,
 } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
-const HeaderCompany = ({company}) => {
-
+import { useRouter } from "next/navigation";
+const HeaderCompany = ({ company }) => {
+  const router = useRouter();
   return (
     <div>
       <div className="lg:flex md:items-center lg:justify-between">
@@ -22,7 +23,6 @@ const HeaderCompany = ({company}) => {
               {new Date(company?.foundedIn).toLocaleDateString()}
             </div>
             <div className="mt-2 flex items-center text-sm text-gray-500">
-
               <MapPinIcon className="w-5" />
               {company?.address}
             </div>
@@ -35,6 +35,15 @@ const HeaderCompany = ({company}) => {
 
               {company?.industry}
             </div>
+            <button
+              type="button"
+              className="h-10 inline-flex justify-center px-5 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              onClick={() =>
+                router.push("/company_dashboard/company_profile/editProfile")
+              }
+            >
+              <span>Edit Profile</span>
+            </button>
           </div>
         </div>
       </div>

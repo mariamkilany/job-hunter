@@ -35,41 +35,6 @@ export default function Profile() {
     return formattedDate;
   };
 
-  const [status, setStatus] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleModal = () => {
-    setStatus(!status);
-  };
-  const [userData, setUserData] = useState({});
-  const handleChange = (event) => {
-    setUserData({ ...userData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setIsLoading(true);
-    try {
-      const response = await axios.put(`/api/users/${userId}`, userData);
-      console.log("User updated successfully:", response.data);
-      // Handle successful update (e.g., show success message, redirect)
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
-    return <p>Loading user data...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div
       id="main-content"
@@ -89,7 +54,7 @@ export default function Profile() {
               <div className="flex">
                 <img
                   className="w-24 h-24 rounded-full ring-4 ring-blue-300 sm:h-32 sm:w-32"
-                  src="/Images/Avatar.png"
+                  src={user.image}
                   alt="Avatar"
                 />
               </div>
@@ -450,7 +415,7 @@ export default function Profile() {
                     strokeLinecap="butt"
                     strokeLinejoin="miter"
                     strokeMiterlimit={10}
-                    strokeDasharray
+                    strokeDasharray=""
                     strokeDashoffset={0}
                     fontFamily="none"
                     fontWeight="none"
