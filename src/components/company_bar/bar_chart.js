@@ -119,16 +119,14 @@ const BarChart = () => {
   }, [options]);
 
   return (
-    <div className="flex-grow">
-      <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 ">
+    <div className="flex-grow ">
+      <div className="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 ">
         <div className="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
           <div>
-            <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-              {data.length}
-            </h5>
-            <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-              Employee/Status
-            </p>
+          <h5 className="text-xl font-bold leading-none text-gray-500 dark:text-white pe-1">
+            Employee Status
+          </h5>
+          
           </div>
         </div>
         <div id="labels-chart" className="px-2.5" />

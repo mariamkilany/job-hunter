@@ -168,8 +168,8 @@ export default function AccountInfo() {
               {...register("graduationYear")}
             >
               <option value="" disabled>
-                {" "}
-                Select{" "}
+               
+                Select  
               </option>
               <option value="2020">2020</option>
               <option value="2019">2019</option>

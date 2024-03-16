@@ -7,6 +7,7 @@ import {
   ComputerDesktopIcon,
   PaintBrushIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 // import { useSelector } from "react-redux";
 // export const metadata = {
 //   title: "Job Hunter",
@@ -30,17 +31,19 @@ export default function Home() {
               </h2>
 
               <div className="mt-10 flex items-center  gap-x-6">
+                <Link href="register">
                 <Button className="bg-white !text-primary hover:bg-primary-light hover:!text-white">
-                  {" "}
+                  
                   Get started
                 </Button>
-                <a
+                </Link>
+                {/* <a
                   href="#"
                   className="text-sm font-semibold leading-6 "
                   style={{ color: "white" }}
                 >
                   Learn more <span aria-hidden="true">→</span>
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -99,12 +102,12 @@ export default function Home() {
                 Start posting jobs for only $10.
               </p>
 
-              <a
-                href="#"
-                className="rounded-md  px-3.5 py-2.5  text-sm font-semibold text-primary bg-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              <Link
+                href="register"
+                className="rounded-md  px-3.5 py-2.5  text-sm font-semibold text-primary bg-white shadow-sm hover:bg-indigo-500 focus-visible:outline hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up now
-              </a>
+              </Link>
             </div>
             <div>
               <img src="/Images/posts.png" alt="dashboard Image"></img>
@@ -117,48 +120,38 @@ export default function Home() {
           <h2 className="text-3xl font-bold  ">
             Explore our <span className="text-primary"> Categories</span>
           </h2>
-          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-1 py-9 ">
+          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-1 py-9 ">
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <PaintBrushIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                {" "}
+                
                 UI/UX
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-                235 jobs avaliable <span aria-hidden="true">→</span>
+              A UI UX designer is a professional who identifies new opportunities to create better user experiences
               </a>
             </div>
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <ComputerDesktopIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                {" "}
+                
                 FrontEnd
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-                235 jobs avaliable <span aria-hidden="true">→</span>
+              Front End Development includes creating a user interface website or application. 
               </a>
             </div>
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <CodeBracketIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                {" "}
+                
                 BackEnd
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-                235 jobs avaliable <span aria-hidden="true">→</span>
+              A back-end web developer is responsible for server-side web application logic and integration of the work front-end developers do
               </a>
             </div>
 
-            <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
-              <CodeBracketSquareIcon className="text-primary w-14 h-14 group-hover:text-white" />
-              <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                {" "}
-                FullStack
-              </h3>
-              <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-                235 jobs avaliable <span aria-hidden="true">→</span>
-              </a>
-            </div>
           </div>
         </div>
       </div>

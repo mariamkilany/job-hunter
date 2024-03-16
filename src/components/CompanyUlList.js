@@ -17,49 +17,58 @@ export default function CompanyUlList() {
   const router = useRouter();
   const handleLogout = () => {
     dispatch(logout());
+    
   };
   return (
     <ul className="space-y-2 font-medium">
-      <li>
         <Link
           href="/company_dashboard"
-          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          className="flex items-center  p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
+      <li  className="flex items-center">
+      
           <ChartPieIcon className="w-5" />
           <span className="ms-3">Dashboard</span>
-        </Link>
+        
       </li>
-      <li>
-        <Link
+      </Link>
+      <Link
           href="/company_dashboard/company_profile"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
+      <li className="flex items-center">
+       
           <BuildingOffice2Icon className="w-5" />
 
           <span className="flex-1 ms-3 whitespace-nowrap">Company Profile</span>
-        </Link>
+      
       </li>
-      <li>
-        <Link
+      </Link>
+      <Link
           href="/company_dashboard/joblisting"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
+      <li className="flex items-center">
+      
           <ClipboardDocumentListIcon className="w-5" />
 
           <span className="flex-1 ms-3 whitespace-nowrap">Job Listing</span>
-        </Link>
+      
       </li>
-      <li>
-        <Link
+      </Link>
+      <Link
           href="/company_dashboard/newjob"
           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
+      <li className="flex items-center"> 
+      
           <BriefcaseIcon className="w-5" />
 
           <span className="flex-1 ms-3 whitespace-nowrap">New Job</span>
-        </Link>
+       
       </li>
-      <li>
+      </Link>
+      <li className="flex items-center">
         <Button onClick={handleLogout} className="flex">
           <ArrowLeftStartOnRectangleIcon className="w-5" />
           <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>

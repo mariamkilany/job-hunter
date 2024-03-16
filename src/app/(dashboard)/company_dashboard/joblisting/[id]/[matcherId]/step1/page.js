@@ -67,7 +67,7 @@ const HR = () => {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Name:</span>{" "}
+                <span className="font-semibold">Meeting Name:</span>
               </p>
             </div>
             <div className="mb-4">
@@ -82,17 +82,17 @@ const HR = () => {
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Date:</span>{" "}
+                <span className="font-semibold">Meeting Date:</span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Time:</span>{" "}
+                <span className="font-semibold">Meeting Time:</span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Instructions:</span>{" "}
+                <span className="font-semibold">Instructions:</span>
               </p>
             </div>
             <div className="mb-4">
