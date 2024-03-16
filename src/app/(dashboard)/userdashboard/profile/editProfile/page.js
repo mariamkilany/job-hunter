@@ -267,13 +267,6 @@ const Edit = () => {
       >
         <Loading />
       </div>
-      {/* <Loading
-        data-modal-backdrop="static"
-        className={`${
-          submit ? " " : "hidden"
-        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
-      /> */}
-      {/* edit */}
       <form className="mt-10" onSubmit={handleSubmit(hanndleEditProfile)}>
         <div className="mb-6">
           <Label htmlFor="name"> User Name</Label>
@@ -354,7 +347,7 @@ const Edit = () => {
                       }}
                       className="overflow-x-clip"
                     >
-                      {links[link].replace(/^https:\/\//, "")}
+                      {links[link].replace(/^http(s?):\/\/(www.)?/, "")}
                     </span>
                   </div>
                   <Button
@@ -424,6 +417,16 @@ const Edit = () => {
                   {...register("typeOfJob")}
                 />
                 <Label htmlFor="part_time">Part Time</Label>
+              </div>
+              <div className="w-1/3 flex gap-4">
+                <Input
+                  type="radio"
+                  id="freelance"
+                  className="w-4 h-4"
+                  value="freelance"
+                  {...register("typeOfJob")}
+                />
+                <Label htmlFor="freelance">Freelance</Label>
               </div>
             </div>
           </div>
@@ -496,7 +499,7 @@ const Edit = () => {
             </option>
             <option value="front-end">Front End</option>
             <option value="back-end">Back End</option>
-            <option value="ui/ux">UI/UX</option>
+            <option value="full-stack">Full Stack</option>
           </Select>
           <ErrorMessage>{errors.jobTitle?.message}</ErrorMessage>
         </div>

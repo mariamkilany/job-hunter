@@ -14,7 +14,10 @@ export default function UserUlList() {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleLogout = () => {
-    dispatch(logout());
+    window.location.assign("http://localhost:3000/login");
+    setTimeout(() => {
+      dispatch(logout(true));
+    }, 0);
   };
   return (
     <ul className="space-y-2 font-medium">
