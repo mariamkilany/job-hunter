@@ -16,27 +16,30 @@ export default function Footer() {
             </span>
           </div>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-            <li>
-              <a href="#" className="hover:underline me-4 md:me-6">
-                About
-              </a>
+           
+          <Link href="landing/pricing" className="hover:underline me-4 md:me-6 hover:text-white">
+             <li>
+               Pricing
+           
             </li>
+            </Link>
             <li>
-              <a href="#" className="hover:underline me-4 md:me-6">
+              <Link href="landing/companies" className="hover:underline me-4 md:me-6 hover:text-white">
                 Companies
-              </a>
-            </li>
-
-            <li>
-              <Link href="/ContactUs" className="hover:underline me-4 md:me-6">
-                Contact Us
               </Link>
             </li>
+            <Link href="landing/contactus" className="hover:underline me-4 md:me-6 hover:text-white">
+
+            <li>
+                Contact Us
+             
+            </li>
+            </Link>
           </ul>
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          © 2024{" "}
+          © 2024
           <a href="https://flowbite.com/" className="hover:underline">
             Job Hunters™
           </a>

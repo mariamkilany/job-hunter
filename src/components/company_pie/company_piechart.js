@@ -116,7 +116,7 @@ const CompanyPiechart = () => {
   }, [jobs]);
 
   return (
-    <div className="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div className="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 ">
       <div className="flex justify-between mb-3">
         <div className="flex justify-center items-center">
           <h5 className="text-xl font-bold leading-none text-gray-500 dark:text-white pe-1">
@@ -125,7 +125,6 @@ const CompanyPiechart = () => {
         </div>
       </div>
       <div className="py-6" id="donut-chart" />
-      <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
     </div>
   );
 };

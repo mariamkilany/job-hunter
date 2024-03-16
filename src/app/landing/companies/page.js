@@ -4,6 +4,7 @@ import Aside from "@/components/companies/Aside";
 import Filter from "@/components/companies/Filter";
 import Header from "@/components/companies/Header";
 import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -50,7 +51,7 @@ const Compaines = () => {
 					<Header />
 					<div className="flex flex-col p-6 md:flex-row">
 						<Aside checkedOptions={checkedOptions} onCheck={setCheckedOptions} />
-						<div className="flex flex-col gap-4 p-5 ">
+						<div className="flex flex-col gap-4 p-5 w-full ">
 							<Filter onSearchChange={handelSearchChange} />
 							<div className="grid gap-5 lg:grid-cols-3 md:grid-cols-2 h-fit">
 								{filterdCompanies
@@ -58,7 +59,10 @@ const Compaines = () => {
 										return searchTerm.toLowerCase() === "" ? item : item.name.toLowerCase().includes(searchTerm);
 									})
 									.map((companyItem, index) => (
-										<Company key={index} company={companyItem} />
+											<Link key={companyItem._id} href={ `companies/${companyItem._id}`}>
+												<Company key={companyItem._id} company={companyItem} />
+
+											</Link>
 									))}
 							</div>
 						</div>

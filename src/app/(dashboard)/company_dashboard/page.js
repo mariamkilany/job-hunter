@@ -13,8 +13,8 @@ const Page = () => {
         <DashboardHeader />
       </div>
       <section className="flex  flex-wrap justify-center gap-8 pb-5">
-        <div className="mt-5 grid md:grid-cols-2 sm:grid-cols-1 gap-8 justify-center">
-          <div>
+        <div className="mt-5 grid md:grid-cols-2 sm:grid-cols-1 gap-8 w-full ">
+          <div className="w-full">
             <CompanyPiechart />
           </div>
           <div>

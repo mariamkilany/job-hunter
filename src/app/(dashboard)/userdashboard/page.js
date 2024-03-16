@@ -94,7 +94,7 @@ const UserHome = () => {
                             <tbody className="bg-white">
                               <tr>
                                 <td className="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                  Payment from{" "}
+                                  Payment from
                                   <span className="font-semibold">
                                     Bonnie Green
                                   </span>
@@ -108,7 +108,7 @@ const UserHome = () => {
                               </tr>
                               <tr className="bg-gray-50">
                                 <td className="p-4 text-sm font-normal text-gray-900 rounded-lg whitespace-nowrap rounded-left">
-                                  Payment refund to{" "}
+                                  Payment refund to
                                   <span className="font-semibold">#00910</span>
                                 </td>
                                 <td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
@@ -120,7 +120,7 @@ const UserHome = () => {
                               </tr>
                               <tr>
                                 <td className="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                  Payment failed from{" "}
+                                  Payment failed from
                                   <span className="font-semibold">#087651</span>
                                 </td>
                                 <td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
@@ -132,7 +132,7 @@ const UserHome = () => {
                               </tr>
                               <tr className="bg-gray-50">
                                 <td className="p-4 text-sm font-normal text-gray-900 rounded-lg whitespace-nowrap rounded-left">
-                                  Payment from{" "}
+                                  Payment from
                                   <span className="font-semibold">
                                     Lana Byrd
                                   </span>
@@ -146,7 +146,7 @@ const UserHome = () => {
                               </tr>
                               <tr>
                                 <td className="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                  Payment from{" "}
+                                  Payment from
                                   <span className="font-semibold">
                                     Jese Leos
                                   </span>
@@ -160,7 +160,7 @@ const UserHome = () => {
                               </tr>
                               <tr className="bg-gray-50">
                                 <td className="p-4 text-sm font-normal text-gray-900 rounded-lg whitespace-nowrap rounded-left">
-                                  Payment from{" "}
+                                  Payment from
                                   <span className="font-semibold">
                                     THEMESBERG LLC
                                   </span>
@@ -174,7 +174,7 @@ const UserHome = () => {
                               </tr>
                               <tr>
                                 <td className="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                  Payment from{" "}
+                                  Payment from
                                   <span className="font-semibold">
                                     Lana Lysle
                                   </span>

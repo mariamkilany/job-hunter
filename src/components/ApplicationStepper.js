@@ -51,7 +51,7 @@ export default function Stepper() {
       >
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 ">
           {condition2 ? done : <span className="me-2">2</span>}
-          Technical{" "}
+          Technical
           <span className="hidden md:inline-flex sm:ms-2">Interview</span>
         </span>
       </li>

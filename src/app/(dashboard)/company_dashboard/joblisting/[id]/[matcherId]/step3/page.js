@@ -48,7 +48,7 @@ const Task = () => {
           <div className="bg-white rounded-lg shadow-xl p-10">
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Task Name:</span>{" "}
+                <span className="font-semibold">Task Name:</span>
               </p>
             </div>
             <div className="mb-4">
@@ -59,12 +59,12 @@ const Task = () => {
 
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Task Deadline:</span>{" "}
+                <span className="font-semibold">Task Deadline:</span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Instructions:</span>{" "}
+                <span className="font-semibold">Instructions:</span>
               </p>
             </div>
 
