@@ -129,7 +129,7 @@ export default function Profile() {
               hover:bg-blue-200 cursor-pointer"
               />
             </div>
-            {/* 1st Experiences */}
+            {/* Experiences */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
               <div className="hidden sm:block">
                 <img src="/Images/icons/work.svg" className="w-20" alt="" />
@@ -154,59 +154,6 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            {/* <hr></hr> */}
-            {/* 2st Experiences */}
-            {/* <div className="flex justify-between items-start p-4 gap-x-5 text-gray-500">
-              <div className="hidden md:block">
-                <img src="/Images/GoDaddy.png" className="w-36" alt="" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <h6 className="text-gray-950 font-semibold">
-                    Growth Marketing Designer
-                  </h6>
-                  <PencilSquareIcon className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 hover:bg-blue-200 cursor-pointer" />
-                </div>
-                <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2  my-1">
-                  <span className="text-gray-700 font-semibold">GoDaddy</span>
-                  <span>
-                    <svg
-                      width="4"
-                      height="5"
-                      viewBox="0 0 4 5"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="2" cy="2.5" r="2" fill="#A8ADB7" />
-                    </svg>
-                  </span>
-                  <span>Full-Time</span>
-                  <span>
-                    <svg
-                      width="4"
-                      height="5"
-                      viewBox="0 0 4 5"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="2" cy="2.5" r="2" fill="#A8ADB7" />
-                    </svg>
-                  </span>
-                  <span>Jun 2011 - May 2019 (8y)</span>
-                </div>
-                <div className="text-center sm:text-left">Manchester, UK</div>
-                <div className="flex justify-between py-4 text-gray-700">
-                  <p>
-                    Developed digital marketing strategies, activation plans,
-                    proposals, contests and promotions for client initiatives
-                  </p>
-                </div>
-              </div>
-            </div> */}
-            {/* <hr></hr>
-            <div className="text-violet-900 text-center py-3">
-              Show 3 more experiences
-            </div> */}
           </div>
           {/* Educations */}
           <div className="flex flex-col justify-center p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
@@ -217,7 +164,7 @@ export default function Profile() {
               hover:bg-blue-200 cursor-pointer"
               />
             </div>
-            {/* 1st Educations */}
+            {/* Educations */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
               <div className="hidden sm:block">
                 <img
@@ -256,38 +203,6 @@ export default function Profile() {
                 </div> */}
               </div>
             </div>
-            {/* <hr></hr> */}
-            {/* 2st Experiences */}
-            {/* <div className="flex justify-between items-start p-4 gap-x-5 text-gray-500">
-              <div className="hidden md:block">
-                <img src="/Images/Toronto.png" className="w-36" alt="" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <h6 className="text-gray-950 font-semibold">
-                    University of Toronto
-                  </h6>
-                  <PencilSquareIcon
-                    className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
-              hover:bg-blue-200 cursor-pointer"
-                  />
-                </div>
-                <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2  my-1">
-                  <span>Bachelor of Arts, Visual Communication</span>
-                </div>
-                <div className="text-center sm:text-left">2005 - 2009</div>
-                <div className="flex justify-between py-4 text-gray-700">
-                  <p>
-                    Developed digital marketing strategies, activation plans,
-                    proposals, contests and promotions for client initiatives
-                  </p>
-                </div>
-              </div>
-            </div>
-            <hr></hr>
-            <div className="text-violet-900 text-center py-3">
-              Show 2 more educations
-            </div> */}
           </div>
           {/* Skills */}
           <div className="flex flex-col p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
@@ -311,7 +226,8 @@ export default function Profile() {
                 <a
                   key={uuid()}
                   type="button"
-                  className="cursor-pointer my-2 mx-1 inline-block rounded-full bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-700 shadow-md transition duration-150 ease-in-out hover:bg-neutral-300 hover:shadow-lg focus:bg-neutral-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-400 active:shadow-lg dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:active:bg-neutral-400"
+                  className="cursor-pointer bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full"
+                  // className="cursor-pointer my-2 mx-1 inline-block rounded-full bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-700 shadow-md transition duration-150 ease-in-out hover:bg-neutral-300 hover:shadow-lg focus:bg-neutral-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-400 active:shadow-lg dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:active:bg-neutral-400"
                 >
                   {skill.skillName}
                 </a>

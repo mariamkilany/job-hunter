@@ -22,7 +22,9 @@ const Edit = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   // Link Status
-  const Userlinks = user.links;
+  const Userlinks = Object.fromEntries(
+    Object.entries(user.links).filter(([key, value]) => value)
+  );
   const linksNames = ["linkedIn", "facebook", "instagram"];
   const [links, setLinks] = useState(Userlinks);
   const [link, setLink] = useState("");
@@ -139,9 +141,12 @@ const Edit = () => {
   };
 
   const removeWebsite = (link) => {
+    console.log("links: ", links);
     const newLinks = { ...links };
     delete newLinks[link];
     setLinks(newLinks);
+    // console.log(newLinks);
+    console.log("links: ", links);
   };
 
   const getFormattedDate = function (dateString) {
@@ -166,34 +171,35 @@ const Edit = () => {
   // Form Schema
   const schema = yup
     .object({
-      name: yup.string().required("company name can't be empty"),
-      email: yup.string().required("email is required"),
+      name: yup.string().required("Company name can't be empty"),
+      email: yup.string().required("Company Email is required"),
       employeesNumber: yup
         .string()
         .min(0, "min Employees Number is 0")
         .required("Employees Number is required"),
-      links: yup
-        .object({
-          linkedIn: yup.string().required("City is required"),
-          facebook: yup.string().required("facebook is required"),
-          instagram: yup.string().required("Country is required"),
-        })
-        .required("Links can't be empty"),
-      techStack: yup.array().required("Tech Stack can't be empty"),
-      address: yup.string().required("address is required"),
-      industry: yup.string().required("industry is required"),
-      description: yup.string().required("description is required"),
-      workplace: yup.string().required("workplace is required"),
-      foundedIn: yup.string().required("founded year is required"),
+      // links: yup
+      //   .object({
+      //     linkedIn: yup.string().required("City is required"),
+      //     facebook: yup.string().required("facebook is required"),
+      //     instagram: yup.string().required("Country is required"),
+      //   })
+      //   .required("Links can't be empty"),
+      techStack: yup.array().required("Company Tech Stack can't be empty"),
+      address: yup.string().required("Company Address is required"),
+      industry: yup.string().required("Company Industry is required"),
+      description: yup.string().required("Company Description is required"),
+      workplace: yup.string().required("Company Workplace is required"),
+      foundedIn: yup.string().required("Company Founding Year is required"),
+      industry: yup.string().required("Company Industry is required"),
       contactInfo: yup.object({
         phoneNumber: yup
           .string()
-          .required("Phone number is required")
+          .required("Phone Number is required")
           .matches(
             /^(\+?20)?\d{11}$/,
-            "Phone number must be 10 digits and may include country code"
+            "Phone number must be 11 digits and may include country code"
           ),
-        website: yup.string().required("website is required"),
+        website: yup.string().required("Company Website is required"),
       }),
     })
     .required();
@@ -214,6 +220,7 @@ const Edit = () => {
       industry: user.industry,
       description: user.description,
       workplace: user.workplace,
+      industry: user.industry,
       foundedIn: getFormattedDate(user.foundedIn),
       contactInfo: {
         phoneNumber: user.contactInfo.phoneNumber,
@@ -225,8 +232,13 @@ const Edit = () => {
 
   const hanndleEditProfile = async (data) => {
     setSubmit(true);
-    data.links = links;
     data.techStack = skills;
+    const deletedLinks = {
+      linkedIn: "",
+      facebook: "",
+      instagram: "",
+    };
+    data.links = { ...deletedLinks, ...links };
     // console.log("Company: ", { ...user, ...data });
     // console.log("Form Data: ", data);
     await axios
@@ -376,34 +388,38 @@ const Edit = () => {
               </Button>
             </div>
             <div className="flex flex-col gap-2 mt-2">
-              {Object.keys(links).map((link) => (
-                <div
-                  key={link}
-                  className="w-12/12 flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
-                >
-                  <div className="flex gap-2">
-                    <span className="font-bold">{link}</span>
-                    <span
-                      style={{
-                        textAlign: "start",
-                        minWidth: "350px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                      // className="overflow-x-clip"
+              {Object.keys(links).map((link) => {
+                if (links[link] !== "") {
+                  return (
+                    <div
+                      key={link}
+                      className="w-12/12 flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
                     >
-                      {links[link].replace(/^http(s?):\/\/(www.)?/, "")}
-                    </span>
-                  </div>
-                  <Button
-                    className="w-8 h-8 !p-0"
-                    onClick={() => removeWebsite(link)}
-                  >
-                    -
-                  </Button>
-                </div>
-              ))}
+                      <div className="flex gap-2">
+                        <span className="font-bold">{link}</span>
+                        <span
+                          style={{
+                            textAlign: "start",
+                            // minWidth: "350px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                          // className="overflow-x-clip"
+                        >
+                          {links[link].replace(/^http(s?):\/\/(www.)?/, "")}
+                        </span>
+                      </div>
+                      <Button
+                        className="w-8 h-8 !p-0"
+                        onClick={() => removeWebsite(link)}
+                      >
+                        -
+                      </Button>
+                    </div>
+                  );
+                }
+              })}
             </div>
             <ErrorMessage>{errors.links?.message}</ErrorMessage>
           </div>
@@ -425,7 +441,7 @@ const Edit = () => {
           </MultiSelect>
         </div>
         {/* Row 4 */}
-        <div className="grid gap-4 mb-4 sm:grid-cols-2">
+        <div className="grid gap-4 mb-4 lg:grid-cols-3">
           <div>
             <Label htmlFor="description">Company Description</Label>
             <Input
@@ -436,6 +452,17 @@ const Edit = () => {
               {...register("description")}
             />
             <ErrorMessage>{errors.description?.message}</ErrorMessage>
+          </div>
+          <div>
+            <Label htmlFor="industry">Company Industry</Label>
+            <Input
+              type="text"
+              id="industry"
+              placeholder="Enter Company industry"
+              className={errors.industry && errorStyle}
+              {...register("industry")}
+            />
+            <ErrorMessage>{errors.industry?.message}</ErrorMessage>
           </div>
           <div>
             <Label htmlFor="foundedIn">Founded Date</Label>
@@ -450,7 +477,7 @@ const Edit = () => {
           </div>
         </div>
         {/* Row 5 */}
-        <div className="grid gap-4 mb-4 sm:grid-cols-2">
+        <div className="grid gap-4 mb-4 md:grid-cols-2">
           <div>
             <Label htmlFor="workplace">Company Workplace</Label>
             <Input
