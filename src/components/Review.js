@@ -87,7 +87,7 @@ export default function Review(review) {
             </span>
           </div>
         </div>
-        {rev.employee === user._id && (
+        {rev?.employee === user?._id && (
           <div>
             {isEdit ? ( // Conditionally render icons based on edit mode
               <Button
@@ -119,9 +119,9 @@ export default function Review(review) {
           </div>
         )}
       </div>
-      <div className="flex items-center gap-1">
+      {/* <div className="flex items-center gap-1">
         {getRatingIcons(rev.rating)}
-      </div>
+      </div> */}
       <textarea
         type="text"
         className={`p-1 focus:!outline-slate-100 border-none text-slate-500 bg-transparent resize-none ${

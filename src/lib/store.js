@@ -8,6 +8,8 @@ import RegisterSlice from "./features/register/registerSlice";
 import companySlice from "./features/company/companySlice";
 import JobSlice from "./features/jobs/jobsSlice"
 import EmployeeSlice from "./features/employees/employeeSlice"
+import ApplicationSlice from "./features/application/applicationSlice"
+
 
 
 
@@ -35,6 +37,8 @@ export const store = configureStore({
     company:companySlice,
     jobs:JobSlice,
     employee:EmployeeSlice,
+    applications:ApplicationSlice,
+
   },
 });
 

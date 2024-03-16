@@ -1,129 +1,74 @@
 "use client";
-import React, { useState } from "react";
-import {
-  MagnifyingGlassIcon,
-  ChevronDownIcon,
-  StarIcon,
-} from "@heroicons/react/24/solid";
+import React, { useEffect, useState } from "react";
+import Button from "./Button";
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllApplications } from "@/lib/features/application/applicationAction";
+import { getAllJobs } from "@/lib/features/jobs/jobsActions";
+import { useParams } from "next/navigation";
 
-const ApplicantsTable = () => {
+const ApplicantsTable = ({data}) => {
+  console.log(data)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const singleCompany = useSelector((state)=>state.auth.user)
+  
+  const jobId = useParams().id;
+
+  const allApplications = useSelector((state)=>state.applications.applications)?.filter((app)=>app.company===singleCompany._id&&app.job===jobId)
+
+  const dispatch =  useDispatch();
+  useEffect(()=>{ 
+      dispatch(getAllApplications());
+      dispatch(getAllJobs());
+  },[])
   return (
     <div>
       <div className="relative overflow-x-auto sm:rounded-lg">
-        <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white ">
-          <div>
-            <button
-              id="dropdownActionButton"
-              data-dropdown-toggle="dropdownAction"
-              className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 "
-              type="button"
-              onClick={toggleMenu}
-            >
-              <span className="sr-only">Action button</span>
-              Action
-              <ChevronDownIcon className="pl-2 w-5" />
-            </button>
-            {/* Dropdown menu */}
-            <div
-              id="dropdownAction"
-              className={` ${isMenuOpen ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
-            >
-              <ul
-                className="py-1 text-sm text-gray-700 "
-                aria-labelledby="dropdownActionButton"
-              >
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100">
-                    Reward
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100  ">
-                    Promote
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="block px-4 py-2 hover:bg-gray-100  ">
-                    Activate account
-                  </a>
-                </li>
-              </ul>
-              <div className="py-1">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   "
-                >
-                  Delete User
-                </a>
-              </div>
-            </div>
-          </div>
-          <label htmlFor="table-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-              <MagnifyingGlassIcon className="w-5" />
-            </div>
-            <input
-              type="text"
-              id="table-search-users"
-              className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-              placeholder="Search for users"
-            />
-          </div>
-        </div>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+        
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-6">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" className="p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-all-search"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
-                  />
-                  <label htmlFor="checkbox-all-search" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
+            <th scope="col" className="px-6 py-3">
+                #
               </th>
-              <th scope="col" className="px-6 py-3">
-                Name
+              <th scope="col" className="px-6 py-3" style={{minWidth:"280px"}}>
+                 Employee Name
               </th>
-              <th scope="col" className="px-6 py-3">
-                Rating
+              <th scope="col" className="px-6 py-3" style={{minWidth:"180px"}}>
+                Employee Number
               </th>
-              <th scope="col" className="px-6 py-3">
-                Position
+              <th scope="col" className="px-6 py-3"style={{minWidth:"180px"}}>
+                Years of Experience
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3" style={{minWidth:"120px"}}>
+                Resitance
+              </th>
+              <th scope="col" className="px-6 py-3" style={{minWidth:"120px"}}>
+                Job Type
+              </th>
+              <th scope="col" className="px-6 py-3" style={{minWidth:"120px"}}>
+                Work Place Type
+              </th>
+              <th scope="col" className="px-6 py-3" style={{minWidth:"120px"}}>
+                Expected Salary 
+              </th>
+              <th scope="col" className="px-6 py-3" style={{minWidth:"120px"}}>
                 Status
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3" style={{minWidth:"210px"}}>
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b ">
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "
-                  />
-                  <label htmlFor="checkbox-table-search-1" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
+            <tr className="bg-white border-b ">           
+            <td className="w-4 p-4">
+                  1
+            </td>
               <td
                 scope="row"
                 className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap "
@@ -140,29 +85,32 @@ const ApplicantsTable = () => {
                   </div>
                 </div>
               </td>
-              <td>
-                {" "}
-                <div className="flex ml-2">
-                  <div className="mr-2 py-3">
-                    <StarIcon className="w-5" color="yellow" />
-                  </div>
-                  <div className="mt-3 text-base font-semibold">4.0</div>
-                </div>
-              </td>
-              <td className="px-6 py-4">React Developer</td>
+              <td className="px-6 py-4">01234567891</td>
+
+              <td className="px-6 py-4">3</td>
               <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2" />{" "}
-                  Online
-                </div>
+                 Cairo 
               </td>
               <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600  hover:underline"
+                Full Time
+              </td>
+              <td className="px-6 py-4">
+               workplace
+              </td>
+              <td className="px-6 py-4">
+               10000
+              </td>
+              <td className="px-6 py-4">
+                pending
+              </td>
+              <td className="px-6 py-4">
+              <Button
+                  // onClick={handleClick}
+                  className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                 >
-                  Edit user
-                </a>
+                  <span> Enter Process</span>
+                  <ArrowRightStartOnRectangleIcon className="size-6" />
+                </Button>
               </td>
             </tr>
           </tbody>

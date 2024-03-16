@@ -35,28 +35,28 @@ const HR = () => {
               Prepare your self for Technical interview
             </h2>
             <p className="font-bold m-3">
-              Interview Name :{" "}
+              Interview Name :
               <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
             <p className="font-bold m-3">
-              <NewspaperIcon className="w-5 inline me-2"></NewspaperIcon> :{" "}
+              <NewspaperIcon className="w-5 inline me-2"></NewspaperIcon> :
               <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
             <p className="font-bold m-3">
-              <ClockIcon className="w-5 inline me-2"></ClockIcon>:{" "}
+              <ClockIcon className="w-5 inline me-2"></ClockIcon>:
               <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
             <p className="font-bold m-3">
-              <CalendarDaysIcon className="w-5 inline me-2"></CalendarDaysIcon>{" "}
+              <CalendarDaysIcon className="w-5 inline me-2"></CalendarDaysIcon>
               : <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
             <p className="font-bold m-3">
-              <PaperClipIcon className="w-5 inline me-2"></PaperClipIcon> :{" "}
+              <PaperClipIcon className="w-5 inline me-2"></PaperClipIcon> :
               <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
 
             <p className="font-bold m-3">
-              <RectangleStackIcon className="w-5 inline me-2"></RectangleStackIcon>{" "}
+              <RectangleStackIcon className="w-5 inline me-2"></RectangleStackIcon>
               : <span className=" ms-2 text-gray-500"> Tech. Interview </span>
             </p>
           </div>

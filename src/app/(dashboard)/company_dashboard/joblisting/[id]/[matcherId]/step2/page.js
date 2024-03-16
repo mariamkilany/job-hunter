@@ -68,7 +68,7 @@ const Technical = () => {
           <div className="bg-white rounded-lg shadow-xl p-10">
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Name:</span>{" "}
+                <span className="font-semibold">Meeting Name:</span>
               </p>
             </div>
             <div className="mb-4">
@@ -83,12 +83,12 @@ const Technical = () => {
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Duration:</span>{" "}
+                <span className="font-semibold">Meeting Duration:</span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Instructions:</span>{" "}
+                <span className="font-semibold">Instructions:</span>
               </p>
             </div>
             <div className="mb-4">
