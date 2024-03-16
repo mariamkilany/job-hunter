@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/components/Button";
@@ -12,19 +12,26 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorMessage from "@/components/ErrorMessage";
 import * as yup from "yup";
 import { LinkIcon } from "@heroicons/react/24/outline";
+import { setUser } from "@/lib/features/auth/authSlice";
+import axios from "../../../../../axiosConfig";
+import Loading from "@/components/Loading";
 
 const Edit = () => {
   // States
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const router = useRouter();
   // Link Status
   const { _id, ...Userlinks } = user.links;
   const linksNames = ["github", "linkedIn", "portfolio", "website"];
   const [links, setLinks] = useState(Userlinks);
-  const [link, setLink] = useState(linksNames[0]);
+  const [link, setLink] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
 
+  // Extract skill names using map
+  const skillNames = user.skills.map((skill) => skill.skillName);
   // skills status
-  const [skills, setSkills] = useState(user.skills);
+  const [skills, setSkills] = useState(skillNames);
   const skillsArr = [
     {
       skillName: "HTML",
@@ -121,6 +128,8 @@ const Edit = () => {
     },
   ];
 
+  const [submit, setSubmit] = useState(false);
+
   // Functions
   const addWebsite = (e) => {
     e.preventDefault();
@@ -214,18 +223,56 @@ const Edit = () => {
     resolver: yupResolver(schema),
   });
 
-  const hanndleEditProfile = (data) => {
-    // console.log(data);
-    data.skills = skills;
+  const hanndleEditProfile = async (data) => {
+    setSubmit(true);
+    data.skills = skills.map((skill) => {
+      return {
+        skillName: skill,
+        // skillLevel: "beginner",
+      };
+    });
+    // data.skills = skills;
     data.links = links;
+    // console.log(data);
     console.log({ ...user, ...data });
+    await axios
+      .patch(`/employees/${user._id}`, data)
+      .then((res) => {
+        console.log(res);
+        dispatch(setUser(data));
+      })
+      .finally(() => {
+        console.log(user);
+        router.push("/userdashboard/profile");
+      });
   };
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   const errorStyle =
     "bg-red-50 border border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500";
 
   return (
     <div>
+      <div
+        id="static-modal"
+        data-modal-backdrop="static"
+        tabIndex={-1}
+        aria-hidden="true"
+        className={`${
+          submit ? " " : "hidden"
+        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
+      >
+        <Loading />
+      </div>
+      {/* <Loading
+        data-modal-backdrop="static"
+        className={`${
+          submit ? " " : "hidden"
+        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
+      /> */}
       {/* edit */}
       <form className="mt-10" onSubmit={handleSubmit(hanndleEditProfile)}>
         <div className="mb-6">
@@ -262,7 +309,7 @@ const Edit = () => {
                   onChange={(e) => setLink(e.target.value)}
                   value={link}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Choose a Site
                   </option>
                   {linksNames
@@ -364,7 +411,6 @@ const Edit = () => {
                   id="full_time"
                   className="w-4 h-4"
                   value="full-Time"
-                  selected
                   {...register("typeOfJob")}
                 />
                 <Label htmlFor="full_time">Full Time</Label>
@@ -429,8 +475,10 @@ const Edit = () => {
         </div>
         <div>
           <Label>Skills</Label>
-          {/* <MultiSelect skills={skills} setSkills={setSkills}>
-            <option disabled>Choose a Skill</option>
+          <MultiSelect skills={skills} setSkills={setSkills}>
+            <option disabled value={""}>
+              Choose a Skill
+            </option>
             {skillsArr.map((skill) => {
               return (
                 <option key={skill.skillName} value={skill.skillName}>
@@ -438,15 +486,17 @@ const Edit = () => {
                 </option>
               );
             })}
-          </MultiSelect> */}
+          </MultiSelect>
         </div>
         <div>
-          <Label>Categories</Label>
+          <Label>Job Title</Label>
           <Select {...register("jobTitle")}>
-            <option selected>Choose a jobTitle</option>
+            <option disabled value="">
+              Choose a Job Title
+            </option>
             <option value="front-end">Front End</option>
             <option value="back-end">Back End</option>
-            <option value="full-stack">Full Stack</option>
+            <option value="ui/ux">UI/UX</option>
           </Select>
           <ErrorMessage>{errors.jobTitle?.message}</ErrorMessage>
         </div>
@@ -523,7 +573,7 @@ const Edit = () => {
         </div>
         {/* Add Inputs Here */}
         <div className="flex justify-end px-10">
-          <Button className="px-20">Register</Button>
+          <Button className="px-20">Update Profile</Button>
         </div>
       </form>
     </div>

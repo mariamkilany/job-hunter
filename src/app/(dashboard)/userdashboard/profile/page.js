@@ -12,9 +12,11 @@ import { v4 as uuid } from "uuid";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "../../../../axiosConfig";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
 
   useEffect(() => {
     console.log(user);
@@ -106,7 +108,9 @@ export default function Profile() {
                   <button
                     type="button"
                     className="inline-flex justify-center px-5 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    onClick={handleModal}
+                    onClick={() =>
+                      router.push("/userdashboard/profile/editProfile")
+                    }
                   >
                     <span>Edit Profile</span>
                   </button>
@@ -349,45 +353,6 @@ export default function Profile() {
               ))}
             </div>
           </div>
-          {/* Portfolios */}
-          {/* <div className="flex flex-col p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center font-semibold text-xl p-1">
-              <h6 className="text-gray-900">Portfolios</h6>
-              <div>
-                <div className="flex gap-x-2">
-                  <PlusIcon
-                    className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
-              hover:bg-blue-200 cursor-pointer"
-                  />
-                </div>
-              </div>
-            </div>
-            Portfolios Cards
-            <div className="flex flex-nowrap flex-col md:flex-row gap-3">
-              <a
-                className="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] mx-2"
-                href={user.links.portfolio}
-                target="_blank"
-              >
-                <div className="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
-                  <img
-                    className="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                    src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80"
-                    alt="Image Description"
-                  />
-                </div>
-                <div className="p-4 md:p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-                    {user.links.portfolio}
-                  </h3>
-                  <p className="mt-1 text-gray-500 dark:text-gray-400">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the cards content.
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div> */}
           {/* End Of Profile */}
         </div>
         {/* Cards */}
@@ -444,7 +409,6 @@ export default function Profile() {
                 Social Links
               </div>
               <div className="flex items-start gap-2 pb-6 rounded-b-[--card-border-radius]">
-                {/* <img src="/Images/icons/Instagram.png" className="w-5" alt="" /> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   data-name="Layer 1"
@@ -470,7 +434,6 @@ export default function Profile() {
                 </div>
               </div>
               <div className="flex items-start gap-2 pb-6 rounded-b-[--card-border-radius]">
-                {/* <img src="/Images/icons/Twitter.png" className="w-5" alt="" /> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -520,157 +483,6 @@ export default function Profile() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        id="static-modal"
-        data-modal-backdrop="static"
-        tabIndex={-1}
-        aria-hidden="true"
-        className={`${
-          status ? " " : "hidden"
-        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
-      >
-        <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
-            {/* Modal body */}
-            <div className="p-4 md:p-10 space-y-4 md:pt-4 relative">
-              <div className="absolute top-7 right-6">
-                <button
-                  type="button"
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                  onClick={handleModal}
-                  data-modal-hide="static-modal"
-                >
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
-                  </svg>
-                  <span className="sr-only">Close modal</span>
-                </button>
-              </div>
-
-              <div className="flex items-center   sm:direction-columns">
-                {/* <img
-                  src={company.image}
-                  alt="logo company "
-                  className=" inline rounded-full w-12 me-4"
-                ></img> */}
-                {/* <div>
-                  <h3 className="font-bold text-xl mt-0">aaaaaa</h3>
-                  <span className="text-sm"> aaaa ,</span>
-                  <span className="text-sm"> aaaaaaa</span>
-                </div> */}
-              </div>
-              <div className=" space-y-4 ps-8">
-                <form className="space-y-4" action="#">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Your email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      placeholder="name@company.com"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Your password
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="••••••••"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      required
-                    />
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="flex items-start">
-                      <div className="flex items-center h-5">
-                        <input
-                          id="remember"
-                          type="checkbox"
-                          defaultValue
-                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                          required
-                        />
-                      </div>
-                      <label
-                        htmlFor="remember"
-                        className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                    >
-                      Lost Password?
-                    </a>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Login to your account
-                  </button>
-                  <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    Not registered?{" "}
-                    <a
-                      href="#"
-                      className="text-blue-700 hover:underline dark:text-blue-500"
-                    >
-                      Create account
-                    </a>
-                  </div>
-                </form>
-              </div>
-            </div>
-            {/* Modal footer */}
-            <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                // onClick={handleAcceptance}
-              >
-                Accept Job Post
-              </button>
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                // onClick={handleReject}
-              >
-                Reject Job Post
-              </button>
             </div>
           </div>
         </div>
