@@ -183,7 +183,7 @@ const Edit = () => {
         .required("Phone number is required")
         .matches(
           /^(\+?20)?\d{11}$/,
-          "Phone number must be 10 digits and may include country code"
+          "Phone number must be 11 digits and may include country code"
         ),
       location: yup.object({
         city: yup.string().required("City is required"),
@@ -248,7 +248,7 @@ const Edit = () => {
   };
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, []);
 
   const errorStyle =
