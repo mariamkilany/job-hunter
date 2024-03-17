@@ -10,7 +10,7 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleApp } from "@/lib/features/application/applicationAction";
-import { useParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 const HR = () => {
   const singleApp = useSelector(
@@ -18,9 +18,22 @@ const HR = () => {
   );
   const dispatch = useDispatch();
   const appId = useParams().matcherId;
+  const router =  useRouter();
+  const stepName = usePathname();
 
+  console.log(singleApp)
   useEffect(() => {
-    dispatch(getSingleApp(appId));
+    dispatch(getSingleApp(appId)).then( (response)=>{
+      console.log(response.payload.data.status)
+      console.log(singleApp)
+      if(response.payload.data.status!=="step3"){
+        router.push(`/userdashboard/job_matches/${appId}/${response.payload.data.status}`)
+
+      }else if(!stepName.includes("step3")) {
+        router.push(`/userdashboard/job_matches`)
+    }
+    }
+    )
   }, []);
 
   return (
@@ -60,7 +73,7 @@ const HR = () => {
               <NewspaperIcon className="w-5 inline me-2"></NewspaperIcon> :{" "}
               <span className=" ms-2 text-gray-500">
                 {" "}
-                {singleApp?.process?.step3?.taskDesciption}{" "}
+                {singleApp?.process?.step3?.taskDescription}{" "}
               </span>
             </p>
             <p className="font-bold m-3">
@@ -70,10 +83,10 @@ const HR = () => {
                 {singleApp?.process?.step3?.taskDeadline}{" "}
               </span>
             </p>
-            <p className="font-bold m-3">
+            {/* <p className="font-bold m-3">
               <CalendarDaysIcon className="w-5 inline me-2"></CalendarDaysIcon>{" "}
-              : <span className=" ms-2 text-gray-500"> Tech. Interview </span>
-            </p>
+              : <span className=" ms-2 text-gray-500">  {singleApp?.process?.step3?.taskDay}</span>
+            </p> */}
             <p className="font-bold m-3">
               <PaperClipIcon className="w-5 inline me-2"></PaperClipIcon> :{" "}
               <span className=" ms-2 text-gray-500">
@@ -86,7 +99,7 @@ const HR = () => {
               :{" "}
               <span className=" ms-2 text-gray-500">
                 {" "}
-                {singleApp?.process?.step3?.taskInstructions}{" "}
+                {singleApp?.process?.step3?.taskInstrcutions}{" "}
               </span>
             </p>
           </div>

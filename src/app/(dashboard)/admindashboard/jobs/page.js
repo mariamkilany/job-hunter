@@ -18,9 +18,10 @@ const Jobs = () => {
 
     const [filter, setfilter] =useState("all");
 
-    const [jobs, setJobs] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
+
+    // const [jobs, setJobs] = useState([]);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [totalPages, setTotalPages] = useState(1);
 
 
      const dispatch = useDispatch();
@@ -49,19 +50,22 @@ const Jobs = () => {
      let counter = 0 ; 
     
      // handle accept status
-     const handleAcceptance = async()=>{
-        await  dispatch(patchJob( { id:jobId, updatedJob:{status:"accepted"}}));
+     const handleAcceptance =(jobId)=>{
+     dispatch(patchJob( { id:jobId, updatedJob:{status:"accepted"}})).then(()=>{
+        dispatch(getAllJobs());
+
+     });
         setJobId(null)
         setStatus(!status);
-      await  dispatch(getAllJobs());
      }
 
      //handle reject job
-     const handleReject = async ()=>{
-        await  dispatch(patchJob( { id:jobId, updatedJob:{status:"rejected"}}))
+     const handleReject = async (jobId)=>{
+       dispatch(patchJob( { id:jobId, updatedJob:{status:"rejected"}})).then(()=>{
+        dispatch(getAllJobs());
+     });
         setJobId(null)
         setStatus(!status);
-        await  dispatch(getAllJobs());
 
      }
 
@@ -88,7 +92,7 @@ const Jobs = () => {
 
     
     const handlePagination = (pageNumber) => {
-        // dispatch(getAllJobsPaginated({ page: pageNumber, pageSize: 6 }));
+        dispatch(getAllJobsPaginated({ page: pageNumber, pageSize: 6 }));
       };
      return (
         <div>
@@ -195,7 +199,7 @@ const Jobs = () => {
                                   }
                             </tr>
                            <div 
-                           id="static-modal"
+                           id={job._id}
                            data-modal-backdrop="static"
                            tabIndex={-1}
                            aria-hidden="true"
@@ -297,7 +301,7 @@ const Jobs = () => {
                                    data-modal-hide="static-modal"
                                    type="button"
                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                onClick={handleAcceptance}
+                                onClick={()=>handleAcceptance(job._id)}
                               >
                                    Accept Job Post
                                </button>
@@ -305,7 +309,7 @@ const Jobs = () => {
                                    data-modal-hide="static-modal"
                                    type="button"
                                    className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                                   onClick={handleReject}
+                                   onClick={()=>handleReject(job._id)}
                                >
                                    Reject Job Post
                                </button>
@@ -324,7 +328,7 @@ const Jobs = () => {
                     </tbody>
                 </table>
               
-                <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+                {/* <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
                     <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span className="font-semibold text-gray-900 dark:text-white">1-10</span> of <span className="font-semibold text-gray-900 dark:text-white">1000</span></span>
                     <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                     <button onClick={()=>{handlePagination(1)}}>
@@ -344,7 +348,7 @@ const Jobs = () => {
                     </button>
                 
                     </ul>
-                </nav>
+                </nav> */}
                 </div>
 
 

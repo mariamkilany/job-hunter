@@ -12,7 +12,6 @@ const Admin = () => {
   const allCompanies = useSelector((state)=>state.company.company)
   const allEmployees = useSelector((state)=>state.employee.employee)
    const dispatch = useDispatch();
-
   useEffect(()=>{
     //calling data
     dispatch(getAllJobs());

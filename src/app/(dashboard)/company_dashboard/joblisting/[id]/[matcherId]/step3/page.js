@@ -20,7 +20,10 @@ const schema = yup
     taskName: yup.string().required("Task Name can't be empty"),
     taskDescription: yup.string().required("Task Description can't be empty"),
     taskDeadline: yup.string().required("Task Deadline  can't be empty"),
-    taskInstrcutions: yup
+
+    taskDay: yup.date().required("Task Deadline Day  can't be empty"),
+    taskInstructions: yup
+
       .string()
       .required("Task Instructions  can't be empty"),
     taskLink: yup.string(),
@@ -42,6 +45,7 @@ const Task = () => {
     taskName: "",
     taskDescription: "",
     taskDeadline: "",
+    taskDay:"",
     taskInstrcutions: "",
     taskLink: "",
   };
@@ -148,6 +152,15 @@ const Task = () => {
                 <span className=" font-medium text-gray-600 ">
                   {" "}
                   {singleApp?.process?.step3?.taskDeadline}
+                </span>
+              </p>
+            </div>
+            <div className="mb-4">
+              <p>
+                <span className="font-semibold">Task Deadline Day:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskDay}
                 </span>
               </p>
             </div>
@@ -285,6 +298,23 @@ const Task = () => {
                   {...register("taskDeadline")}
                 />
                 <ErrorMessage>{errors.taskDeadline?.message}</ErrorMessage>
+              </div>
+
+              <div className="mb-4">
+                <Label
+                  htmlFor="taskDay"
+                  className="block font-medium mb-1"
+                >
+                  Task Deadline Day
+                </Label>
+                <Input
+                  type="date"
+                  id="taskDay"
+                  name="taskDay"
+                  className="form-input w-full"
+                  {...register("taskDay")}
+                />
+                <ErrorMessage>{errors.taskDay?.message}</ErrorMessage>
               </div>
 
               <div className="mb-4">

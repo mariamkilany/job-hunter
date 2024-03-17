@@ -23,7 +23,7 @@ const Page = () => {
         </div>
        
       </section>
-      <div>
+      {/* <div>
         <h4 className="text-3xl text-center md:text-start">Job Updates</h4>
       </div>
       <section className="grid md:grid-cols-3 gap-2 p-4 justify-center sm:grid-cols-1 ">
@@ -31,7 +31,7 @@ const Page = () => {
         <JobUpdatesCard />
         <JobUpdatesCard />
         <JobUpdatesCard />
-      </section>
+      </section> */}
     </>
   );
 };
