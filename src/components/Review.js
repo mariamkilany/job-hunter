@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 export default function Review(review) {
   const user = useSelector((state) => state.auth.user);
   const [rev, setRev] = useState(review); // review State
+  // console.log('rev: ', rev);
   const [isEdit, setIsEdit] = useState(false); // State to track edit mode
   const commentInputRef = useRef(null); // useRef for textarea
 
