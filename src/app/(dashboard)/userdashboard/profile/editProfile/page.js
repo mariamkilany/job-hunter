@@ -22,7 +22,10 @@ const Edit = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   // Link Status
-  const { _id, ...Userlinks } = user.links;
+  let { _id, ...Userlinks } = user.links;
+  Userlinks = Object.fromEntries(
+    Object.entries(Userlinks).filter(([key, value]) => value)
+  );
   const linksNames = ["github", "linkedIn", "portfolio", "website"];
   const [links, setLinks] = useState(Userlinks);
   const [link, setLink] = useState("");
@@ -232,9 +235,16 @@ const Edit = () => {
       };
     });
     // data.skills = skills;
-    data.links = links;
-    // console.log(data);
-    console.log({ ...user, ...data });
+    const deletedLinks = {
+      github: "",
+      linkedIn: "",
+      portfolio: "",
+      website: "",
+    };
+    data.links = { ...deletedLinks, ...links };
+    // data.links = links;
+    console.log(data);
+    // console.log({ ...user, ...data });
     await axios
       .patch(`/employees/${user._id}`, data)
       .then((res) => {
@@ -291,14 +301,14 @@ const Edit = () => {
             />
             <ErrorMessage>{errors.yearsOfExperience?.message}</ErrorMessage>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col overflow-hidden">
             <div className="flex gap-1 items-end">
-              <div className="w-2/6">
-                <Label htmlFor="website">Website</Label>
+              <div className="w-4/12">
+                <Label htmlFor="websiteSelect">Website</Label>
                 <Select
                   type="text"
-                  name="website"
-                  id="website"
+                  name="websiteSelect"
+                  id="websiteSelect"
                   onChange={(e) => setLink(e.target.value)}
                   value={link}
                 >
@@ -314,7 +324,7 @@ const Edit = () => {
                     ))}
                 </Select>
               </div>
-              <div className="w-4/6">
+              <div className="w-7/12">
                 <Label htmlFor="link" className="flex items-center mb-2 gap-2">
                   Link <LinkIcon className="w-4 h-4 text-primary" />
                 </Label>
@@ -326,39 +336,45 @@ const Edit = () => {
                   onChange={(e) => setLinkUrl(e.target.value)}
                 />
               </div>
-              <Button className="w-8 h-8 !p-0" onClick={addWebsite}>
+              <Button className="w-9 h-8 !p-0" onClick={addWebsite}>
                 +
               </Button>
             </div>
             <div className="flex flex-col gap-2 mt-2">
-              {Object.keys(links).map((link) => (
-                <div
-                  key={link}
-                  className="flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
-                >
-                  <div className="flex gap-2">
-                    <span className="font-bold">{link}</span>
-                    <span
-                      style={{
-                        // maxWidth: "100px",
-                        overflow: "hidden",
-                        textOverflow: "clip",
-                        whiteSpace: "nowrap",
-                      }}
-                      className="overflow-x-clip"
+              {Object.keys(links).map((link) => {
+                if (links[link] !== "") {
+                  return (
+                    <div
+                      key={link}
+                      className="w-12/12 flex justify-between items-center gap-2 text-sm border p-2 text-center border-primary"
                     >
-                      {links[link].replace(/^http(s?):\/\/(www.)?/, "")}
-                    </span>
-                  </div>
-                  <Button
-                    className="w-8 h-8 !p-0"
-                    onClick={() => removeWebsite(link)}
-                  >
-                    -
-                  </Button>
-                </div>
-              ))}
+                      <div className="flex gap-2">
+                        <span className="font-bold">{link}</span>
+                        <span
+                          style={{
+                            textAlign: "start",
+                            // minWidth: "350px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                          // className="overflow-x-clip"
+                        >
+                          {links[link].replace(/^http(s?):\/\/(www.)?/, "")}
+                        </span>
+                      </div>
+                      <Button
+                        className="w-8 h-8 !p-0"
+                        onClick={() => removeWebsite(link)}
+                      >
+                        -
+                      </Button>
+                    </div>
+                  );
+                }
+              })}
             </div>
+            <ErrorMessage>{errors.links?.message}</ErrorMessage>
           </div>
           <div className="flex gap-5">
             <div className="w-1/2">

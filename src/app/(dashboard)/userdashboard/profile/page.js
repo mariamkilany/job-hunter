@@ -304,12 +304,15 @@ export default function Profile() {
                     className="color000000 svgShape"
                   />
                 </svg>
-
+                {/*  */}
                 <div className="flex flex-col justify-center">
                   <div className="font-light text-zinc-500">LinkedIn</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.linkedIn} target="_blank">
-                      {user.links.linkedIn.replace(/^https:\/\//, "")}
+                      {user.links.linkedIn.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>
@@ -348,7 +351,10 @@ export default function Profile() {
                   <div className="font-light text-zinc-500">Github</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.github} target="_blank">
-                      {user.links.github.replace(/^https:\/\//, "")}
+                      {user.links.github.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>
@@ -359,7 +365,10 @@ export default function Profile() {
                   <div className="font-light text-zinc-500">portfolio</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.portfolio} target="_blank">
-                      {user.links.portfolio.replace(/^https:\/\//, "")}
+                      {user.links.portfolio.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>

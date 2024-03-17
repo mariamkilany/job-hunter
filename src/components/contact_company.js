@@ -28,7 +28,7 @@ const ContactCompany = ({ company }) => {
                 style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
               >
                 <LinkIcon color="#4640DE" className="w-5 mr-2" />
-                {company.links[link]}
+                {company.links[link].replace(/(?:https?:\/\/)?(?:www\.)?/i, "")}
               </span>
             );
           }

@@ -145,8 +145,6 @@ const Edit = () => {
     const newLinks = { ...links };
     delete newLinks[link];
     setLinks(newLinks);
-    // console.log(newLinks);
-    console.log("links: ", links);
   };
 
   const getFormattedDate = function (dateString) {
