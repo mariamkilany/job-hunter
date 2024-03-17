@@ -40,8 +40,12 @@ export default function JobMatch() {
    },[])
 
   const router = useRouter(); 
-  const handleClick = (id) => {
-    router.push(`/userdashboard/job_matches/${id}/step1`);
+  const handleClick = (app) => {
+    console.log(app)
+    if(app.status==="accepted" || app.status === "rejected"){
+    router.push(`/userdashboard/job_matches/${app._id}/step4`);
+
+    }else router.push(`/userdashboard/job_matches/${app._id}/${app.status}`);
   };
 
   const [state, setState] = useState(false);
@@ -109,7 +113,6 @@ const handleAcceptApp =(id)=>{
           </tr>
         </thead>
         <tbody>
-
         {ApplicationsWithDetails?.map((app, index) => {
       
           return ( 
@@ -146,15 +149,35 @@ const handleAcceptApp =(id)=>{
                       {app.jobData?.salary} L.E
                     </td>
                     <td className="px-6 py-4">{app.jobData?.experience} year</td>
-                    <td className="px-6 py-4  w-40">
+
+                    {app?.status==="pending"&&<td className="px-6 py-4  w-40">
                       <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
                        {app?.status}
                       </span>
-                    </td>
+                    </td>}
+
+                    {app?.status==="accepted"&&<td className="px-6 py-4  w-40">
+                      <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+                       {app?.status}
+                      </span>
+                    </td>}
+
+                    {app?.status==="rejected"&&<td className="px-6 py-4  w-40">
+                      <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+                       {app?.status}
+                      </span>
+                    </td>}
+                    
+                    {(app?.status==="step1"||app?.status==="step2"||app?.status==="step3"||app?.status==="step4") &&<td className="px-6 py-4  w-40">
+                      <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ">
+                       {app?.status}
+                      </span>
+                    </td>}
+                    
+
                     <td className="px-6 py-4  min-w-60">
                       <div className="flex flex-col gap-2">
-                      {/* {app?.status==="pending" && */}
-                     <Button
+                      {app?.status==="pending" &&<Button
                           className="flex gap-3 justify-center items-center"
                           onClick={()=>handleModal(app._id)}
                           data-modal-target={app._id}
@@ -163,10 +186,10 @@ const handleAcceptApp =(id)=>{
                           <span>Job Deatils</span>
                           <NewspaperIcon className="size-6" />
                         </Button>
-                        
+                        }
                       
-                      {!(app?.status==="pending"|| app?.status==="rejected")&&  <Button
-                          onClick={()=>handleClick(app._id)}
+                      {!(app?.status==="pending"|| app?.status==="closed")&&  <Button
+                          onClick={()=>handleClick(app)}
                           className=" !bg-green-700 !hover:bg-green-400 flex gap-3 justify-center items-center"
                         >
                           <span> Enter Process</span>
@@ -238,12 +261,10 @@ const handleAcceptApp =(id)=>{
                   {app.companyData?.employeesNumber} Employee
               </p>
               <p>
-
                   <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
                   
                   </CurrencyDollarIcon>
                   {app.jobData?.salary} L.E
-
               </p>
 
               <p>

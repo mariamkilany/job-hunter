@@ -11,7 +11,7 @@ export default function Stepper() {
   const dispatch = useDispatch();
   const applicationId = useParams().matcherId;
 
-  console.log(singleApp);
+  // console.log(singleApp);
   useEffect(() => {
     dispatch(getSingleApp(applicationId));
   }, []);

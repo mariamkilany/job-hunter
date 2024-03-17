@@ -10,17 +10,29 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleApp } from "@/lib/features/application/applicationAction";
-import { useParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 const HR = () => {
   const singleApp = useSelector(
     (state) => state.applications.singleApplication
   );
   const dispatch = useDispatch();
+  const router = useRouter();
   const appId = useParams().matcherId;
-  console.log(singleApp);
+  const stepName = usePathname()
+
   useEffect(() => {
-    dispatch(getSingleApp(appId));
+    dispatch(getSingleApp(appId)).then( (response)=>{
+      if( response.payload.data.status!=="step2"){
+        router.push(`/userdashboard/job_matches/${appId}/${response.payload.data.status}`)
+
+      }else if(!stepName.includes("step2")) {
+        router.push(`/userdashboard/job_matches`)
+    }
+    }
+    )
+ 
+   
   }, []);
 
   return (
