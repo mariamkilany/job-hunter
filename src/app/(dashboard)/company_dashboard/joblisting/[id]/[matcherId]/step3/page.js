@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useRouter } from "next/navigation";
+import { getSingleApp } from "@/lib/features/application/applicationAction";
 
 const Task = () => {
-  // toggle of modal button
+  const singleApp = useSelector((state)=>state.applications.singleApplication)
+  const dispatch =  useDispatch();
+  const applicationId = useParams().matcherId;
+  const jobId = useParams().id;
+
+  // console.log(applicationId)
+  const router = useRouter();
+
   const [toggle, setToggle] = useState(false);
   const [updateToggle, setUpdateToggle] = useState(false);
 
@@ -15,6 +25,15 @@ const Task = () => {
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle);
   };
+
+  useEffect(()=>{
+    if(singleApp?.status!=="step3"){
+      // router.push(`/company_dashboard/joblisting/${jobId}`);
+    }
+    dispatch(getSingleApp(applicationId));
+
+  },[])
+
 
   return (
     <div>

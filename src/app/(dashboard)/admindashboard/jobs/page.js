@@ -96,7 +96,7 @@ const Jobs = () => {
             <h2 className='text-3xl font-bold text-primary'>
                 Jobs
             </h2>
-            <div className='flex mt-10 '>
+            <div className='flex flex-wrap mt-10  sm:justify-center  md:justify-start '>
                 <button onClick={()=>{handleFilter("all")}} className={`text-gray-400 px-6 py-2  hover:border-b hover:border-b-2 hover:text-black hover:font-bold  border-primary ${filter === "all" ? "border-b-2 !font-bold !text-black" : ""}`}>
                     All
                 </button>
