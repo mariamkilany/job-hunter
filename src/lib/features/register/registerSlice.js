@@ -6,6 +6,7 @@ const intialState = {
   step3: null,
   step4: null,
   userData: {},
+  completed: false,
 };
 
 export const RegisterSlice = createSlice({
@@ -31,12 +32,20 @@ export const RegisterSlice = createSlice({
       state.step4 = true;
       state.userData = { ...state.userData, ...action.payload };
     },
-    reset: () => {
-      state = intialState;
+    reset: (state, action) => {
+      state.step1 = null;
+      state.step2 = null;
+      state.step3 = null;
+      state.step4 = null;
+      state.userData = {};
+      state.completed = true;
+    },
+    resetCompleted: (state, action) => {
+      state.completed = false;
     },
   },
 });
 
-export const { setStep1, setStep2, setStep3, setStep4, reset } =
+export const { setStep1, setStep2, setStep3, setStep4, reset, resetCompleted } =
   RegisterSlice.actions;
 export default RegisterSlice.reducer;
