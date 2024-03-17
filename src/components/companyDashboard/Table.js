@@ -27,7 +27,7 @@ const Table = ({ data }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data.map(item => (
+					{data?.map(item => (
 						<tr key={item._id}>
 							<td className="px-6 py-3">{item.title}</td>
 							<td className="px-6 py-3">{item.category}</td>
