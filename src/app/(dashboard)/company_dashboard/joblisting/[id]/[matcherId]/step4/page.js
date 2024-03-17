@@ -1,6 +1,9 @@
 "use client";
+import { getSingleApp } from "@/lib/features/application/applicationAction";
+import { useParams, useRouter } from "next/navigation";
 // pages/feedback.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Feedback() {
   const [feedback, setFeedback] = useState("");
@@ -13,6 +16,28 @@ export default function Feedback() {
     setFeedback("");
     setStatus("");
   };
+
+
+  const singleApp = useSelector((state)=>state.applications.singleApplication)
+  const dispatch =  useDispatch();
+  const applicationId = useParams().matcherId;
+  const jobId = useParams().id;
+
+  // console.log(applicationId)
+  const router = useRouter();
+
+  const [toggle, setToggle] = useState(false);
+  const [updateToggle, setUpdateToggle] = useState(false);
+
+
+  useEffect(()=>{
+    if(singleApp?.status!=="step4"){
+      // router.push(`/company_dashboard/joblisting/${jobId}`);
+    }
+    dispatch(getSingleApp(applicationId));
+
+  },[])
+
 
   return (
     <>

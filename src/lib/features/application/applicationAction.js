@@ -6,3 +6,13 @@ export const getAllApplications = createAsyncThunk("application/getall", async (
   const data = await res.data;
   return data;
 });
+export const getSingleApp = createAsyncThunk("application/getOne", async (id, thunkAPI) => {
+  const res = await axios.get(`https://job-hunter-server-1.onrender.com/api/applications/${id}`);
+  const data = await res.data;
+  return data;
+});
+export const updateSingleApp = createAsyncThunk("application/update", async ({id,updateInfo}, thunkAPI) => {
+  const res = await axios.patch(`https://job-hunter-server-1.onrender.com/api/applications/${id}`,updateInfo);
+  const data = await res.data;
+  return data;
+});
