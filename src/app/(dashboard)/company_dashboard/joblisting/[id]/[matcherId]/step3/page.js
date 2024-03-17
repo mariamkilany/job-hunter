@@ -20,7 +20,7 @@ const schema = yup
     taskName: yup.string().required("Task Name can't be empty"),
     taskDescription: yup.string().required("Task Description can't be empty"),
     taskDeadline: yup.string().required("Task Deadline  can't be empty"),
-    taskInstructions: yup
+    taskInstrcutions: yup
       .string()
       .required("Task Instructions  can't be empty"),
     taskLink: yup.string(),
@@ -40,7 +40,7 @@ const Task = () => {
 
   const defaultValues = {
     taskName: "",
-    taskDesciption: "",
+    taskDescription: "",
     taskDeadline: "",
     taskInstrcutions: "",
     taskLink: "",
@@ -79,26 +79,31 @@ const Task = () => {
       },
     };
     event.preventDefault();
-    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
-    handleUpdateToggle();
+    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj })).then(
+      () => {
+        handleUpdateToggle();
+      }
+    );
   };
   const handleNext = async () => {
     dispatch(
-      updateSingleApp({ id: applicationId, updatedInfo: { status: "step4" } })
-    );
-    router.push(
-      `/company_dashboard/joblisting/${jobId}/${applicationId}/step4`
-    );
+      updateSingleApp({ id: applicationId, updateInfo: { status: "step4" } })
+    ).then(() => {
+      router.push(
+        `/company_dashboard/joblisting/${jobId}/${applicationId}/step4`
+      );
+    });
   };
 
   const handleReject = () => {
     dispatch(
       updateSingleApp({
         id: applicationId,
-        updatedInfo: { status: "rejected" },
+        updateInfo: { status: "rejected" },
       })
-    );
-    router.push(`/company_dashboard/joblisting/${jobId}`);
+    ).then(() => {
+      router.push(`/company_dashboard/joblisting/${jobId}`);
+    });
   };
 
   return (
@@ -151,7 +156,7 @@ const Task = () => {
                 <span className="font-semibold">Instructions:</span>
                 <span className=" font-medium text-gray-600 ">
                   {" "}
-                  {singleApp?.process?.step3?.taskInstructions}
+                  {singleApp?.process?.step3?.taskInstrcutions}
                 </span>
               </p>
             </div>
@@ -262,7 +267,7 @@ const Task = () => {
                   style={{ resize: "none" }}
                   {...register("taskDescription")}
                 ></textarea>
-                <ErrorMessage>{errors.taskDesciption?.message}</ErrorMessage>
+                <ErrorMessage>{errors.taskDescription?.message}</ErrorMessage>
               </div>
 
               <div className="mb-4">
@@ -294,7 +299,7 @@ const Task = () => {
                   name="taskInstructions"
                   className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
                   style={{ resize: "none" }}
-                  {...register("taskInstructions")}
+                  {...register("taskInstrcutions")}
                 ></textarea>
                 <ErrorMessage>{errors.taskInstrcutions?.message}</ErrorMessage>
               </div>
