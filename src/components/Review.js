@@ -76,7 +76,7 @@ export default function Review(review) {
       <div className="flex justify-between">
         <div className="flex justify-start items-center gap-3">
           <img
-            src="/Images/avatar.png"
+            src={user.image}
             alt="Avatar"
             className="w-20 h-20 rounded-full shadow-md"
           />

@@ -185,9 +185,7 @@ export default function CompanyDetails() {
           <div className="p-10 mx-5 flex flex-col md:flex-row md:justify-between gap-4 ">
             <div className="max-w-screen-md flex flex-col gap-5">
               <h2 className="text-3xl  font-semibold">Company Profile</h2>
-              <p className="p-3">
-                {company.description}
-              </p>
+              <p className="p-3">{company.description}</p>
             </div>
             <div>
               <h2 className="text-3xl  font-semibold">Tech stack</h2>
@@ -219,8 +217,8 @@ export default function CompanyDetails() {
                     fill="#4640DE"
                   />
                 </svg>
-                <a href={company.links.instagram} target="_blank"> 
-                <span>{company.links.instagram}</span>
+                <a href={company.links.instagram} target="_blank">
+                  <span>{company.links.instagram}</span>
                 </a>
               </div>
               <div className=" border-2 border-primary w-fit p-2 flex justify-center  items-center gap-2 text-primary">
@@ -236,10 +234,9 @@ export default function CompanyDetails() {
                     fill="#4640DE"
                   />
                 </svg>
-                  <a href={company.links.facebook} target="_blank">
+                <a href={company.links.facebook} target="_blank">
                   <span>{company.links.facebook}</span>
-
-                  </a>
+                </a>
               </div>
               <div className=" border-2 border-primary w-fit p-2 flex justify-center  items-center gap-2 text-primary">
                 <svg
@@ -263,7 +260,7 @@ export default function CompanyDetails() {
           <div className="px-10 pb-10">
             <h2 className=" text-3xl font-semibold py-3">Reviews & Comments</h2>
             <div className="flex flex-col gap-5 md:flex-row">
-              {reviewsToShow && (
+              {reviewsToShow ? (
                 <div className=" md:w-2/3 p-2">
                   {reviewsToShow.map((review) => (
                     <Review
@@ -281,8 +278,10 @@ export default function CompanyDetails() {
                     ""
                   )}
                 </div>
+              ) : (
+                <div className="md:w-2/3 p-2">No Reviews Yet</div>
               )}
-              {user && (
+              {user?.role == "employee" && (
                 <div className="md:w-1/3 flex flex-col gap-4">
                   <h2 className=" text-2xl font-medium">Add your Review</h2>
                   <textarea

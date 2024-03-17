@@ -76,7 +76,7 @@ const CheckoutForm = ({ selectedPlan }) => {
 			<button
 				type="submit"
 				disabled={!stripe || !elements}
-				class="text-white bg-primary hover:bg-primary/90 focus:ring-4 focus:ring-primary/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-primary/50 my-4 mb-1"
+				className="text-white bg-primary hover:bg-primary/90 focus:ring-4 focus:ring-primary/50 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-primary/50 my-4 mb-1"
 			>
 				Pay with Stripe
 			</button>

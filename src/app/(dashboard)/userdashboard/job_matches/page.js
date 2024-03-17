@@ -109,6 +109,7 @@ const handleAcceptApp =(id)=>{
           </tr>
         </thead>
         <tbody>
+
         {ApplicationsWithDetails?.map((app, index) => {
       
           return ( 
@@ -237,10 +238,12 @@ const handleAcceptApp =(id)=>{
                   {app.companyData?.employeesNumber} Employee
               </p>
               <p>
+
                   <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
                   
                   </CurrencyDollarIcon>
                   {app.jobData?.salary} L.E
+
               </p>
 
               <p>

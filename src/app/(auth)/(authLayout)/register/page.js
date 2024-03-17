@@ -46,8 +46,13 @@ export default function Register() {
   });
 
   const hanndleLogin = (data) => {
+    if (data.role === "company") {
+      data.name = data.userName;
+      delete data.userName;
+    }
     dispatch(setStep1(data));
-    router.push("/register/personal_details");
+    if (data.role === "employee") router.push("/register/personal_details");
+    else if (data.role === "company") router.push("/register/company_personal");
   };
 
   const errorStyle =
