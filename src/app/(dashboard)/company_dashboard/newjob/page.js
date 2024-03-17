@@ -35,7 +35,7 @@ export default function NewJob() {
 		skills: [],
 		category: "",
 		education: "",
-		jobType: [],
+		jobType: "",
 		place: "",
 		grade: "",
 		image:
@@ -47,6 +47,7 @@ export default function NewJob() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		console.log(job);
 
 		for (let { field, message } of requiredFields) {
 			const value = field.split(".").reduce((o, k) => o && o[k], job);
@@ -57,7 +58,7 @@ export default function NewJob() {
 			}
 		}
 		setError({});
-		console.log(job);
+
 		fetch("https://job-hunter-server-1.onrender.com/api/jobs", {
 			method: "POST",
 			headers: {
@@ -171,12 +172,10 @@ export default function NewJob() {
 								onChange={e => {
 									setJob({ ...job, category: e.target.value });
 								}}
-								value={job.category || ""}
+								value={job.category}
 							>
 								<option value="">Choose a category</option>
-								<option value="front-end" selected>
-									Front-End
-								</option>
+								<option value="front-end">Front-End</option>
 								<option value="back-end">Back-End</option>
 								<option value="full-stack">Full-Stack</option>
 							</Select>
@@ -187,7 +186,7 @@ export default function NewJob() {
 								onChange={e => {
 									setJob({ ...job, education: e.target.value });
 								}}
-								value={job.education || ""}
+								value={job.education}
 							>
 								<option value="">Choose an Education Level</option>
 								<option value="high school">High School</option>
@@ -201,10 +200,12 @@ export default function NewJob() {
 							<Select
 								onChange={e => {
 									setJob({ ...job, jobType: e.target.value });
+									console.log(job.jobType);
+									console.log(e.target.value);
 								}}
-								value={job.jobType || []}
+								value={job.jobType}
 							>
-								<option value={[]}>Choose suitable job type</option>
+								<option value="">Choose suitable job type</option>
 								<option value="full-Time">Full-Time</option>
 								<option value="part-Time">Part-Time</option>
 								<option value="remote">Remote</option>
@@ -216,7 +217,7 @@ export default function NewJob() {
 								onChange={e => {
 									setJob({ ...job, place: e.target.value });
 								}}
-								value={job.place || ""}
+								value={job.place}
 							>
 								<option value="">Choose suitable job place</option>
 								<option value="on-site">On-Site</option>
@@ -230,7 +231,7 @@ export default function NewJob() {
 								onChange={e => {
 									setJob({ ...job, grade: e.target.value });
 								}}
-								value={job.grade || ""}
+								value={job.grade}
 							>
 								<option value="">Choose suitable job place</option>
 								<option value="excellent">Excellent</option>
@@ -254,9 +255,9 @@ export default function NewJob() {
 						<p className="text-lg font-normal ">You have no available jobs to add new job. Please upgrade your plan.</p>
 						<Link
 							href="/landing/pricing"
-							class="mt-4 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+							className="mt-4 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
 						>
-							<span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+							<span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
 								Upgrade Plan
 							</span>
 						</Link>
