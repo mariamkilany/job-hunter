@@ -1,18 +1,64 @@
 "use client";
-// pages/feedback.js
-import React, { useState } from "react";
+import {
+  getSingleApp,
+  updateSingleApp,
+} from "@/lib/features/application/applicationAction";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import ErrorMessage from "@/components/ErrorMessage";
+import Label from "@/components/Label";
+import Input from "@/components/Input";
+
+const schema = yup
+  .object({
+    feedback: yup.string().required("Feedback can't be empty"),
+    status: yup.string().required("Status can't be empty"),
+  })
+  .required();
 
 export default function Feedback() {
-  const [feedback, setFeedback] = useState("");
-  const [status, setStatus] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {},
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Feedback:", feedback);
-    console.log("Status:", status);
-    setFeedback("");
-    setStatus("");
+  const singleApp = useSelector(
+    (state) => state.applications.singleApplication
+  );
+  const dispatch = useDispatch();
+  const applicationId = useParams().matcherId;
+  const jobId = useParams().id;
+
+  const router = useRouter();
+
+  const handleFeedBack = (data) => {
+    dispatch(
+      updateSingleApp({
+        id: applicationId,
+        updatedInfo: {
+          status: data.status,
+          process: {
+            step4: {
+              feedback: data.feedback,
+            },
+          },
+        },
+      })
+    );
+    router.push(`/company_dashboard/joblisting/${jobId}`);
   };
+
+  useEffect(() => {
+    dispatch(getSingleApp(applicationId));
+  }, []);
 
   return (
     <>
@@ -29,61 +75,56 @@ export default function Feedback() {
           <form
             className=" space-y-5"
             style={{ marginTop: "15px" }}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(handleFeedBack)}
           >
             <h2 className="  text-lg font-medium  ">Employee Status</h2>
 
             <div className="flex mt-2">
               <div className="flex items-center">
-                <input
+                <Input
                   id="accept"
                   name="status"
                   type="radio"
                   value="accepted"
                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  checked={status === "accepted"}
-                  onChange={(e) => setStatus(e.target.value)}
+                  {...register("status")}
                 />
-                <label htmlFor="accept" className="ml-2 me-8">
+                <Label htmlFor="accept" className="ml-2 me-8">
                   Accepted
-                </label>
+                </Label>
               </div>
               <div className="flex items-center">
-                <input
+                <Input
                   id="reject"
                   name="status"
                   type="radio"
                   value="rejected"
                   className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
-                  checked={status === "rejected"}
-                  onChange={(e) => setStatus(e.target.value)}
+                  {...register("status")}
                 />
-                <label htmlFor="reject" className="ml-2">
+                <Label htmlFor="reject" className="ml-2">
                   Rejected
-                </label>
+                </Label>
               </div>
             </div>
-
-            <h2 className="mt-2 text-lg font-medium ">
-              Feedback Message ( either positive or negative )
-            </h2>
+            <ErrorMessage>{errors.status?.message}</ErrorMessage>
+            <h4 className="mt-2 text-md font-medium ">Feedback Message</h4>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="feedback" className="sr-only">
+                <Label htmlFor="feedback" className="sr-only ">
                   Feedback
-                </label>
+                </Label>
                 <textarea
                   id="feedback"
                   name="feedback"
                   rows={5}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Please enter your feedback"
-                  value={feedback}
-                  onChange={(e) => setFeedback(e.target.value)}
+                  {...register("feedback")}
                 />
+                <ErrorMessage>{errors.status?.message}</ErrorMessage>
               </div>
             </div>
-
             <div>
               <button
                 type="submit"

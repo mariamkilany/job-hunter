@@ -1,36 +1,110 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApplicationStepper from "@/components/ApplicationStepper";
 import { PlusIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
+import Input from "@/components/Input";
+import Label from "@/components/Label";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useRouter } from "next/navigation";
+import {
+  getSingleApp,
+  updateSingleApp,
+} from "@/lib/features/application/applicationAction";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import ErrorMessage from "@/components/ErrorMessage";
+
+const schema = yup
+  .object({
+    MeetingName: yup.string().required("Meeting Name can't be empty"),
+    MettingDescription: yup
+      .string()
+      .required("Meeting Description can't be empty"),
+    meetingDate: yup.string().required("Meeting date  can't be empty"),
+    meetingTime: yup.string().required("Meeting Time  can't be empty"),
+    instructions: yup.string().required("Instructions  can't be empty"),
+    meetingLink: yup.string().required("Meeting Link  can't be empty"),
+  })
+  .required();
+
 const HR = () => {
-  // toggle of modal button
-  const [toggle, setToggle] = useState(false);
+  const singleApp = useSelector(
+    (state) => state.applications.singleApplication
+  );
+  const dispatch = useDispatch();
+  const applicationId = useParams().matcherId;
+  const jobId = useParams().id;
+
+  const router = useRouter();
+
   const [updateToggle, setUpdateToggle] = useState(false);
 
-  const handletoggle = () => {
-    setToggle(!toggle);
+  const defaultValues = {
+    MeetingName: "",
+    MettingDescription: "",
+    meetingDate: "",
+    meetingTime: "",
+    instructions: "",
+    meetingLink: "",
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle);
   };
 
-  const [attendees, setAttendees] = useState([""]);
+  useEffect(() => {
+    dispatch(getSingleApp(applicationId));
+  }, []);
 
-  const handleAddAttendee = () => {
-    setAttendees([...attendees, ""]);
+  useEffect(() => {
+    // Set default values after singleApp is updated
+    if (singleApp?.process?.step1?.MeetingName) {
+      Object.keys(defaultValues).forEach((key) => {
+        setValue(key, singleApp.process.step1[key]);
+      });
+    }
+  }, [singleApp, setValue]);
+
+  const handleUpdateInfo = (data) => {
+    const obj = {
+      process: {
+        step1: data,
+      },
+    };
+    event.preventDefault();
+    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
+    handleUpdateToggle();
   };
 
-  const handleRemoveAttendee = (index) => {
-    const updatedAttendees = [...attendees];
-    updatedAttendees.splice(index, 1);
-    setAttendees(updatedAttendees);
+  const handleNext = async () => {
+    dispatch(
+      updateSingleApp({ id: applicationId, updatedInfo: { status: "step2" } })
+    );
+    router.push(
+      `/company_dashboard/joblisting/${jobId}/${applicationId}/step2`
+    );
   };
 
-  const handleChangeAttendee = (index, value) => {
-    const updatedAttendees = [...attendees];
-    updatedAttendees[index] = value;
-    setAttendees(updatedAttendees);
+  const handleReject = () => {
+    dispatch(
+      updateSingleApp({
+        id: applicationId,
+        updatedInfo: { status: "rejected" },
+      })
+    );
+    router.push(`/company_dashboard/joblisting/${jobId}`);
   };
 
   return (
@@ -38,22 +112,7 @@ const HR = () => {
       {/*  header and button */}
       <div className="flex justify-between mt-5 ">
         <h2 className="text-3xl my-6 font-bold text-primary">HR Interview</h2>
-
-        <div className="text-right my-6 ">
-          {/* Modal toggle */}
-          <button
-            onClick={handletoggle}
-            data-modal-target="static-modal"
-            data-modal-toggle="static-modal"
-            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button"
-          >
-            <PlusIcon className="w-5 text-white inline me-2"> </PlusIcon> Set
-            Meeting
-          </button>
-        </div>
       </div>
-      {/* Meeting Card */}
 
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 items-center justify-center gap-12">
         <div className="ms-auto">
@@ -67,37 +126,68 @@ const HR = () => {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Name:</span>{" "}
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Name:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.MeetingName}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Description:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Description:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.MettingDescription}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Attendees:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Date:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingDate}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Date:</span>{" "}
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Time:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingTime}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Time:</span>{" "}
+                <span className="font-semibold text-primary-500 pe-4">
+                  Instructions:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.instructions}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Instructions:</span>{" "}
-              </p>
-            </div>
-            <div className="mb-4">
-              <p>
-                <span className="font-semibold">Meeting Link:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Link:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingLink}
+                </span>
               </p>
             </div>
             <div className="absolute top-0 right-5">
@@ -114,182 +204,12 @@ const HR = () => {
           </div>
         </div>
         <div className="flex gap-5 justify-end items-center flex-wrap">
-          <Button className="px-10">Next</Button>
-          <Button className="bg-red-500  px-8">Reject</Button>
-        </div>
-      </div>
-
-      {/* set meeting  modal */}
-      <div
-        id="static-modal"
-        data-modal-backdrop="static"
-        tabIndex={-1}
-        aria-hidden="true"
-        className={`${
-          toggle ? " " : "hidden"
-        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
-      >
-        <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
-            {/* Modal header */}
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
-              <h3 className="text-xl font-semibold text-primary  ">
-                Set Meeting
-              </h3>
-              <button
-                type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={handletoggle}
-                data-modal-hide="static-modal"
-              >
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
-                <span className="sr-only">Close modal</span>
-              </button>
-            </div>
-            {/* Modal body */}
-            <div className="p-4 md:p-5 space-y-4">
-              <form>
-                <div className="mb-4">
-                  <label
-                    htmlFor="meeting-name"
-                    className="block font-medium mb-1"
-                  >
-                    Meeting Name
-                  </label>
-                  <input
-                    type="text"
-                    id="meeting-name"
-                    name="meeting-name"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="meeting-description"
-                    className="block font-medium mb-1"
-                  >
-                    Meeting Description
-                  </label>
-                  <textarea
-                    id="meeting-description"
-                    name="meeting-description"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="attendees" className="block font-medium mb-1">
-                    Attendees
-                  </label>
-                  {attendees.map((attendee, index) => (
-                    <div key={index} className="flex mb-2">
-                      <input
-                        type="text"
-                        value={attendee}
-                        onChange={(e) =>
-                          handleChangeAttendee(index, e.target.value)
-                        }
-                        className="form-input flex-1"
-                      />
-                      {index === attendees.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={handleAddAttendee}
-                          className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                        >
-                          +
-                        </button>
-                      )}
-                      {index !== 0 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveAttendee(index)}
-                          className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          -
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="meeting-duration"
-                    className="block font-medium mb-1"
-                  >
-                    Meeting Time
-                  </label>
-                  <input
-                    type="time"
-                    id="meeting-duration"
-                    name="meeting-duration"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="instructions"
-                    className="block font-medium mb-1"
-                  >
-                    Instructions
-                  </label>
-                  <textarea
-                    id="instructions"
-                    name="instructions"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="meeting-link"
-                    className="block font-medium mb-1"
-                  >
-                    Meeting Link
-                  </label>
-                  <input
-                    type="text"
-                    id="meeting-link"
-                    name="meeting-link"
-                    className="form-input w-full"
-                  />
-                </div>
-              </form>
-            </div>
-            {/* Modal footer */}
-            <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Set Meeting
-              </button>
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                onClick={handletoggle}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+          <Button className="px-10" onClick={handleNext}>
+            Next
+          </Button>
+          <Button className="bg-red-500  px-8" onClick={handleReject}>
+            Reject
+          </Button>
         </div>
       </div>
 
@@ -305,7 +225,10 @@ const HR = () => {
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
           {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
+          <form
+            className="relative bg-white rounded-lg shadow "
+            onSubmit={handleSubmit(handleUpdateInfo)}
+          >
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-xl font-semibold text-primary  ">
@@ -337,119 +260,112 @@ const HR = () => {
             </div>
             {/* Modal body */}
             <div className="p-4 md:p-5 space-y-4">
-              <form>
+              <div>
                 <div className="mb-4">
-                  <label
-                    htmlFor="meeting-name"
+                  <Label
+                    htmlFor="MeetingName"
                     className="block font-medium mb-1"
                   >
                     Meeting Name
-                  </label>
-                  <input
+                  </Label>
+                  <Input
                     type="text"
-                    id="meeting-name"
-                    name="meeting-name"
+                    id="MeetingName"
+                    name="MeetingName"
                     className="form-input w-full"
+                    {...register("MeetingName")}
                   />
+                  <ErrorMessage>{errors.MeetingName?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
-                  <label
-                    htmlFor="meeting-description"
+                  <Label
+                    htmlFor="MettingDescription"
                     className="block font-medium mb-1"
                   >
                     Meeting Description
-                  </label>
+                  </Label>
                   <textarea
-                    id="meeting-description"
-                    name="meeting-description"
-                    className="form-textarea w-full"
+                    id="MettingDescription"
+                    name="MettingDescription"
+                    className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
                     style={{ resize: "none" }}
+                    {...register("MettingDescription")}
                   ></textarea>
+                  <ErrorMessage>
+                    {errors.MettingDescription?.message}
+                  </ErrorMessage>
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="attendees" className="block font-medium mb-1">
-                    Attendees
-                  </label>
-                  {attendees.map((attendee, index) => (
-                    <div key={index} className="flex mb-2">
-                      <input
-                        type="text"
-                        value={attendee}
-                        onChange={(e) =>
-                          handleChangeAttendee(index, e.target.value)
-                        }
-                        className="form-input flex-1"
-                      />
-                      {index === attendees.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={handleAddAttendee}
-                          className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                        >
-                          +
-                        </button>
-                      )}
-                      {index !== 0 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveAttendee(index)}
-                          className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          -
-                        </button>
-                      )}
-                    </div>
-                  ))}
+                  <Label
+                    htmlFor="meetingDate"
+                    className="block font-medium mb-1"
+                  >
+                    Meeting Date
+                  </Label>
+                  <Input
+                    type="date"
+                    id="meetingDate"
+                    name="meetingDate"
+                    className="form-input w-full"
+                    {...register("meetingDate")}
+                  />
+                  <ErrorMessage>{errors.meetingDate?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
-                  <label
-                    htmlFor="meeting-duration"
+                  <Label
+                    htmlFor="meetingTime"
                     className="block font-medium mb-1"
                   >
                     Meeting Time
-                  </label>
-                  <input
+                  </Label>
+                  <Input
                     type="time"
-                    id="meeting-duration"
-                    name="meeting-duration"
+                    id="meetingTime"
+                    name="meetingTime"
                     className="form-input w-full"
+                    {...register("meetingTime")}
                   />
+                  <ErrorMessage>{errors.meetingTime?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
-                  <label
+                  <Label
                     htmlFor="instructions"
                     className="block font-medium mb-1"
                   >
                     Instructions
-                  </label>
+                  </Label>
                   <textarea
                     id="instructions"
                     name="instructions"
-                    className="form-textarea w-full"
+                    className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
                     style={{ resize: "none" }}
+                    {...register("instructions")}
                   ></textarea>
+                  <ErrorMessage>{errors.instructions?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
-                  <label
-                    htmlFor="meeting-link"
+                  <Label
+                    htmlFor="meetingLink"
                     className="block font-medium mb-1"
                   >
                     Meeting Link
-                  </label>
-                  <input
+                  </Label>
+                  <Input
                     type="text"
-                    id="meeting-link"
-                    name="meeting-link"
+                    id="meetingLink"
+                    name="meetingLink"
                     className="form-input w-full"
+                    {...register("meetingLink")}
                   />
+                  <ErrorMessage>{errors.meetingLink?.message}</ErrorMessage>
                 </div>
-              </form>
+              </div>
             </div>
             {/* Modal footer */}
             <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
               <button
                 data-modal-hide="update-modal"
-                type="button"
+                type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Update Meeting
@@ -463,7 +379,7 @@ const HR = () => {
                 Cancel
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

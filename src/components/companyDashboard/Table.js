@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 const Table = ({ data }) => {
 	return (
@@ -43,4 +43,5 @@ const Table = ({ data }) => {
 	);
 };
 
-export default Table;
+
+ export default Table;

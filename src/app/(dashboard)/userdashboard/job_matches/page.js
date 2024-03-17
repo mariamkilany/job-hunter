@@ -78,7 +78,7 @@ export default function JobMatch() {
                   className="flex gap-3 justify-center items-center"
                   onClick={handleModal}
                 >
-                  <span>Job Detales</span>
+                  <span>Job Details</span>
                   <NewspaperIcon className="size-6" />
                 </Button>
                 <Button
@@ -325,26 +325,24 @@ export default function JobMatch() {
               </h3>
               <span className="text-sm"> Cairo, Egypt</span>
               <p>
-                <BriefcaseIcon className="me-2 w-6 inline-block text-gray-400"></BriefcaseIcon>{" "}
+                <BriefcaseIcon className="me-2 w-6 inline-block text-gray-400"></BriefcaseIcon>
                 On Site , FullTime
               </p>
               <p>
-                <BuildingOfficeIcon className="me-2 w-6 inline-block text-gray-400"></BuildingOfficeIcon>{" "}
+                <BuildingOfficeIcon className="me-2 w-6 inline-block text-gray-400"></BuildingOfficeIcon>
                 20-50 Employee
               </p>
               <p>
-                <ClockIcon className="me-2 w-6 inline-block text-gray-400"></ClockIcon>{" "}
+                <ClockIcon className="me-2 w-6 inline-block text-gray-400"></ClockIcon>
                 9.00am to 6.00pm
               </p>
               <p>
-                <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
-                  {" "}
-                </CurrencyDollarIcon>{" "}
+                <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400"></CurrencyDollarIcon>
                 10.000 $
               </p>
 
               <p>
-                <ListBulletIcon className="me-2 w-6 inline-block text-gray-400"></ListBulletIcon>{" "}
+                <ListBulletIcon className="me-2 w-6 inline-block text-gray-400"></ListBulletIcon>
                 Skills: html , css , javascript , angular , ,net , .....
               </p>
 

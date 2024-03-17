@@ -1,50 +1,50 @@
 import React from "react";
 import Input from "../Input";
 
-const industries = [
-	"Advertising",
-	"Business Service",
-	"Blockchain",
-	"Cloud",
-	"Consumer Tech",
-	"Education",
-	"Entertainment",
-	"Finance",
-	"Healthcare",
-	"Insurance",
-	"Technology",
+export const industries = [
+  "Advertising",
+  "Business Service",
+  "Blockchain",
+  "Cloud",
+  "Consumer Tech",
+  "Education",
+  "Entertainment",
+  "Finance",
+  "Healthcare",
+  "Insurance",
+  "Technology",
 ];
 const companySize = ["1-10", "11-50", "51-200"];
-const technologies = [
-	"HTML",
-	"CSS",
-	"Javascript",
-	"React",
-	"Redux",
-	"Node.js",
-	"Express.js",
-	"MongoDB",
-	"PostgreSQL",
-	"AWS",
-	"Firebase",
-	"Angular",
-	"Bootstrap",
-	"PHP",
-	"Laravel",
-	"Wordpress",
-	"Java",
-	"C++",
-	"C",
-	"C#",
-	"Python",
-	"Go",
+export const technologies = [
+  "HTML",
+  "CSS",
+  "Javascript",
+  "React",
+  "Redux",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "PostgreSQL",
+  "AWS",
+  "Firebase",
+  "Angular",
+  "Bootstrap",
+  "PHP",
+  "Laravel",
+  "Wordpress",
+  "Java",
+  "C++",
+  "C",
+  "C#",
+  "Python",
+  "Go",
 ];
 
 const Aside = ({ checkedOptions, onCheck }) => {
 	return (
 		<div className="flex flex-row gap-3 min-w-56 md:flex-col">
 			<div className="hidden p-2 md:block">
-				<h5 className="text-lg font-semibold ">Industry</h5>
+				<h5 className="text-lg font-semibold  mb-5">Industry</h5>
 				<div className="pl-3 ">
 					{industries.map((industry, index) => (
 						<div key={index} className="flex gap-3 pb-2 ">
@@ -70,7 +70,7 @@ const Aside = ({ checkedOptions, onCheck }) => {
 				</div>
 			</div>
 			<div className="hidden p-2 md:block">
-				<h5 className="text-lg font-semibold ">Company Size</h5>
+				<h5 className="text-lg font-semibold  mb-2 ">Company Size</h5>
 				<div className="pl-3 ">
 					{companySize.map((size, index) => (
 						<div key={index} className="flex gap-3 pb-2 ">

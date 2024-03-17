@@ -5,7 +5,9 @@ import {
   EnvelopeIcon,
   PlusIcon,
 } from "@heroicons/react/24/solid";
-const ContactCompany = ({company}) => {
+import { v4 as uuid } from "uuid";
+
+const ContactCompany = ({ company }) => {
   return (
     <>
       <div className="flex justify-between">
@@ -17,27 +19,20 @@ const ContactCompany = ({company}) => {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <span
-          className="flex p-2 mr-2 rounded"
-          style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
-        >
-          <LinkIcon color="#4640DE" className="w-5 mr-2" />
-          {company.links.linkedIn}
-        </span>
-        <span
-          className="flex p-2 mr-2 rounded"
-          style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
-        >
-          <LinkIcon color="#4640DE" className="w-5 mr-2" />
-          {company.links.facebook}
-        </span>
-        <span
-          className="flex p-2 mr-2 rounded"
-          style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
-        >
-          <LinkIcon color="#4640DE" className="w-5 mr-2" />
-          {company.links.instagram}
-        </span>
+        {Object.keys(company.links).map((link) => {
+          if (company.links[link] !== "") {
+            return (
+              <span
+                key={uuid()}
+                className="flex p-2 mr-2 rounded"
+                style={{ border: "0.5px solid #4640DE", color: "#4640decc" }}
+              >
+                <LinkIcon color="#4640DE" className="w-5 mr-2" />
+                {company.links[link].replace(/(?:https?:\/\/)?(?:www\.)?/i, "")}
+              </span>
+            );
+          }
+        })}
       </div>
     </>
   );

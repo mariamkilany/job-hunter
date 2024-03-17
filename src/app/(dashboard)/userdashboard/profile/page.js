@@ -12,9 +12,11 @@ import { v4 as uuid } from "uuid";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "../../../../axiosConfig";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
 
   useEffect(() => {
     console.log(user);
@@ -32,41 +34,6 @@ export default function Profile() {
     const formattedDate = formatter.format(dateObj);
     return formattedDate;
   };
-
-  const [status, setStatus] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleModal = () => {
-    setStatus(!status);
-  };
-  const [userData, setUserData] = useState({});
-  const handleChange = (event) => {
-    setUserData({ ...userData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setIsLoading(true);
-    try {
-      const response = await axios.put(`/api/users/${userId}`, userData);
-      console.log("User updated successfully:", response.data);
-      // Handle successful update (e.g., show success message, redirect)
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
-    return <p>Loading user data...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
 
   return (
     <div
@@ -87,7 +54,7 @@ export default function Profile() {
               <div className="flex">
                 <img
                   className="w-24 h-24 rounded-full ring-4 ring-blue-300 sm:h-32 sm:w-32"
-                  src="/Images/Avatar.png"
+                  src={user.image}
                   alt="Avatar"
                 />
               </div>
@@ -106,7 +73,9 @@ export default function Profile() {
                   <button
                     type="button"
                     className="inline-flex justify-center px-5 py-2 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                    onClick={handleModal}
+                    onClick={() =>
+                      router.push("/userdashboard/profile/editProfile")
+                    }
                   >
                     <span>Edit Profile</span>
                   </button>
@@ -135,7 +104,7 @@ export default function Profile() {
                 <br />
                 <b>Gender: {"  "}</b> {user.gender}
                 <br />
-                <b>Location: {"  "}</b> {user.location.city} -{" "}
+                <b>Location: {"  "}</b> {user.location.city} -
                 {user.location.country}
                 <br />
                 <b>Minimum Salary: {"  "}</b> {user.minimumSalary}
@@ -160,7 +129,7 @@ export default function Profile() {
               hover:bg-blue-200 cursor-pointer"
               />
             </div>
-            {/* 1st Experiences */}
+            {/* Experiences */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
               <div className="hidden sm:block">
                 <img src="/Images/icons/work.svg" className="w-20" alt="" />
@@ -168,14 +137,14 @@ export default function Profile() {
               <div className="flex flex-col justify-center items-center sm:items-start">
                 <div className="flex items-center justify-between my-1">
                   <h6 className="text-gray-950 font-semibold">
-                    {user.jobTitle[0].toUpperCase() + user.jobTitle.slice(1)}{" "}
+                    {user.jobTitle[0].toUpperCase() + user.jobTitle.slice(1)}
                   </h6>
                 </div>
                 <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2">
                   <span>
                     {user.typeOfJob[0].toUpperCase() +
                       user.typeOfJob.slice(1) +
-                      "  .  "}{" "}
+                      "  .  "}
                     {user.workPlaceType[0].toUpperCase() +
                       user.workPlaceType.slice(1)}
                   </span>
@@ -185,59 +154,6 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            {/* <hr></hr> */}
-            {/* 2st Experiences */}
-            {/* <div className="flex justify-between items-start p-4 gap-x-5 text-gray-500">
-              <div className="hidden md:block">
-                <img src="/Images/GoDaddy.png" className="w-36" alt="" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <h6 className="text-gray-950 font-semibold">
-                    Growth Marketing Designer
-                  </h6>
-                  <PencilSquareIcon className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 hover:bg-blue-200 cursor-pointer" />
-                </div>
-                <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2  my-1">
-                  <span className="text-gray-700 font-semibold">GoDaddy</span>
-                  <span>
-                    <svg
-                      width="4"
-                      height="5"
-                      viewBox="0 0 4 5"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="2" cy="2.5" r="2" fill="#A8ADB7" />
-                    </svg>
-                  </span>
-                  <span>Full-Time</span>
-                  <span>
-                    <svg
-                      width="4"
-                      height="5"
-                      viewBox="0 0 4 5"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle cx="2" cy="2.5" r="2" fill="#A8ADB7" />
-                    </svg>
-                  </span>
-                  <span>Jun 2011 - May 2019 (8y)</span>
-                </div>
-                <div className="text-center sm:text-left">Manchester, UK</div>
-                <div className="flex justify-between py-4 text-gray-700">
-                  <p>
-                    Developed digital marketing strategies, activation plans,
-                    proposals, contests and promotions for client initiatives
-                  </p>
-                </div>
-              </div>
-            </div> */}
-            {/* <hr></hr>
-            <div className="text-violet-900 text-center py-3">
-              Show 3 more experiences
-            </div> */}
           </div>
           {/* Educations */}
           <div className="flex flex-col justify-center p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
@@ -248,7 +164,7 @@ export default function Profile() {
               hover:bg-blue-200 cursor-pointer"
               />
             </div>
-            {/* 1st Educations */}
+            {/* Educations */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
               <div className="hidden sm:block">
                 <img
@@ -261,7 +177,7 @@ export default function Profile() {
                 <div className="flex items-center justify-between my-1">
                   <h6 className="text-gray-950 font-semibold">
                     {user.educationLevel[0].toUpperCase() +
-                      user.educationLevel.slice(1)}{" "}
+                      user.educationLevel.slice(1)}
                     Degree
                   </h6>
                   {/* <PencilSquareIcon
@@ -287,38 +203,6 @@ export default function Profile() {
                 </div> */}
               </div>
             </div>
-            {/* <hr></hr> */}
-            {/* 2st Experiences */}
-            {/* <div className="flex justify-between items-start p-4 gap-x-5 text-gray-500">
-              <div className="hidden md:block">
-                <img src="/Images/Toronto.png" className="w-36" alt="" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center justify-between">
-                  <h6 className="text-gray-950 font-semibold">
-                    University of Toronto
-                  </h6>
-                  <PencilSquareIcon
-                    className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
-              hover:bg-blue-200 cursor-pointer"
-                  />
-                </div>
-                <div className="flex flex-col sm:flex-row text-center sm:text-start items-center gap-x-2  my-1">
-                  <span>Bachelor of Arts, Visual Communication</span>
-                </div>
-                <div className="text-center sm:text-left">2005 - 2009</div>
-                <div className="flex justify-between py-4 text-gray-700">
-                  <p>
-                    Developed digital marketing strategies, activation plans,
-                    proposals, contests and promotions for client initiatives
-                  </p>
-                </div>
-              </div>
-            </div>
-            <hr></hr>
-            <div className="text-violet-900 text-center py-3">
-              Show 2 more educations
-            </div> */}
           </div>
           {/* Skills */}
           <div className="flex flex-col p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
@@ -342,52 +226,14 @@ export default function Profile() {
                 <a
                   key={uuid()}
                   type="button"
-                  className="cursor-pointer my-2 mx-1 inline-block rounded-full bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-700 shadow-md transition duration-150 ease-in-out hover:bg-neutral-300 hover:shadow-lg focus:bg-neutral-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-400 active:shadow-lg dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:active:bg-neutral-400"
+                  className="cursor-pointer bg-indigo-100 text-indigo-800 text-sm font-medium me-2 p-2 px-4 rounded-full"
+                  // className="cursor-pointer my-2 mx-1 inline-block rounded-full bg-neutral-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-700 shadow-md transition duration-150 ease-in-out hover:bg-neutral-300 hover:shadow-lg focus:bg-neutral-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-400 active:shadow-lg dark:bg-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-500 dark:focus:bg-neutral-500 dark:active:bg-neutral-400"
                 >
                   {skill.skillName}
                 </a>
               ))}
             </div>
           </div>
-          {/* Portfolios */}
-          {/* <div className="flex flex-col p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center font-semibold text-xl p-1">
-              <h6 className="text-gray-900">Portfolios</h6>
-              <div>
-                <div className="flex gap-x-2">
-                  <PlusIcon
-                    className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
-              hover:bg-blue-200 cursor-pointer"
-                  />
-                </div>
-              </div>
-            </div>
-            Portfolios Cards
-            <div className="flex flex-nowrap flex-col md:flex-row gap-3">
-              <a
-                className="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] mx-2"
-                href={user.links.portfolio}
-                target="_blank"
-              >
-                <div className="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
-                  <img
-                    className="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl"
-                    src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80"
-                    alt="Image Description"
-                  />
-                </div>
-                <div className="p-4 md:p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white">
-                    {user.links.portfolio}
-                  </h3>
-                  <p className="mt-1 text-gray-500 dark:text-gray-400">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the cards content.
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div> */}
           {/* End Of Profile */}
         </div>
         {/* Cards */}
@@ -444,7 +290,6 @@ export default function Profile() {
                 Social Links
               </div>
               <div className="flex items-start gap-2 pb-6 rounded-b-[--card-border-radius]">
-                {/* <img src="/Images/icons/Instagram.png" className="w-5" alt="" /> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   data-name="Layer 1"
@@ -459,18 +304,20 @@ export default function Profile() {
                     className="color000000 svgShape"
                   />
                 </svg>
-
+                {/*  */}
                 <div className="flex flex-col justify-center">
                   <div className="font-light text-zinc-500">LinkedIn</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.linkedIn} target="_blank">
-                      {user.links.linkedIn.replace(/^https:\/\//, "")}
+                      {user.links.linkedIn.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-2 pb-6 rounded-b-[--card-border-radius]">
-                {/* <img src="/Images/icons/Twitter.png" className="w-5" alt="" /> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -487,7 +334,7 @@ export default function Profile() {
                     strokeLinecap="butt"
                     strokeLinejoin="miter"
                     strokeMiterlimit={10}
-                    strokeDasharray
+                    strokeDasharray=""
                     strokeDashoffset={0}
                     fontFamily="none"
                     fontWeight="none"
@@ -504,7 +351,10 @@ export default function Profile() {
                   <div className="font-light text-zinc-500">Github</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.github} target="_blank">
-                      {user.links.github.replace(/^https:\/\//, "")}
+                      {user.links.github.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>
@@ -515,162 +365,14 @@ export default function Profile() {
                   <div className="font-light text-zinc-500">portfolio</div>
                   <div className="text-sm text-blue-600">
                     <a href={user.links.portfolio} target="_blank">
-                      {user.links.portfolio.replace(/^https:\/\//, "")}
+                      {user.links.portfolio.replace(
+                        /(?:https?:\/\/)?(?:www\.)?/i,
+                        ""
+                      )}
                     </a>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        id="static-modal"
-        data-modal-backdrop="static"
-        tabIndex={-1}
-        aria-hidden="true"
-        className={`${
-          status ? " " : "hidden"
-        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
-      >
-        <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
-            {/* Modal body */}
-            <div className="p-4 md:p-10 space-y-4 md:pt-4 relative">
-              <div className="absolute top-7 right-6">
-                <button
-                  type="button"
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                  onClick={handleModal}
-                  data-modal-hide="static-modal"
-                >
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
-                  </svg>
-                  <span className="sr-only">Close modal</span>
-                </button>
-              </div>
-
-              <div className="flex items-center   sm:direction-columns">
-                {/* <img
-                  src={company.image}
-                  alt="logo company "
-                  className=" inline rounded-full w-12 me-4"
-                ></img> */}
-                {/* <div>
-                  <h3 className="font-bold text-xl mt-0">aaaaaa</h3>
-                  <span className="text-sm"> aaaa ,</span>
-                  <span className="text-sm"> aaaaaaa</span>
-                </div> */}
-              </div>
-              <div className=" space-y-4 ps-8">
-                <form className="space-y-4" action="#">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Your email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      placeholder="name@company.com"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Your password
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="••••••••"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      required
-                    />
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="flex items-start">
-                      <div className="flex items-center h-5">
-                        <input
-                          id="remember"
-                          type="checkbox"
-                          defaultValue
-                          className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                          required
-                        />
-                      </div>
-                      <label
-                        htmlFor="remember"
-                        className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                    >
-                      Lost Password?
-                    </a>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Login to your account
-                  </button>
-                  <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    Not registered?{" "}
-                    <a
-                      href="#"
-                      className="text-blue-700 hover:underline dark:text-blue-500"
-                    >
-                      Create account
-                    </a>
-                  </div>
-                </form>
-              </div>
-            </div>
-            {/* Modal footer */}
-            <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                // onClick={handleAcceptance}
-              >
-                Accept Job Post
-              </button>
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                // onClick={handleReject}
-              >
-                Reject Job Post
-              </button>
             </div>
           </div>
         </div>

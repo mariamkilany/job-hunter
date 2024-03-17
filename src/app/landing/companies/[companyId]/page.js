@@ -28,7 +28,7 @@ export default function CompanyDetails() {
       // Fetch company data independently
       const companyResponse = await axios.get(`/companies/${id}`);
       setCompany(companyResponse.data.data); // Immediately set company data
-      console.log("companyResponse.data.data: ", companyResponse.data.data);
+      // console.log("companyResponse.data.data: ", companyResponse.data.data);
 
       // Fetch reviews separately
       const reviewsResponse = await axios
@@ -51,7 +51,7 @@ export default function CompanyDetails() {
           setReviewsToShow(revs.slice(0, 2));
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           setReviews(true);
         });
     } catch (error) {
@@ -123,9 +123,9 @@ export default function CompanyDetails() {
       {company && reviews ? (
         <section>
           <header className="bg-primary-light  pt-20 flex flex-col gap-3 p-20">
-            <div className="  text-slate-300">
+            {/* <div className="  text-slate-300">
               Home/Companies/{company.name}
-            </div>
+            </div> */}
             <div className="flex flex-wrap gap-3 p-1 mt-6">
               <img
                 src={company.image}
@@ -185,21 +185,7 @@ export default function CompanyDetails() {
           <div className="p-10 mx-5 flex flex-col md:flex-row md:justify-between gap-4 ">
             <div className="max-w-screen-md flex flex-col gap-5">
               <h2 className="text-3xl  font-semibold">Company Profile</h2>
-              <p className="p-3">
-                {company.description}
-                {/* Stripe is a software platform for starting and running internet
-                businesses. Millions of businesses rely on Stripe software tools
-                to accept payments, expand globally, and manage their businesses
-                online. Stripe has been at the forefront of expanding internet
-                commerce, powering new business models, and supporting the
-                latest platforms, from marketplaces to mobile commerce sites. We
-                believe that growing the GDP of the internet is a problem rooted
-                in code and design, not finance. Stripe is built for developers,
-                makers, and creators. We work on solving the hard technical
-                problems necessary to build global economic infrastructure—from
-                designing highly reliable systems to developing advanced machine
-                learning algorithms to prevent fraud. */}
-              </p>
+              <p className="p-3">{company.description}</p>
             </div>
             <div>
               <h2 className="text-3xl  font-semibold">Tech stack</h2>
@@ -231,7 +217,9 @@ export default function CompanyDetails() {
                     fill="#4640DE"
                   />
                 </svg>
-                <span>{company.links.instagram}</span>
+                <a href={company.links.instagram} target="_blank">
+                  <span>{company.links.instagram}</span>
+                </a>
               </div>
               <div className=" border-2 border-primary w-fit p-2 flex justify-center  items-center gap-2 text-primary">
                 <svg
@@ -246,8 +234,9 @@ export default function CompanyDetails() {
                     fill="#4640DE"
                   />
                 </svg>
-
-                <span>{company.links.facebook}</span>
+                <a href={company.links.facebook} target="_blank">
+                  <span>{company.links.facebook}</span>
+                </a>
               </div>
               <div className=" border-2 border-primary w-fit p-2 flex justify-center  items-center gap-2 text-primary">
                 <svg
@@ -262,14 +251,16 @@ export default function CompanyDetails() {
                     fill="#4640DE"
                   />
                 </svg>
-                <span>{company.links.linkedIn}</span>
+                <a href={company.links.linkedIn} target="_blank">
+                  <span>{company.links.linkedIn}</span>
+                </a>
               </div>
             </div>
           </div>
           <div className="px-10 pb-10">
             <h2 className=" text-3xl font-semibold py-3">Reviews & Comments</h2>
             <div className="flex flex-col gap-5 md:flex-row">
-              {reviewsToShow && (
+              {reviewsToShow ? (
                 <div className=" md:w-2/3 p-2">
                   {reviewsToShow.map((review) => (
                     <Review
@@ -287,8 +278,10 @@ export default function CompanyDetails() {
                     ""
                   )}
                 </div>
+              ) : (
+                <div className="md:w-2/3 p-2">No Reviews Yet</div>
               )}
-              {user && (
+              {user?.role == "employee" && (
                 <div className="md:w-1/3 flex flex-col gap-4">
                   <h2 className=" text-2xl font-medium">Add your Review</h2>
                   <textarea
@@ -303,7 +296,7 @@ export default function CompanyDetails() {
                       className="flex justify-center items-center gap-2 rounded"
                       onClick={handleSubmitReview}
                     >
-                      Submit <PaperAirplaneIcon className="w-4 h-4 " />{" "}
+                      Submit <PaperAirplaneIcon className="w-4 h-4 " />
                     </Button>
                   </div>
                 </div>
