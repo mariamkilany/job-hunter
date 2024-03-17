@@ -78,7 +78,7 @@ export default function JobMatch() {
                   className="flex gap-3 justify-center items-center"
                   onClick={handleModal}
                 >
-                  <span>Job Detales</span>
+                  <span>Job Details</span>
                   <NewspaperIcon className="size-6" />
                 </Button>
                 <Button
@@ -337,9 +337,7 @@ export default function JobMatch() {
                 9.00am to 6.00pm
               </p>
               <p>
-                <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400">
-                  
-                </CurrencyDollarIcon>
+                <CurrencyDollarIcon className="me-2 w-6 inline-block text-gray-400"></CurrencyDollarIcon>
                 10.000 $
               </p>
 
