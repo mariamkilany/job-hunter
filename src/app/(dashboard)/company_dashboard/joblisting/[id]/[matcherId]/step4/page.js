@@ -43,7 +43,7 @@ export default function Feedback() {
     dispatch(
       updateSingleApp({
         id: applicationId,
-        updatedInfo: {
+        updateInfo: {
           status: data.status,
           process: {
             step4: {

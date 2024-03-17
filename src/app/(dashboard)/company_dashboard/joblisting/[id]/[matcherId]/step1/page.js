@@ -78,19 +78,20 @@ const HR = () => {
   }, [singleApp, setValue]);
 
   const handleUpdateInfo = (data) => {
+    console.log(data);
     const obj = {
       process: {
         step1: data,
       },
     };
     event.preventDefault();
-    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
+    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj }));
     handleUpdateToggle();
   };
 
   const handleNext = async () => {
     dispatch(
-      updateSingleApp({ id: applicationId, updatedInfo: { status: "step2" } })
+      updateSingleApp({ id: applicationId, updateInfo: { status: "step2" } })
     );
     router.push(
       `/company_dashboard/joblisting/${jobId}/${applicationId}/step2`
@@ -101,7 +102,7 @@ const HR = () => {
     dispatch(
       updateSingleApp({
         id: applicationId,
-        updatedInfo: { status: "rejected" },
+        updateInfo: { status: "rejected" },
       })
     );
     router.push(`/company_dashboard/joblisting/${jobId}`);

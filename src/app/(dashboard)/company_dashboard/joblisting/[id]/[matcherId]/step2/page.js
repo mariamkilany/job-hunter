@@ -84,22 +84,23 @@ const Technical = () => {
       },
     };
     event.preventDefault();
-    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
+    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj }));
     handleUpdateToggle();
   };
   const handleNext = async () => {
     dispatch(
-      updateSingleApp({ id: applicationId, updatedInfo: { status: "step3" } })
-    );
-    router.push(
-      `/company_dashboard/joblisting/${jobId}/${applicationId}/step3`
-    );
+      updateSingleApp({ id: applicationId, updateInfo: { status: "step3" } })
+    ).then(() => {
+      router.push(
+        `/company_dashboard/joblisting/${jobId}/${applicationId}/step3`
+      );
+    });
   };
   const handleReject = () => {
     dispatch(
       updateSingleApp({
         id: applicationId,
-        updatedInfo: { status: "rejected" },
+        updateInfo: { status: "rejected" },
       })
     );
     router.push(`/company_dashboard/joblisting/${jobId}`);

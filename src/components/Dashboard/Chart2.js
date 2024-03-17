@@ -9,16 +9,17 @@ const Chart2 = () => {
   /* Experiance, skills, applications */
   const options = { labels: ["Experiance", "Skills", "Applications"] };
   const [series, setseries] = useState([
-    user.yearsOfExperience,
+    +user.yearsOfExperience,
     user.skills.length,
   ]);
 
   const getUserApplication = async () => {
     await axios.get("/applications/employee/" + user._id).then((res) => {
-      setseries((old) => {
-        old.push(res.data.data.length);
-        return [...old];
-      });
+      const oldSeries = series;
+      if (oldSeries.length !== 3) {
+        oldSeries.push(res.data.data.length);
+        setseries(oldSeries);
+      }
     });
   };
 
