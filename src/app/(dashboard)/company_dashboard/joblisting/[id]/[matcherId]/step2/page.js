@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
+import { getSingleApp } from "@/lib/features/application/applicationAction";
+import { useParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 const Technical = () => {
-  // toggle of modal button
+  const singleApp = useSelector((state)=>state.applications.singleApplication)
+  const dispatch =  useDispatch();
+  const applicationId = useParams().matcherId;
+  const jobId = useParams().id;
+
+  // console.log(applicationId)
+  const router = useRouter();
+
   const [toggle, setToggle] = useState(false);
   const [updateToggle, setUpdateToggle] = useState(false);
 
@@ -16,23 +26,15 @@ const Technical = () => {
     setUpdateToggle(!updateToggle);
   };
 
-  const [attendees, setAttendees] = useState([""]);
 
-  const handleAddAttendee = () => {
-    setAttendees([...attendees, ""]);
-  };
+  useEffect(()=>{
+    dispatch(getSingleApp(applicationId));
 
-  const handleRemoveAttendee = (index) => {
-    const updatedAttendees = [...attendees];
-    updatedAttendees.splice(index, 1);
-    setAttendees(updatedAttendees);
-  };
+    if(singleApp?.status!=="step2"){
+      // router.push(`/company_dashboard/joblisting/${jobId}`);
+    }
 
-  const handleChangeAttendee = (index, value) => {
-    const updatedAttendees = [...attendees];
-    updatedAttendees[index] = value;
-    setAttendees(updatedAttendees);
-  };
+  },[])
 
   return (
     <div>
@@ -193,36 +195,6 @@ const Technical = () => {
                   <label htmlFor="attendees" className="block font-medium mb-1">
                     Attendees
                   </label>
-                  {attendees.map((attendee, index) => (
-                    <div key={index} className="flex mb-2">
-                      <input
-                        type="text"
-                        value={attendee}
-                        onChange={(e) =>
-                          handleChangeAttendee(index, e.target.value)
-                        }
-                        className="form-input flex-1"
-                      />
-                      {index === attendees.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={handleAddAttendee}
-                          className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                        >
-                          +
-                        </button>
-                      )}
-                      {index !== 0 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveAttendee(index)}
-                          className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          -
-                        </button>
-                      )}
-                    </div>
-                  ))}
                 </div>
                 <div className="mb-4">
                   <label
@@ -367,36 +339,6 @@ const Technical = () => {
                   <label htmlFor="attendees" className="block font-medium mb-1">
                     Attendees
                   </label>
-                  {attendees.map((attendee, index) => (
-                    <div key={index} className="flex mb-2">
-                      <input
-                        type="text"
-                        value={attendee}
-                        onChange={(e) =>
-                          handleChangeAttendee(index, e.target.value)
-                        }
-                        className="form-input flex-1"
-                      />
-                      {index === attendees.length - 1 && (
-                        <button
-                          type="button"
-                          onClick={handleAddAttendee}
-                          className="ml-2 bg-blue-500 text-white px-2 py-1 rounded"
-                        >
-                          +
-                        </button>
-                      )}
-                      {index !== 0 && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveAttendee(index)}
-                          className="ml-2 bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          -
-                        </button>
-                      )}
-                    </div>
-                  ))}
                 </div>
                 <div className="mb-4">
                   <label
