@@ -5,16 +5,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Stepper() {
-  const singleApp = useSelector((state)=>state.applications.singleApplication)
-  const dispatch =  useDispatch();
+  const singleApp = useSelector(
+    (state) => state.applications.singleApplication
+  );
+  const dispatch = useDispatch();
   const applicationId = useParams().matcherId;
 
-  // console.log(singleApp)
-  useEffect(()=>{
+  console.log(singleApp);
+  useEffect(() => {
     dispatch(getSingleApp(applicationId));
-
-  },[]) 
-
+  }, []);
 
   const pathname = usePathname();
   const done = (
@@ -33,12 +33,23 @@ export default function Stepper() {
 
   const condition1 = true;
 
+  const condition2 =
+    singleApp?.status === "step2" ||
+    singleApp?.status === "step3" ||
+    singleApp?.status === "step4" ||
+    singleApp?.status === "accepted" ||
+    singleApp?.status === "rejected";
 
-  const condition2 = singleApp?.status === "step2" ||singleApp?.status === "step3"||singleApp?.status === "step4";
+  const condition3 =
+    singleApp?.status === "step3" ||
+    singleApp?.status === "step4" ||
+    singleApp?.status === "accepted" ||
+    singleApp?.status === "rejected";
 
-  const condition3 = singleApp?.status === "step3"||singleApp?.status === "step4";
-
-  const condition4 = singleApp?.status === "step4";
+  const condition4 =
+    singleApp?.status === "step4" ||
+    singleApp?.status === "accepted" ||
+    singleApp?.status === "rejected";
 
   return (
     <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base">
