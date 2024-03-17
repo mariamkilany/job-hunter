@@ -7,7 +7,10 @@ import Input from "@/components/Input";
 import Label from "@/components/Label";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useRouter } from "next/navigation";
-import { getSingleApp, updateSingleApp } from "@/lib/features/application/applicationAction";
+import {
+  getSingleApp,
+  updateSingleApp,
+} from "@/lib/features/application/applicationAction";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -15,92 +18,102 @@ import ErrorMessage from "@/components/ErrorMessage";
 
 const schema = yup
   .object({
-    MeetingName: yup
-      .string("Meeting Name should be string ")
-      .required("Meeting Name can't be empty"),
-      MettingDescription: yup
+    MeetingName: yup.string().required("Meeting Name can't be empty"),
+    MettingDescription: yup
       .string()
       .required("Meeting Description can't be empty"),
-      meetingDate: yup
-      .string()
-      .required("Meeting date  can't be empty"),
-      meetingTime: yup
-      .string()
-      .required("Meeting Time  can't be empty"),
-      instructions: yup
-      .string()
-      .required("Instructions  can't be empty"),
-      meetingLink: yup
-      .string()
-      .required("Meeting Link  can't be empty")
+    meetingDate: yup.string().required("Meeting date  can't be empty"),
+    meetingTime: yup.string().required("Meeting Time  can't be empty"),
+    instructions: yup.string().required("Instructions  can't be empty"),
+    meetingLink: yup.string().required("Meeting Link  can't be empty"),
   })
   .required();
 
 const HR = () => {
-  // toggle of modal button
-  const singleApp = useSelector((state)=>state.applications.singleApplication)
-  const dispatch =  useDispatch();
+  const singleApp = useSelector(
+    (state) => state.applications.singleApplication
+  );
+  const dispatch = useDispatch();
   const applicationId = useParams().matcherId;
   const jobId = useParams().id;
 
-  // console.log(applicationId)
   const router = useRouter();
 
-  const [toggle, setToggle] = useState(false);
   const [updateToggle, setUpdateToggle] = useState(false);
+
+  const defaultValues = {
+    MeetingName: "",
+    MettingDescription: "",
+    meetingDate: "",
+    meetingTime: "",
+    instructions: "",
+    meetingLink: "",
+  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
-    defaultValues: {
-      MeetingName: "",
-      MettingDescription: "",
-      meetingDate: "",
-      meetingTime: "",
-      instructions: "",
-      meetingLink: "",
-    },
+    defaultValues,
     resolver: yupResolver(schema),
   });
 
-  const handletoggle = () => {
-    setToggle(!toggle);
-  };
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle);
   };
 
-  useEffect(()=>{
- 
+  useEffect(() => {
     dispatch(getSingleApp(applicationId));
-    dispatch(updateSingleApp({id:applicationId , updatedInfo :formData }))
+  }, []);
 
-  },[])
+  useEffect(() => {
+    // Set default values after singleApp is updated
+    if (singleApp?.process?.step1?.MeetingName) {
+      Object.keys(defaultValues).forEach((key) => {
+        setValue(key, singleApp.process.step1[key]);
+      });
+    }
+  }, [singleApp, setValue]);
 
-  // handle update fomr 
+  const handleUpdateInfo = (data) => {
+    const obj = {
+      process: {
+        step1: data,
+      },
+    };
+    event.preventDefault();
+    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
+    handleUpdateToggle();
+  };
 
+  const handleNext = async () => {
+    dispatch(
+      updateSingleApp({ id: applicationId, updatedInfo: { status: "step2" } })
+    );
+    router.push(
+      `/company_dashboard/joblisting/${jobId}/${applicationId}/step2`
+    );
+  };
 
-
-  const handleUpdateInfo=(e)=>{
-    e.preventDefault();
-    setToggle(!toggle);
-  }
-
-// console.log(singleApp);
-const errorStyle =
-"bg-red-50 border border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500";
+  const handleReject = () => {
+    dispatch(
+      updateSingleApp({
+        id: applicationId,
+        updatedInfo: { status: "rejected" },
+      })
+    );
+    router.push(`/company_dashboard/joblisting/${jobId}`);
+  };
 
   return (
     <div className="p-6">
       {/*  header and button */}
       <div className="flex justify-between mt-5 ">
         <h2 className="text-3xl my-6 font-bold text-primary">HR Interview</h2>
-
       </div>
-      {/* Meeting Card */}
-     
+
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 items-center justify-center gap-12">
         <div className="ms-auto">
           <img
@@ -113,32 +126,68 @@ const errorStyle =
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Name:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Name:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.MeetingName}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Description:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Description:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.MettingDescription}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Date:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Date:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingDate}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Time:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Time:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingTime}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Instructions:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Instructions:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.instructions}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
-                <span className="font-semibold">Meeting Link:</span>
+                <span className="font-semibold text-primary-500 pe-4">
+                  Meeting Link:
+                </span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step1?.meetingLink}
+                </span>
               </p>
             </div>
             <div className="absolute top-0 right-5">
@@ -155,11 +204,14 @@ const errorStyle =
           </div>
         </div>
         <div className="flex gap-5 justify-end items-center flex-wrap">
-          <Button className="px-10">Next</Button>
-          <Button className="bg-red-500  px-8">Reject</Button>
+          <Button className="px-10" onClick={handleNext}>
+            Next
+          </Button>
+          <Button className="bg-red-500  px-8" onClick={handleReject}>
+            Reject
+          </Button>
         </div>
       </div>
-
 
       {/* Edit Meeting MOdal  */}
       <div
@@ -173,7 +225,10 @@ const errorStyle =
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
           {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
+          <form
+            className="relative bg-white rounded-lg shadow "
+            onSubmit={handleSubmit(handleUpdateInfo)}
+          >
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-xl font-semibold text-primary  ">
@@ -205,7 +260,7 @@ const errorStyle =
             </div>
             {/* Modal body */}
             <div className="p-4 md:p-5 space-y-4">
-              <form>
+              <div>
                 <div className="mb-4">
                   <Label
                     htmlFor="MeetingName"
@@ -217,18 +272,15 @@ const errorStyle =
                     type="text"
                     id="MeetingName"
                     name="MeetingName"
-                    className="form-input w-full" 
+                    className="form-input w-full"
                     {...register("MeetingName")}
-                    value={singleApp?.process.step1.MeetingName}
                   />
-                <ErrorMessage>{errors.MeetingName?.message}</ErrorMessage>
-
+                  <ErrorMessage>{errors.MeetingName?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
                   <Label
                     htmlFor="MettingDescription"
                     className="block font-medium mb-1"
-                    
                   >
                     Meeting Description
                   </Label>
@@ -236,12 +288,12 @@ const errorStyle =
                     id="MettingDescription"
                     name="MettingDescription"
                     className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
-
                     style={{ resize: "none" }}
                     {...register("MettingDescription")}
                   ></textarea>
-                  <ErrorMessage>{errors.MettingDescription?.message}</ErrorMessage>
-
+                  <ErrorMessage>
+                    {errors.MettingDescription?.message}
+                  </ErrorMessage>
                 </div>
                 <div className="mb-4">
                   <Label
@@ -250,13 +302,13 @@ const errorStyle =
                   >
                     Meeting Date
                   </Label>
-                  <Input  type="date"
+                  <Input
+                    type="date"
                     id="meetingDate"
                     name="meetingDate"
-                    className="form-input w-full" >
-                   {/* {...register("meetingDate")} */}
-
-                  </Input>
+                    className="form-input w-full"
+                    {...register("meetingDate")}
+                  />
                   <ErrorMessage>{errors.meetingDate?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
@@ -266,17 +318,14 @@ const errorStyle =
                   >
                     Meeting Time
                   </Label>
-                  <Input  type="time"
+                  <Input
+                    type="time"
                     id="meetingTime"
                     name="meetingTime"
-                    className="form-input w-full" >
-                  {/* {...register("meetingTime")} */}
-                  <ErrorMessage>{errors.meetingTime?.message}</ErrorMessage>
-
-                  </Input>
-                  <Input
-                   
+                    className="form-input w-full"
+                    {...register("meetingTime")}
                   />
+                  <ErrorMessage>{errors.meetingTime?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
                   <Label
@@ -290,11 +339,9 @@ const errorStyle =
                     name="instructions"
                     className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
                     style={{ resize: "none" }}
-                    {...register("meetingTime")}
-
+                    {...register("instructions")}
                   ></textarea>
-                  <ErrorMessage>{errors.meetingTime?.message}</ErrorMessage>
-
+                  <ErrorMessage>{errors.instructions?.message}</ErrorMessage>
                 </div>
                 <div className="mb-4">
                   <Label
@@ -309,20 +356,17 @@ const errorStyle =
                     name="meetingLink"
                     className="form-input w-full"
                     {...register("meetingLink")}
-
                   />
-                <ErrorMessage>{errors.meetingLink?.message}</ErrorMessage>
-
+                  <ErrorMessage>{errors.meetingLink?.message}</ErrorMessage>
                 </div>
-              </form>
+              </div>
             </div>
             {/* Modal footer */}
             <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
               <button
                 data-modal-hide="update-modal"
-                type="button"
+                type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                onClick={handleSubmit(handleUpdateInfo)}
               >
                 Update Meeting
               </button>
@@ -330,12 +374,12 @@ const errorStyle =
                 data-modal-hide="update-modal"
                 type="button"
                 className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                onClick={ handleUpdateToggle}
+                onClick={handleUpdateToggle}
               >
                 Cancel
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

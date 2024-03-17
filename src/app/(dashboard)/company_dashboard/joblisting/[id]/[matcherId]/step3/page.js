@@ -1,58 +1,111 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { PlusIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useRouter } from "next/navigation";
-import { getSingleApp } from "@/lib/features/application/applicationAction";
+import {
+  getSingleApp,
+  updateSingleApp,
+} from "@/lib/features/application/applicationAction";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import ErrorMessage from "@/components/ErrorMessage";
+import Label from "@/components/Label";
+import Input from "@/components/Input";
+
+const schema = yup
+  .object({
+    taskName: yup.string().required("Task Name can't be empty"),
+    taskDescription: yup.string().required("Task Description can't be empty"),
+    taskDeadline: yup.string().required("Task Deadline  can't be empty"),
+    taskInstructions: yup
+      .string()
+      .required("Task Instructions  can't be empty"),
+    taskLink: yup.string(),
+  })
+  .required();
 
 const Task = () => {
-  const singleApp = useSelector((state)=>state.applications.singleApplication)
-  const dispatch =  useDispatch();
+  const singleApp = useSelector(
+    (state) => state.applications.singleApplication
+  );
+  const dispatch = useDispatch();
   const applicationId = useParams().matcherId;
   const jobId = useParams().id;
-
-  // console.log(applicationId)
   const router = useRouter();
 
-  const [toggle, setToggle] = useState(false);
   const [updateToggle, setUpdateToggle] = useState(false);
 
-  const handletoggle = () => {
-    setToggle(!toggle);
+  const defaultValues = {
+    taskName: "",
+    taskDesciption: "",
+    taskDeadline: "",
+    taskInstrcutions: "",
+    taskLink: "",
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
   const handleUpdateToggle = () => {
     setUpdateToggle(!updateToggle);
   };
 
-  useEffect(()=>{
-    if(singleApp?.status!=="step3"){
-      // router.push(`/company_dashboard/joblisting/${jobId}`);
-    }
+  useEffect(() => {
     dispatch(getSingleApp(applicationId));
+  }, []);
 
-  },[])
+  useEffect(() => {
+    if (singleApp?.process?.step3?.taskName) {
+      Object.keys(defaultValues).forEach((key) => {
+        setValue(key, singleApp.process.step3[key]);
+      });
+    }
+  }, [singleApp, setValue]);
 
+  const handleUpdateInfo = (data) => {
+    const obj = {
+      process: {
+        step3: data,
+      },
+    };
+    event.preventDefault();
+    dispatch(updateSingleApp({ id: applicationId, updatedInfo: obj }));
+    handleUpdateToggle();
+  };
+  const handleNext = async () => {
+    dispatch(
+      updateSingleApp({ id: applicationId, updatedInfo: { status: "step4" } })
+    );
+    router.push(
+      `/company_dashboard/joblisting/${jobId}/${applicationId}/step4`
+    );
+  };
+
+  const handleReject = () => {
+    dispatch(
+      updateSingleApp({
+        id: applicationId,
+        updatedInfo: { status: "rejected" },
+      })
+    );
+    router.push(`/company_dashboard/joblisting/${jobId}`);
+  };
 
   return (
     <div>
       {/*  header and button */}
       <div className="flex justify-between ">
         <h2 className="text-3xl my-6 font-bold text-primary">Task</h2>
-        <div className="text-right my-6 ">
-          {/* Modal toggle */}
-          <button
-            onClick={handletoggle}
-            data-modal-target="static-modal"
-            data-modal-toggle="static-modal"
-            className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button"
-          >
-            <PlusIcon className="w-5 text-white inline me-2"> </PlusIcon> Set
-            Task
-          </button>
-        </div>
       </div>
       {/* task Card */}
 
@@ -68,22 +121,47 @@ const Task = () => {
             <div className="mb-4">
               <p>
                 <span className="font-semibold">Task Name:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskName}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
                 <span className="font-semibold">Task Description:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskDescription}
+                </span>
               </p>
             </div>
 
             <div className="mb-4">
               <p>
                 <span className="font-semibold">Task Deadline:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskDeadline}
+                </span>
               </p>
             </div>
             <div className="mb-4">
               <p>
                 <span className="font-semibold">Instructions:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskInstructions}
+                </span>
+              </p>
+            </div>
+            <div className="mb-4">
+              <p>
+                <span className="font-semibold">Task Link:</span>
+                <span className=" font-medium text-gray-600 ">
+                  {" "}
+                  {singleApp?.process?.step3?.taskLink}
+                </span>
               </p>
             </div>
 
@@ -101,141 +179,12 @@ const Task = () => {
           </div>
         </div>
         <div className="flex gap-5 justify-end items-center flex-wrap">
-          <Button className="px-10">Next</Button>
-          <Button className="bg-red-500  px-8">Reject</Button>
-        </div>
-      </div>
-
-      <div></div>
-      {/* set task  modal */}
-      <div
-        id="static-modal"
-        data-modal-backdrop="static"
-        tabIndex={-1}
-        aria-hidden="true"
-        className={`${
-          toggle ? " " : "hidden"
-        } bg-gray-100/[0.7]		 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full`}
-      >
-        <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
-          {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
-            {/* Modal header */}
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
-              <h3 className="text-xl font-semibold text-primary  ">Add Task</h3>
-              <button
-                type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={handletoggle}
-                data-modal-hide="static-modal"
-              >
-                <svg
-                  className="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
-                <span className="sr-only">Close modal</span>
-              </button>
-            </div>
-            {/* Modal body */}
-            <div className="p-4 md:p-5 space-y-4">
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="task-name" className="block font-medium mb-1">
-                    Task Name
-                  </label>
-                  <input
-                    type="text"
-                    id="task-name"
-                    name="task-name"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="task-description"
-                    className="block font-medium mb-1"
-                  >
-                    Task Description
-                  </label>
-                  <textarea
-                    id="task-description"
-                    name="task-description"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="task-duration"
-                    className="block font-medium mb-1"
-                  >
-                    Task Deadline
-                  </label>
-                  <input
-                    type="time"
-                    id="task-duration"
-                    name="task-duration"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="instructions"
-                    className="block font-medium mb-1"
-                  >
-                    Instructions
-                  </label>
-                  <textarea
-                    id="instructions"
-                    name="instructions"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="task-link" className="block font-medium mb-1">
-                    upload Image
-                  </label>
-                  <input
-                    type="file"
-                    id="task-link"
-                    name="task-link"
-                    className="form-input w-full"
-                  />
-                </div>
-              </form>
-            </div>
-            {/* Modal footer */}
-            <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Set Task
-              </button>
-              <button
-                data-modal-hide="static-modal"
-                type="button"
-                className="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-red-600   rounded-lg border border-gray-200 hover:bg-red-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
-                onClick={handletoggle}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
+          <Button className="px-10" onClick={handleNext}>
+            Next
+          </Button>
+          <Button className="bg-red-500  px-8" onClick={handleReject}>
+            Reject
+          </Button>
         </div>
       </div>
 
@@ -251,7 +200,10 @@ const Task = () => {
       >
         <div className="relative p-4 w-full max-w-2xl max-h-full m-auto">
           {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow ">
+          <form
+            onSubmit={handleSubmit(handleUpdateInfo)}
+            className="relative bg-white rounded-lg shadow "
+          >
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
               <h3 className="text-xl font-semibold text-primary  ">
@@ -283,79 +235,89 @@ const Task = () => {
             </div>
             {/* Modal body */}
             <div className="p-4 md:p-5 space-y-4">
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="task-name" className="block font-medium mb-1">
-                    Task Name
-                  </label>
-                  <input
-                    type="text"
-                    id="task-name"
-                    name="task-name"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="task-description"
-                    className="block font-medium mb-1"
-                  >
-                    Task Description
-                  </label>
-                  <textarea
-                    id="task-description"
-                    name="task-description"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
+              <div className="mb-4">
+                <Label htmlFor="taskName" className="block font-medium mb-1">
+                  Task Name
+                </Label>
+                <Input
+                  type="text"
+                  id="taskName"
+                  name="taskName"
+                  className="form-input w-full"
+                  {...register("taskName")}
+                />
+                <ErrorMessage>{errors.taskName?.message}</ErrorMessage>
+              </div>
+              <div className="mb-4">
+                <Label
+                  htmlFor="taskDescription"
+                  className="block font-medium mb-1"
+                >
+                  Task Description
+                </Label>
+                <textarea
+                  id="taskDescription"
+                  name="taskDescription"
+                  className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
+                  style={{ resize: "none" }}
+                  {...register("taskDescription")}
+                ></textarea>
+                <ErrorMessage>{errors.taskDesciption?.message}</ErrorMessage>
+              </div>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="task-duration"
-                    className="block font-medium mb-1"
-                  >
-                    Task Deadline
-                  </label>
-                  <input
-                    type="time"
-                    id="task-duration"
-                    name="task-duration"
-                    className="form-input w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="instructions"
-                    className="block font-medium mb-1"
-                  >
-                    Instructions
-                  </label>
-                  <textarea
-                    id="instructions"
-                    name="instructions"
-                    className="form-textarea w-full"
-                    style={{ resize: "none" }}
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="task-link" className="block font-medium mb-1">
-                    upload Image
-                  </label>
-                  <input
-                    type="file"
-                    id="task-link"
-                    name="task-link"
-                    className="form-input w-full"
-                  />
-                </div>
-              </form>
+              <div className="mb-4">
+                <Label
+                  htmlFor="taskDeadline"
+                  className="block font-medium mb-1"
+                >
+                  Task Deadline
+                </Label>
+                <Input
+                  type="time"
+                  id="taskDeadline"
+                  name="taskDeadline"
+                  className="form-input w-full"
+                  {...register("taskDeadline")}
+                />
+                <ErrorMessage>{errors.taskDeadline?.message}</ErrorMessage>
+              </div>
+
+              <div className="mb-4">
+                <Label
+                  htmlFor="taskInstructions"
+                  className="block font-medium mb-1"
+                >
+                  Instructions
+                </Label>
+                <textarea
+                  id="taskInstructions"
+                  name="taskInstructions"
+                  className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
+                  style={{ resize: "none" }}
+                  {...register("taskInstructions")}
+                ></textarea>
+                <ErrorMessage>{errors.taskInstrcutions?.message}</ErrorMessage>
+              </div>
+
+              <div className="mb-4">
+                <Label htmlFor="taskLink" className="block font-medium mb-1">
+                  Task Link
+                </Label>
+                <Input
+                  type="text"
+                  id="taskLink"
+                  name="taskLink"
+                  className="form-input w-full"
+                  {...register("taskLink")}
+                />
+                <ErrorMessage>{errors.taskLink?.message}</ErrorMessage>
+              </div>
             </div>
             {/* Modal footer */}
             <div className="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 ">
               <button
                 data-modal-hide="update-modal"
-                type="button"
+                type="submit"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Update Task
@@ -369,7 +331,7 @@ const Task = () => {
                 Cancel
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
