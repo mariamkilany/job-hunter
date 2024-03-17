@@ -1,7 +1,21 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { getSingleApp } from "@/lib/features/application/applicationAction";
+import { useParams, usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Stepper() {
+  const singleApp = useSelector((state)=>state.applications.singleApplication)
+  const dispatch =  useDispatch();
+  const applicationId = useParams().matcherId;
+
+  // console.log(singleApp)
+  useEffect(()=>{
+    dispatch(getSingleApp(applicationId));
+
+  },[]) 
+
+
   const pathname = usePathname();
   const done = (
     <svg
@@ -17,20 +31,14 @@ export default function Stepper() {
 
   const active = "text-primary after:border-primary-500 ";
 
-  const condition1 =
-    pathname.includes("/step1") ||
-    pathname.includes("/step2") ||
-    pathname.includes("/step3") ||
-    pathname.includes("/step4");
+  const condition1 = true;
 
-  const condition2 =
-    pathname.includes("/step2") ||
-    pathname.includes("/step3") ||
-    pathname.includes("/step4");
 
-  const condition3 = pathname.includes("/step3") || pathname.includes("/step4");
+  const condition2 = singleApp?.status === "step2" ||singleApp?.status === "step3"||singleApp?.status === "step4";
 
-  const condition4 = pathname.includes("/step4");
+  const condition3 = singleApp?.status === "step3"||singleApp?.status === "step4";
+
+  const condition4 = singleApp?.status === "step4";
 
   return (
     <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 sm:text-base">
