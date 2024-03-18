@@ -93,10 +93,10 @@ export default function Profile() {
           <div className="flex flex-col p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
             <div className="flex justify-between items-center font-semibold text-xl p-1">
               <h6 className="text-gray-900">About Me</h6>
-              <PencilSquareIcon
+              {/* <PencilSquareIcon
                 className="w-8 border border-1 rounded p-1 border-blue-500 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
-              />
+              /> */}
             </div>
             <div className="flex justify-between p-4 text-gray-500">
               <p className="text-gray-700">
@@ -124,10 +124,10 @@ export default function Profile() {
             <div className="flex justify-between items-center font-semibold text-xl p-1">
               <h6 className="text-gray-900">Experiences</h6>
 
-              <PencilSquareIcon
+              {/* <PencilSquareIcon
                 className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
-              />
+              /> */}
             </div>
             {/* Experiences */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
@@ -159,10 +159,10 @@ export default function Profile() {
           <div className="flex flex-col justify-center p-4 mx-auto my-5 bg-white border border-gray-200 group rounded-xl sm:px-6 lg:px-8">
             <div className="flex justify-between items-center font-semibold text-xl p-1">
               <h6 className="text-gray-900">Educations</h6>
-              <PencilSquareIcon
+              {/* <PencilSquareIcon
                 className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
-              />
+              /> */}
             </div>
             {/* Educations */}
             <div className="flex items-start p-4 gap-x-5 text-gray-500">
@@ -209,7 +209,7 @@ export default function Profile() {
             <div className="flex justify-between items-center font-semibold text-xl p-1">
               <h6 className="text-gray-900">Skills</h6>
               <div>
-                <div className="flex gap-x-2">
+                {/* <div className="flex gap-x-2">
                   <PlusIcon
                     className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
@@ -218,7 +218,7 @@ export default function Profile() {
                     className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             <div>
@@ -245,11 +245,11 @@ export default function Profile() {
               className="absolute inset-0 duration-300 -translate-y-1/2 border rounded-full opacity-25 aspect-video group-hover:-translate-y-1/4 bg-gradient-to-b from-blue-500 to-white dark:from-white dark:to-white blur-2xl dark:opacity-5 dark:group-hover:opacity-10"
             />
             <div className="relative">
-              <div className="flex flex-row-reverse items-center justify-between font-bold">
-                <PencilSquareIcon
+              <div className="flex flex-row items-center justify-between font-bold">
+                {/* <PencilSquareIcon
                   className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
-                />
+                /> */}
                 Additional Details
               </div>
               <div className="flex items-start gap-2 mt-2 pb-6 rounded-b-[--card-border-radius]">
@@ -282,11 +282,11 @@ export default function Profile() {
               className="absolute inset-0 duration-300 -translate-y-1/2 border rounded-full opacity-25 aspect-video group-hover:-translate-y-1/4 bg-gradient-to-b from-blue-500 to-white dark:from-white dark:to-white blur-2xl dark:opacity-5 dark:group-hover:opacity-10"
             />
             <div className="relative">
-              <div className="flex flex-row-reverse items-center justify-between font-bold">
-                <PencilSquareIcon
+              <div className="flex flex-row mb-2 items-center justify-between font-bold">
+                {/* <PencilSquareIcon
                   className="w-8 border border-1 rounded p-1 border-teal-200 text-blue-900 
               hover:bg-blue-200 cursor-pointer"
-                />
+                /> */}
                 Social Links
               </div>
               {Object.entries(links).map(([linkName, linkUrl]) =>
