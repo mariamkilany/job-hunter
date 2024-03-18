@@ -27,7 +27,7 @@ export default function ProtectedRoutes({ children }) {
       commonRoute
     )
   )
-    redirect("/not-found");
+    redirect("/landing");
   if (commonRoute) return <>{children}</>;
   if (
     !(companyRoute || empolyeeRoute || adminRoute) &&

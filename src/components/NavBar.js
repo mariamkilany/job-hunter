@@ -26,7 +26,10 @@ export default function NavBar() {
     <>
       <nav className="bg-transparent border-gray-200 absolute top-0  w-full z-10">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link href="/landing" className="flex items-center rtl:space-x-reverse">
+          <Link
+            href="/landing"
+            className="flex items-center rtl:space-x-reverse"
+          >
             <img src="/Images/logo.png" alt="Logo" className="w-8 h-8 mr-2" />
             <span
               className={`self-center text-2xl font-semibold whitespace-nowrap text-white`}
@@ -50,70 +53,58 @@ export default function NavBar() {
             id="navbar-default"
           >
             <ul className="font-medium flex md:items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent ">
-            <Link
-                  href="/landing"
-                  className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname === "/landing" && active
-                  }`}
-                >
-              <li>
-                
-                  Home
-          
-              </li>
+              <Link
+                href="/landing"
+                className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
+                  pathname === "/landing" && active
+                }`}
+              >
+                <li>Home</li>
               </Link>
               <Link
-                  href="/landing/companies"
-                  className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname.includes("/landing/companies") && active
-                  }`}
-                >
-              <li>
-              
-                  Companies
-              
-              </li>
+                href="/landing/companies"
+                className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
+                  pathname.includes("/landing/companies") && active
+                }`}
+              >
+                <li>Companies</li>
               </Link>
               <Link
-                  href="/landing/pricing"
-                  className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname.includes("/landing/pricing") && active
-                  }`}
-                >
-              <li>
-              
-                  Pricing
-              
-              </li>
+                href="/landing/pricing"
+                className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
+                  pathname.includes("/landing/pricing") && active
+                }`}
+              >
+                <li>Pricing</li>
               </Link>
               <Link
-                  href="/landing/contactus"
-                  className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
-                    pathname.includes("/landing/contactus") && active
-                  }`}
-                >
-              <li>
-              
-                  Contact Us
-            
-              </li>
+                href="/landing/contactus"
+                className={`block py-2 px-3 text-primary rounded md:bg-transparent md:text-white md:p-0 hover:underline ${
+                  pathname.includes("/landing/contactus") && active
+                }`}
+              >
+                <li>Contact Us</li>
               </Link>
               {user ? (
                 <>
                   <Link
-                      href={
-                        user?.role === "employee"
-                          ? "/userdashboard"
-                          : user.role === "company"
-                          ? "/company_dashboard"
-                          : "/admindashboard"
-                      }
-                    >
-                  <li className="md:!ml-80 w-10 h-10 ">
-                  
-                      <UserCircleIcon className="w-8 h-8 text-primary hover:text-primary-light" />
-                   
-                  </li>
+                    href={
+                      user?.role === "employee"
+                        ? "/userdashboard"
+                        : user.role === "company"
+                        ? "/company_dashboard"
+                        : "/admindashboard"
+                    }
+                  >
+                    <li className="md:!ml-80 w-10 h-10 ">
+                      <img
+                        src={user.image}
+                        alt="Logo"
+                        className="w-8 h-8 mr-2"
+                      />
+
+                      {/* <UserCircleIcon className="w-8 h-8 text-primary hover:text-primary-light" /> */}
+                    </li>
                   </Link>
                   <li>
                     <Button className="!p-2" onClick={() => dispatch(logout())}>
@@ -137,7 +128,6 @@ export default function NavBar() {
                     </Button>
                   </li>
                   <li>
-                    
                     <Button
                       className={`bg-transparent !text-primary hover:!text-white  ${
                         (pathname.includes("/landing/companies") ||

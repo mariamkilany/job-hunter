@@ -27,7 +27,7 @@ export default function CompanySccountDetails() {
   const { userData, step2 } = useSelector((store) => store.register);
   const linksNames = ["linkedIn", "facebook", "instagram"];
   const [links, setLinks] = useState({});
-  const [link, setLink] = useState("linkedIn");
+  const [link, setLink] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const errorStyle =
     "bg-red-50 border border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500";
@@ -121,6 +121,9 @@ export default function CompanySccountDetails() {
                 onChange={(e) => setLink(e.target.value)}
                 value={link}
               >
+                <option value='' disabled>
+                  Select a Site
+                </option>
                 {linksNames.map(
                   (name) =>
                     !Object.keys(links).includes(name) && (
