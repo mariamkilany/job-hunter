@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 export default function Review(review) {
   const user = useSelector((state) => state.auth.user);
   const [rev, setRev] = useState(review); // review State
-  // console.log('rev: ', rev);
+  console.log("rev: ", rev);
   const [isEdit, setIsEdit] = useState(false); // State to track edit mode
   const commentInputRef = useRef(null); // useRef for textarea
 
@@ -77,7 +77,7 @@ export default function Review(review) {
       <div className="flex justify-between">
         <div className="flex justify-start items-center gap-3">
           <img
-            src={user.image}
+            src={rev.image}
             alt="Avatar"
             className="w-20 h-20 rounded-full shadow-md"
           />
