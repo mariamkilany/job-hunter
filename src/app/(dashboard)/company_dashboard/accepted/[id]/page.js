@@ -3,7 +3,7 @@ import ApplicantsTable from '@/components/applicants_table';
 import { useRouter } from 'next/navigation';
 
 import React from 'react';
-import Matchers from '../../company_applicants/page';
+// import Matchers from '../../company_applicants/page';
 
 const Page = () => {
     const router=useRouter()
@@ -11,7 +11,7 @@ const Page = () => {
     console.log(id)
     return (
         <div>
-          <Matchers/>
+          {/* <Matchers/> */}
         </div>
     );
 }

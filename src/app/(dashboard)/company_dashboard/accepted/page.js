@@ -32,7 +32,7 @@ const Page = () => {
 					setTimeout(() => {
 						setShowToast(false);
 					}, 1000);
-				} else alert("Failed to send invitation");
+				} else console.log("Failed to send invitation");
 			});
 		const newMatchers = selectedJob.mathcings.filter(matcher => matcher.id !== employeeId);
 		setSelectedJob({ ...selectedJob, mathcings: newMatchers });
