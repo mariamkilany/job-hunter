@@ -87,6 +87,7 @@ const Technical = () => {
     dispatch(updateSingleApp({ id: applicationId, updateInfo: obj }));
     handleUpdateToggle();
   };
+  
   const handleNext = async () => {
     dispatch(
       updateSingleApp({ id: applicationId, updateInfo: { status: "step3" } })

@@ -21,7 +21,7 @@ const schema = yup
     taskDescription: yup.string().required("Task Description can't be empty"),
     taskDeadline: yup.string().required("Task Deadline  can't be empty"),
 
-    taskDay: yup.date().required("Task Deadline Day  can't be empty"),
+    // taskDay: yup.date().required("Task Deadline Day  can't be empty"),
     taskInstructions: yup
 
       .string()
@@ -45,7 +45,7 @@ const Task = () => {
     taskName: "",
     taskDescription: "",
     taskDeadline: "",
-    taskDay:"",
+    // taskDay:"",
     taskInstrcutions: "",
     taskLink: "",
   };
@@ -83,9 +83,11 @@ const Task = () => {
       },
     };
     event.preventDefault();
-    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj })).then(
-      () => {
-        handleUpdateToggle();
+    console.log(data)
+    console.log(obj)
+
+
+    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj })).then(() =>{ handleUpdateToggle();
       }
     );
   };
@@ -155,7 +157,7 @@ const Task = () => {
                 </span>
               </p>
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <p>
                 <span className="font-semibold">Task Deadline Day:</span>
                 <span className=" font-medium text-gray-600 ">
@@ -163,7 +165,7 @@ const Task = () => {
                   {singleApp?.process?.step3?.taskDay}
                 </span>
               </p>
-            </div>
+            </div> */}
             <div className="mb-4">
               <p>
                 <span className="font-semibold">Instructions:</span>
@@ -300,7 +302,7 @@ const Task = () => {
                 <ErrorMessage>{errors.taskDeadline?.message}</ErrorMessage>
               </div>
 
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <Label
                   htmlFor="taskDay"
                   className="block font-medium mb-1"
@@ -315,7 +317,7 @@ const Task = () => {
                   {...register("taskDay")}
                 />
                 <ErrorMessage>{errors.taskDay?.message}</ErrorMessage>
-              </div>
+              </div> */}
 
               <div className="mb-4">
                 <Label
