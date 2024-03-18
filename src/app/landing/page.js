@@ -32,10 +32,9 @@ export default function Home() {
 
               <div className="mt-10 flex items-center  gap-x-6">
                 <Link href="register">
-                <Button className="bg-white !text-primary hover:bg-primary-light hover:!text-white">
-                  
-                  Get started
-                </Button>
+                  <Button className="bg-white !text-primary hover:bg-primary-light hover:!text-white">
+                    Get started
+                  </Button>
                 </Link>
                 {/* <a
                   href="#"
@@ -124,34 +123,34 @@ export default function Home() {
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <PaintBrushIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                
-                UI/UX
+                Full-Stack
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-              A UI UX designer is a professional who identifies new opportunities to create better user experiences
+                A Full-Stack developer is a professional who identifies new
+                opportunities to create Both Front and Back End WebSites
               </a>
             </div>
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <ComputerDesktopIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                
                 FrontEnd
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-              Front End Development includes creating a user interface website or application. 
+                Front End Development includes creating a user interface website
+                or application.
               </a>
             </div>
             <div className="p-6 m-5 shadow-md border group hover:bg-primary rounded">
               <CodeBracketIcon className="text-primary w-14 h-14 group-hover:text-white" />
               <h3 className="pt-5 font-bold pb-2 group-hover:text-white">
-                
                 BackEnd
               </h3>
               <a className="text-sm font-semibold leading-6  text-slate-400 group-hover:text-white	">
-              A back-end web developer is responsible for server-side web application logic and integration of the work front-end developers do
+                A back-end web developer is responsible for server-side web
+                application logic and integration of the work front-end
+                developers do
               </a>
             </div>
-
           </div>
         </div>
       </div>
