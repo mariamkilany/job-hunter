@@ -340,7 +340,7 @@ const Page = () => {
                                </div> */}
                            </div>
                            </div>
-                            </div> 
+                            </div> )}
                             </>)
                         })}
                     </tbody>
@@ -348,7 +348,7 @@ const Page = () => {
              
                 </div>
       </div>
-    </div>
+
   );
 };
 
