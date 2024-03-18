@@ -168,8 +168,7 @@ export default function AccountInfo() {
               {...register("graduationYear")}
             >
               <option value="" disabled>
-               
-                Select  
+                Select
               </option>
               <option value="2020">2020</option>
               <option value="2019">2019</option>
@@ -241,13 +240,13 @@ export default function AccountInfo() {
             <div className="w-1/3 flex gap-4">
               <Input
                 type="radio"
-                id="remote"
+                id="freelance"
                 name="typeOfJob"
                 className="w-4 h-4"
-                value="remote"
+                value="freelance"
                 {...register("typeOfJob")}
               />
-              <Label htmlFor="remote">Remote</Label>
+              <Label htmlFor="freelance">Freelance</Label>
             </div>
           </div>
         </div>
