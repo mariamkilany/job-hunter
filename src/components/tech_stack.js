@@ -5,10 +5,10 @@ const TechStack = ({ company }) => {
     <div>
       <div className="flex justify-between">
         <h3 className="text-3xl font-bold">Tech Stack</h3>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <PencilSquareIcon className="w-5 " color="#4640DE" />
           <PlusIcon className="w-5 " color="#4640DE" />
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-wrap gap-3 p-4">

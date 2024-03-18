@@ -12,10 +12,10 @@ const ContactCompany = ({ company }) => {
     <>
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-2">Contact</h1>
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           <PencilSquareIcon className="w-5 " color="#4640DE" />
           <PlusIcon className="w-5 " color="#4640DE" />
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-wrap gap-3">
