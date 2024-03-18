@@ -57,7 +57,7 @@ const ApplicantsTable = ({ data }) => {
               <th
                 scope="col"
                 className="px-6 py-3"
-                style={{ minWidth: "120px" }}
+                style={{ minWidth: "150px" }}
               >
                 Resitance
               </th>
@@ -99,10 +99,10 @@ const ApplicantsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((app) => {
+            {data?.map((app , index) => {
               return (
                 <tr className="bg-white border-b ">
-                  <td className="w-4 p-4">1</td>
+                  <td className="w-4 p-4">{index +  1 }</td>
                   <td
                     scope="row"
                     className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap "
@@ -126,13 +126,17 @@ const ApplicantsTable = ({ data }) => {
                   <td className="px-6 py-4">
                     {app?.employeeData?.yearsOfExperience}
                   </td>
-                  <td className="px-6 py-4 flex">
-                    <span className="w-20">
-                      {" "}
+                  <td className="px-6 py-4">
+                  {app?.employeeData?.location?.city} , {app?.employeeData?.location?.country}
+                                    </td>
+
+                  {/* <td className="px-6 py-4 inline-block">
+                    <span className="">
                       {app?.employeeData?.location?.city}
-                    </span>{" "}
+                    </span>
                     ,<span>{app?.employeeData?.location?.country}</span>
-                  </td>
+                  </td> */}
+
                   <td className="px-6 py-4">{app?.employeeData?.typeOfJob}</td>
                   <td className="px-6 py-4">
                     {app?.employeeData?.workPlaceType}
