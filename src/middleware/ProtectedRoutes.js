@@ -1,12 +1,10 @@
 "use client";
 import { redirect, usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 export default function ProtectedRoutes({ children }) {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-  });
+  const token = localStorage.getItem("token");
   const role = useSelector((store) => store.auth.user)?.role;
   const path = usePathname();
   const companyRoute = role === "company" && path.includes("company_dashboard");

@@ -7,35 +7,34 @@ import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
 import { getAllEmployees } from "@/lib/features/employees/employeeActions";
 
 const Admin = () => {
-  // reading jobs and companies data 
-  const allJobs =  useSelector((state)=>state.jobs.jobs)
-  const allCompanies = useSelector((state)=>state.company.company)
-  const allEmployees = useSelector((state)=>state.employee.employee)
-   const dispatch = useDispatch();
-  useEffect(()=>{
+  // reading jobs and companies data
+  const allJobs = useSelector((state) => state.jobs.jobs);
+  const allCompanies = useSelector((state) => state.company.company);
+  const allEmployees = useSelector((state) => state.employee.employee);
+  const dispatch = useDispatch();
+  useEffect(() => {
     //calling data
     dispatch(getAllJobs());
     dispatch(getAllCompaniesAction());
     dispatch(getAllEmployees());
-  },[])
+  }, []);
 
   useEffect(() => {
-    var techValues=[] ; 
-    allCompanies?.map((company)=> {
-      techValues =  [... new Set ([...techValues,...company.techStack])]
-    }) 
+    var techValues = [];
+    allCompanies?.map((company) => {
+      techValues = [...new Set([...techValues, ...company.techStack])];
+    });
 
-     const barValues= techValues.map((tech)=>{
-      let counter = 0 ;
-       allCompanies.map((c)=>{
-        if( c.techStack.includes(tech)){
-         counter++;
+    const barValues = techValues.map((tech) => {
+      let counter = 0;
+      allCompanies.map((c) => {
+        if (c.techStack.includes(tech)) {
+          counter++;
         }
-           
-       })
+      });
 
-       return   { x:tech , y:counter};
-     })
+      return { x: tech, y: counter };
+    });
 
     // cloumn chart
     const options = {
@@ -126,18 +125,21 @@ const Admin = () => {
 
     if (
       document.getElementById("pie-chart") &&
-      typeof ApexCharts !== "undefined" && allJobs
+      typeof ApexCharts !== "undefined" &&
+      allJobs
     ) {
-   
+      const fullStack = allJobs?.filter(
+        (c) => c.category === "full-stack"
+      ).length;
+      const frontEnd = allJobs?.filter(
+        (c) => c.category === "front-end"
+      ).length;
+      const backend = allJobs?.filter((c) => c.category === "back-end").length;
+      const frequenciesSum = fullStack + frontEnd + backend;
 
-      const fullStack = allJobs?.filter((c)=>c.category==="full-stack").length
-      const frontEnd = allJobs?.filter((c)=>c.category==="front-end").length
-      const backend = allJobs?.filter((c)=>c.category==="back-end").length
-      const frequenciesSum =  fullStack + frontEnd + backend;
-      
-      const fullStackPercentage =  ((fullStack/ frequenciesSum )* 100) ;
-      const frontEndPercentage = (frontEnd/ frequenciesSum )* 100 ;
-      const BackendPercentage = (backend/ frequenciesSum )* 100 ;
+      const fullStackPercentage = (fullStack / frequenciesSum) * 100;
+      const frontEndPercentage = (frontEnd / frequenciesSum) * 100;
+      const BackendPercentage = (backend / frequenciesSum) * 100;
 
       const chartOptions = {
         series: [fullStackPercentage, frontEndPercentage, BackendPercentage],
@@ -193,7 +195,7 @@ const Admin = () => {
             show: false,
           },
         },
-      }
+      };
       chart = new ApexCharts(
         document.getElementById("pie-chart"),
         chartOptions
@@ -202,9 +204,9 @@ const Admin = () => {
     }
     if (
       document.getElementById("column-chart") &&
-      typeof ApexCharts !== "undefined" && allCompanies
+      typeof ApexCharts !== "undefined" &&
+      allCompanies
     ) {
-  
       // company.techStack
 
       cloumnChart = new ApexCharts(
@@ -225,9 +227,10 @@ const Admin = () => {
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
         <div className=" p-8 border border-1 rounded shadow-xl bg-primary  ">
           <div className="flex items-center justify-center h-full">
-            <h3 className="font-bold text-white text-3xl me-6 ">{allCompanies?.length}</h3>
+            <h3 className="font-bold text-white text-3xl me-6 ">
+              {allCompanies?.length}
+            </h3>
             <span className=" font-medium text-white text-2xl ">
-              
               No. of Companies
             </span>
           </div>
@@ -238,9 +241,10 @@ const Admin = () => {
           style={{ backgroundColor: "#56CDAD" }}
         >
           <div className="flex items-center justify-center h-full">
-            <h3 className="font-bold text-white text-3xl me-6 ">{allJobs?.length}</h3>
+            <h3 className="font-bold text-white text-3xl me-6 ">
+              {allJobs?.length}
+            </h3>
             <span className=" font-medium text-white text-2xl ">
-              
               No. of Jobs
             </span>
           </div>
@@ -251,9 +255,10 @@ const Admin = () => {
           style={{ backgroundColor: "#26A4FF" }}
         >
           <div className="flex items-center justify-center h-full">
-            <h3 className="font-bold text-white text-3xl me-6 ">{allEmployees?.length}</h3>
+            <h3 className="font-bold text-white text-3xl me-6 ">
+              {allEmployees?.length}
+            </h3>
             <span className=" font-medium text-white text-2xl ">
-              
               No. of Job Seekers
             </span>
           </div>
@@ -266,10 +271,9 @@ const Admin = () => {
             <div className="flex-col items-center">
               <div className="flex items-center mb-1">
                 <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
-                 Categories Traffic
-                 
+                  Categories Traffic
                 </h5>
-                <hr></hr> 
+                <hr></hr>
               </div>
             </div>
           </div>
@@ -280,18 +284,15 @@ const Admin = () => {
         <div className=" bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
           <div className="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center">
-           
               <div>
                 <h5 className="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">
-                 Technologies
+                  Technologies
                 </h5>
-
               </div>
             </div>
           </div>
-         
+
           <div id="column-chart" />
-         
         </div>
       </div>
     </div>
