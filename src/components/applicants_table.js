@@ -101,7 +101,7 @@ const ApplicantsTable = ({ data }) => {
           <tbody>
             {data?.map((app , index) => {
               return (
-                <tr className="bg-white border-b ">
+                <tr key={index} className="bg-white border-b ">
                   <td className="w-4 p-4">{index +  1 }</td>
                   <td
                     scope="row"
