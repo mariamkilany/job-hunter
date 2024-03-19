@@ -113,10 +113,10 @@ const Joblisting = () => {
                     </thead>
                     <tbody>
                                       
-                    {filteredData?.map((job)=>{
+                    {filteredData?.map((job,idx)=>{
                           counter++;
                           return (<>
-                              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                              <tr key={idx} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                   <td className="w-4 p-4">
                                     {counter}
                                   </td>
@@ -243,9 +243,9 @@ const Joblisting = () => {
         
                                 <p>
                                     <ListBulletIcon className="me-2 w-6 inline-block text-gray-400"></ListBulletIcon>
-                                      Skills: {job.skills.map((skill)=>{
+                                      Skills: {job.skills.map((skill,idx)=>{
                                         return(
-                                          <span> {skill} ,</span>
+                                          <span key={idx}> {skill} ,</span>
                                         ) 
                                       })}
                                 </p>
@@ -258,9 +258,9 @@ const Joblisting = () => {
         
                                 <h2 className="font-bold text-lg">Requirements </h2>
                                 <ul className="list-disc text-gray-600 ps-12">
-                                  {job.info.responsibilities.split(",").map((resp)=>{
+                                  {job.info.responsibilities.split(",").map((resp,idx)=>{
                                       return(
-                                          <li>{resp}</li>     
+                                          <li key={idx}>{resp}</li>     
                                       )
                                   })}
                                 </ul>
