@@ -1,15 +1,19 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import ApexCharts from "apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "@/lib/features/jobs/jobsActions";
 import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
 import { getAllEmployees } from "@/lib/features/employees/employeeActions";
+
 const AdminPie = () => {
+  const chartContainerRef = useRef(null); // Create a reference for the chart container
+
   // reading jobs and companies data
   const allJobs = useSelector((state) => state.jobs.jobs);
   const allCompanies = useSelector((state) => state.company.company);
   const dispatch = useDispatch();
+
   useEffect(() => {
     //calling data
     dispatch(getAllJobs());
@@ -18,18 +22,12 @@ const AdminPie = () => {
   }, []);
 
   useEffect(() => {
-    var techValues = [];
-    allCompanies?.map((company) => {
-      techValues = [...new Set([...techValues, ...company.techStack])];
-    });
+    if (allJobs && allJobs.length > 0) {
+      var techValues = [];
+      allCompanies?.map((company) => {
+        techValues = [...new Set([...techValues, ...company.techStack])];
+      });
 
-    let chart;
-
-    if (
-      document.getElementById("pie-chart") &&
-      typeof ApexCharts !== "undefined" &&
-      allJobs
-    ) {
       const fullStack = allJobs?.filter(
         (c) => c.category === "full-stack"
       ).length;
@@ -41,10 +39,10 @@ const AdminPie = () => {
 
       const fullStackPercentage = (fullStack / frequenciesSum) * 100;
       const frontEndPercentage = (frontEnd / frequenciesSum) * 100;
-      const BackendPercentage = (backend / frequenciesSum) * 100;
+      const backendPercentage = (backend / frequenciesSum) * 100;
 
       const chartOptions = {
-        series: [fullStackPercentage, frontEndPercentage, BackendPercentage],
+        series: [fullStackPercentage, frontEndPercentage, backendPercentage],
         colors: ["#1C64F2", "#16BDCA", "#9061F9"],
         chart: {
           height: 420,
@@ -98,16 +96,15 @@ const AdminPie = () => {
           },
         },
       };
-      chart = new ApexCharts(
-        document.getElementById("pie-chart"),
-        chartOptions
-      );
-      chart.render();
-    }
 
-    return () => {
-      chart?.destroy();
-    };
+      const chart = new ApexCharts(chartContainerRef.current, chartOptions); // Use ref instead of getElementById
+
+      chart.render();
+
+      return () => {
+        chart.destroy();
+      };
+    }
   }, [allJobs]);
 
   return (
@@ -123,7 +120,8 @@ const AdminPie = () => {
         </div>
       </div>
       {/* pie Chart */}
-      <div className="py-6" id="pie-chart" />
+      <div className="py-6" ref={chartContainerRef} />{" "}
+      {/* Use ref to create chart container */}
     </div>
   );
 };
