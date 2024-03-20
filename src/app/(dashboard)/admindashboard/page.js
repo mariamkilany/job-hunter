@@ -14,13 +14,11 @@ const AdminBar = dynamic(() => import("@/components/AdminBar"), {
 });
 
 const Admin = () => {
-  // reading jobs and companies data
   const allJobs = useSelector((state) => state.jobs.jobs);
   const allCompanies = useSelector((state) => state.company.company);
   const allEmployees = useSelector((state) => state.employee.employee);
   const dispatch = useDispatch();
   useEffect(() => {
-    //calling data
     dispatch(getAllJobs());
     dispatch(getAllCompaniesAction());
     dispatch(getAllEmployees());
@@ -72,7 +70,6 @@ const Admin = () => {
       {typeof window !== "undefined" && (
         <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
           <AdminPie />
-
           <AdminBar />
         </div>
       )}
