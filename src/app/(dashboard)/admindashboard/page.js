@@ -70,11 +70,12 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
-        <AdminPie />
-
-        <AdminBar />
-      </div>
+      {typeof window !== "undefined" && (
+        <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
+          <AdminPie />
+          <AdminBar />
+        </div>
+      )}
     </div>
   );
 };
