@@ -20,13 +20,19 @@ const Admin = () => {
   const allCompanies = useSelector((state) => state.company.company);
   const allEmployees = useSelector((state) => state.employee.employee);
   const dispatch = useDispatch();
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    //calling data
-    dispatch(getAllJobs());
-    dispatch(getAllCompaniesAction());
-    dispatch(getAllEmployees());
+    setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (isClient) {
+      dispatch(getAllJobs());
+      dispatch(getAllCompaniesAction());
+      dispatch(getAllEmployees());
+    }
+  }, [isClient]);
   return (
     <div>
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
@@ -70,8 +76,8 @@ const Admin = () => {
         </div>
       </div>
 
-      {typeof window !== "undefined" && (
-        <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
+      {isClient && (
+        <div className="grid sm:grid-cols-1 gap-24 lg:grid-cols-2">
           <AdminPie />
           <AdminBar />
         </div>
