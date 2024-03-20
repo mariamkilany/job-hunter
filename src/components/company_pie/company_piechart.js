@@ -54,7 +54,7 @@ const CompanyPiechart = () => {
                   showAlways: true,
                   show: true,
                   label: "Job Categories",
-                  offsetY:30,
+                  offsetY: 30,
                   fontFamily: "Inter, sans-serif",
                 },
                 value: {
@@ -62,7 +62,7 @@ const CompanyPiechart = () => {
                   fontFamily: "Inter, sans-serif",
                   offsetY: -20,
                   formatter: function (value) {
-                    return value ;
+                    return value;
                   },
                 },
               },
@@ -91,9 +91,7 @@ const CompanyPiechart = () => {
           },
         },
         xaxis: {
-          labels: {
-        
-          },
+          labels: {},
           axisTicks: {
             show: false,
           },

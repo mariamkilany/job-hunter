@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Button from "@/components/Button";
 import style from "@/styles/Landing.module.css";
 import {

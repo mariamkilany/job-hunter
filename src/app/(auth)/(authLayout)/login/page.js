@@ -11,6 +11,7 @@ import * as yup from "yup";
 import ErrorMessage from "@/components/ErrorMessage";
 import AlertMessage from "@/components/AlertMessage";
 import { resetCompleted } from "@/lib/features/register/registerSlice";
+import { useState } from "react";
 
 const schema = yup
   .object({
@@ -47,7 +48,7 @@ export default function Login() {
   const router = useRouter();
   const Servererror = useSelector((store) => store.auth.error);
   const userData = useSelector((store) => store.auth.user);
-  const loading = useSelector((store) => store.auth.loading);
+  const [loading, setLoading] = useState(false);
   const registerCompleted = useSelector((store) => store.register.completed);
 
   const errorStyle =
@@ -65,20 +66,23 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
   const handleLogin = (user) => {
+    setLoading(true);
     dispatch(login(user)).then(() => {
       dispatch(startLogoutTimer());
-      if (userData) {
-        const role = user.role;
-        if (role === "employee") {
-          router.push("/userdashboard");
-        }
-        if (role === "company") {
-          router.push("/company_dashboard");
-        }
-        if (role === "admin") {
-          router.push("/admindashboard");
-        }
-      }
+      setLoading(false);
+      if (userData) router.push("/landing");
+      // if (userData) {
+      //   const role = user.role;
+      //   if (role === "employee") {
+      //     router.push("/userdashboard");
+      //   }
+      //   if (role === "company") {
+      //     router.push("/company_dashboard");
+      //   }
+      //   if (role === "admin") {
+      //     router.push("/admindashboard");
+      //   }
+      // }
     });
   };
 

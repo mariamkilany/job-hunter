@@ -4,7 +4,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function ProtectedRoutes({ children }) {
-  const token = localStorage.getItem("token");
   const role = useSelector((store) => store.auth.user)?.role;
   const path = usePathname();
   const companyRoute = role === "company" && path.includes("company_dashboard");
@@ -17,7 +16,7 @@ export default function ProtectedRoutes({ children }) {
     path.includes("not-found") ||
     path.includes("not-auth");
 
-  if (role && token && (path.includes("login") || path.includes("register")))
+  if (role && (path.includes("login") || path.includes("register")))
     redirect("/landing");
   if (
     !(

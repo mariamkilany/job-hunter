@@ -46,7 +46,7 @@ const Task = () => {
     taskDescription: "",
     taskDeadline: "",
     // taskDay:"",
-    taskInstrcutions: "",
+    taskInstructions: "",
     taskLink: "",
   };
 
@@ -83,11 +83,12 @@ const Task = () => {
       },
     };
     event.preventDefault();
-    console.log(data)
-    console.log(obj)
+    console.log(data);
+    console.log(obj);
 
-
-    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj })).then(() =>{ handleUpdateToggle();
+    dispatch(updateSingleApp({ id: applicationId, updateInfo: obj })).then(
+      () => {
+        handleUpdateToggle();
       }
     );
   };
@@ -331,11 +332,10 @@ const Task = () => {
                   name="taskInstructions"
                   className={`border border-gray-300 text-gray-900 focus:gray-400 text-sm rounded-lg block w-full `}
                   style={{ resize: "none" }}
-                  {...register("taskInstrcutions")}
+                  {...register("taskInstructions")}
                 ></textarea>
-                <ErrorMessage>{errors.taskInstrcutions?.message}</ErrorMessage>
+                <ErrorMessage>{errors.taskInstructions?.message}</ErrorMessage>
               </div>
-
               <div className="mb-4">
                 <Label htmlFor="taskLink" className="block font-medium mb-1">
                   Task Link
