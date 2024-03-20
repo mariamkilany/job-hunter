@@ -1,8 +1,15 @@
 "use client";
-import BarChart from "@/components/company_bar/bar_chart";
-import CompanyPiechart from "@/components/company_pie/company_piechart";
+import dynamic from "next/dynamic";
 import DashboardHeader from "@/components/dashboard_header";
-import JobUpdatesCard from "@/components/job_updates_card";
+const BarChart = dynamic(() => import("@/components/company_bar/bar_chart"), {
+  ssr: false,
+});
+const CompanyPiechart = dynamic(
+  () => import("@/components/company_pie/company_piechart"),
+  {
+    ssr: false,
+  }
+);
 
 import React from "react";
 
@@ -21,7 +28,6 @@ const Page = () => {
             <BarChart />
           </div>
         </div>
-       
       </section>
       {/* <div>
         <h4 className="text-3xl text-center md:text-start">Job Updates</h4>

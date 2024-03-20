@@ -1,7 +1,9 @@
 "use client";
 import Footer from "@/components/Footer";
-import NavBar from "@/components/NavBar";
+import dynamic from "next/dynamic";
 import React from "react";
+
+const NavBar = dynamic(() => import("@/components/NavBar"), { ssr: false });
 
 export default function LandingLayout({ children }) {
   return (

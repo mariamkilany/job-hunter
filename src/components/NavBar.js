@@ -13,8 +13,6 @@ export default function NavBar() {
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  // console.log(user);
-  const [isSmallMenuOpen, setIsSmallMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -87,25 +85,40 @@ export default function NavBar() {
               </Link>
               {user ? (
                 <>
-                  <Link
-                    href={
-                      user?.role === "employee"
-                        ? "/userdashboard"
-                        : user.role === "company"
-                        ? "/company_dashboard"
-                        : "/admindashboard"
+                  <li className="md:!ml-80 w-10 h-10 ">
+                    {
+                      // <Link
+                      //   href={
+                      // user?.role === "employee"
+                      //   ? "/userdashboard"
+                      //   : user.role === "company"
+                      //   ? "/company_dashboard"
+                      //   : "/admindashboard"
+                      //   }
+                      // >
                     }
-                  >
-                    <li className="md:!ml-80 w-10 h-10 ">
+                    <button
+                      onClick={() =>
+                        router.push(
+                          user?.role === "employee"
+                            ? "/userdashboard"
+                            : user.role === "company"
+                            ? "/company_dashboard"
+                            : "/admindashboard"
+                        )
+                      }
+                    >
                       <img
                         src={user.image}
                         alt="Logo"
                         className="w-8 h-8 mr-2"
                       />
-
-                      {/* <UserCircleIcon className="w-8 h-8 text-primary hover:text-primary-light" /> */}
-                    </li>
-                  </Link>
+                    </button>
+                    {/* <UserCircleIcon className="w-8 h-8 text-primary hover:text-primary-light" /> */}
+                    {
+                      // </Link>
+                    }
+                  </li>
                   <li>
                     <Button className="!p-2" onClick={() => dispatch(logout())}>
                       SignOut
