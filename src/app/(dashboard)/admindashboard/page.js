@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ApexCharts from "apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "@/lib/features/jobs/jobsActions";
 import { getAllCompaniesAction } from "@/lib/features/company/companyActions";
@@ -70,11 +69,13 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
-        <AdminPie />
+      {typeof window !== "undefined" && (
+        <div className="grid sm:grid-cols-1 gap-24  lg:grid-cols-2">
+          <AdminPie />
 
-        <AdminBar />
-      </div>
+          <AdminBar />
+        </div>
+      )}
     </div>
   );
 };
